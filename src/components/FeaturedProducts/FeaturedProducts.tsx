@@ -95,10 +95,19 @@ export function FeaturedProducts() {
                 </h3>
                 <p className="product-card__desc">{item.description}</p>
                 <div className="product-card__prices">
-                  <Price value={item.price} className="product-card__price" />
+                  {item.price !== undefined ? (
+                    <Price value={item.price} className="product-card__price" />
+                  ) : (
+                    <span className="product-card__price product-card__price--muted">Valor a confirmar</span>
+                  )}
                   {item.comboPrice ? (
                     <span className="combo-label">
                       Combo <Price value={item.comboPrice} />
+                    </span>
+                  ) : null}
+                  {item.withFriesPrice ? (
+                    <span className="combo-label">
+                      Com batata <Price value={item.withFriesPrice} />
                     </span>
                   ) : null}
                 </div>

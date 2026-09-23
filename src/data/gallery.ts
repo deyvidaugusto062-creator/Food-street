@@ -18,7 +18,7 @@ export type GalleryTile =
 
 export const gallery: GalleryTile[] = [
   { id: 'ambiente-1', kind: 'photo', category: 'Ambiente', alt: 'Salão da Food Street à noite', src: '', shape: 'tall' },
-  { id: 'render-king', kind: 'render', itemId: 'the-king-brooklyn', shape: 'square' },
+  { id: 'burger-poseidon', kind: 'photo', category: 'Burgers', alt: 'Poseidon Burger com batatas fritas', src: '/images/gallery/poseidon-batatas.webp', shape: 'square' },
   { id: 'drinks-1', kind: 'photo', category: 'Drinks', alt: 'Caipirinhas no balcão', src: '', shape: 'square' },
   { id: 'type-augusta', kind: 'type', lines: ['R. Augusta', '1005'], caption: 'Consolação, São Paulo', shape: 'wide' },
   { id: 'burgers-1', kind: 'photo', category: 'Burgers', alt: 'Burger saindo da chapa', src: '', shape: 'tall' },

@@ -124,6 +124,22 @@
   padding: 6%;
 }
 
+/* foto real no lugar do 3D (HERO_PHOTO em src/config/scene.ts) */
+.hero__photo {
+  position: absolute;
+  inset: 4% var(--gutter) 9% 6%;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--r-12);
+  box-shadow: 0 40px 80px -36px rgb(0 0 0 / 0.9);
+}
+
+.hero__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .hero__hint {
   position: absolute;
   left: 8%;
@@ -417,6 +433,10 @@
     min-height: 0;
     height: min(104vw, 620px);
     margin-inline: calc(var(--gutter) * -1);
+  }
+
+  .hero__photo {
+    inset: 0 var(--gutter) 24px;
   }
 
   .hero-card {

@@ -1,4 +1,10 @@
 /**
+ * Foto real exibida no hero, no lugar do burger 3D.
+ * Vazio = cena 3D abaixo (ajuste também `heroItemId` em src/data/menu.ts).
+ */
+export const HERO_PHOTO = '/images/hero/poseidon-burger.webp';
+
+/**
  * Configuração da cena 3D do hero.
  *
  * Para usar um modelo 3D real (fotogrametria ou modelado), exporte em .glb

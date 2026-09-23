@@ -44,6 +44,7 @@ Todo o conteúdo fica em `src/data/`, separado do layout. Não é preciso mexer 
 | Cardápio, preços, combos            | `src/data/menu.ts`           |
 | Destaques (cards e aba Destaques)   | `src/data/menu.ts` → `featured` e `featuredOrder` |
 | Item do card do hero                | `src/data/menu.ts` → `heroItemId` |
+| Foto do hero                        | `src/config/scene.ts` → `HERO_PHOTO` |
 | Horários                            | `src/data/hours.ts`          |
 | Endereço, telefone, links do mapa   | `src/data/business.ts`       |
 | WhatsApp                            | `src/data/business.ts` → `WHATSAPP_NUMBER` |
@@ -118,11 +119,25 @@ public/images/
 Use WebP ou AVIF, com cerca de 1600px no lado maior. Publique **somente fotos
 autorizadas pela casa**.
 
+Fotos em uso hoje (enviadas pela casa):
+
+| Arquivo | Onde aparece |
+| ------- | ------------ |
+| `hero/poseidon-burger.webp` | Hero (post "Raio-X do burger", sem o texto) |
+| `burgers/poseidon.webp` | Card e cardápio do Poseidon Burger |
+| `gallery/poseidon-batatas.webp` | Galeria |
+| `burgers/street-*.webp` | Linha Street (recortes do cardápio em PDF) |
+
+As fotos da Linha Street foram recortadas de um print do celular e têm pouca
+resolução (cerca de 500px). Troque pelos arquivos originais quando houver.
+
 ### Ilustrações 3D dos burgers
 
-Os cards usam ilustrações geradas a partir das receitas de `src/data/stacks.ts`
-(camadas iguais aos ingredientes do cardápio). Elas sempre aparecem identificadas
-como **ilustração**, para não serem confundidas com fotos dos produtos.
+As ilustrações geradas a partir das receitas de `src/data/stacks.ts` **não aparecem
+mais no site**: foram trocadas pelas fotos reais. Itens sem foto mostram a inicial do
+nome. Para voltar a usar a ilustração em um item, preencha `render` nele, ex.:
+`render: '/images/burgers/renders/the-king-brooklyn'`. Ela aparece sempre identificada
+como **ilustração**, para não ser confundida com foto do produto.
 
 Para gerar de novo, depois de alterar uma receita:
 
@@ -135,9 +150,21 @@ O script usa o Chromium do Playwright (`/opt/pw-browsers/chromium` por padrão;
 defina `CHROMIUM_PATH` se estiver em outro lugar) e grava
 `public/images/burgers/renders/<id>-600.webp` e `-1000.webp`.
 
+### Foto ou 3D no hero
+
+Hoje o hero mostra uma foto real, definida em `src/config/scene.ts`:
+
+```ts
+export const HERO_PHOTO = '/images/hero/poseidon-burger.webp';
+```
+
+Com a foto, o Three.js nem é carregado. Para voltar ao burger 3D, deixe
+`HERO_PHOTO = ''` e troque `heroItemId` em `src/data/menu.ts` para o burger da
+receita (`the-king-brooklyn`).
+
 ### Modelo 3D real no hero
 
-O burger do hero é procedural (montado pelo código). Para usar um modelo real
+O burger 3D do hero é procedural (montado pelo código). Para usar um modelo real
 (fotogrametria ou modelagem), exporte em `.glb`, de preferência com compressão Draco,
 coloque em `public/models/` e informe em `src/config/scene.ts`:
 
@@ -158,6 +185,7 @@ própria. Esses itens estão marcados com `needsConfirmation: true` em `src/data
 | ---- | ----------- |
 | **Station** | Preço do combo (possível inconsistência no material). O site mostra "Combo a confirmar". |
 | **Linha Street** (Cheese Burger R$ 18, Brooklyn Burger, PC Burger, Street Bacon, Street Dog) | Valores de outra parte do material. Podem ser de outro período. Ficam separados da tabela principal, com aviso. |
+| **Poseidon Burger** | Preço e combo. Veio do post "Raio-X do burger" no Instagram, sem valores. O site mostra "Valor a confirmar". |
 | **Sobremesas** (Pudim, Vaka-Loka, Bolo de chocolate) | Foram informados R$ 16, R$ 24 e R$ 35 sem dizer qual é de qual. Os preços não aparecem no site. Os valores estão em `DESSERT_PRICES_TO_ASSIGN`. |
 
 Também ficaram de fora até confirmação: WhatsApp, redes sociais, delivery, reservas,
@@ -188,7 +216,8 @@ scripts/
 
 ## Desempenho, acessibilidade e SEO
 
-- O Three.js fica num pedaço separado, carregado depois da primeira pintura. A cena
+- O Three.js fica num pedaço separado, carregado depois da primeira pintura (e só
+  quando o hero está no modo 3D). A cena
   pausa fora da tela, limita o DPR a 1,5 e baixa para 1 se o FPS cair. Em aparelhos
   modestos usa menos partículas, sem sombras nem vapor.
 - Sem WebGL, o hero mostra a ilustração estática. Com `prefers-reduced-motion`, não há

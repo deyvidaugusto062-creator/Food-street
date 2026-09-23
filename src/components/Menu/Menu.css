@@ -248,6 +248,9 @@
 
 .menu-row__thumb img {
   object-fit: cover;
+}
+
+.menu-row__thumb.product-image--render img {
   transform: scale(1.35);
 }
 

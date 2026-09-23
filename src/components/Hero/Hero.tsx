@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { getCategoryLabel, getItem, heroItemId } from '../../data/menu';
 import { business, links } from '../../data/business';
+import { HERO_PHOTO } from '../../config/scene';
 import { createPointerState } from '../../three/pointer';
 import { useFinePointer, useMediaQuery, useReducedMotion } from '../../hooks/useMediaQuery';
 import { useNow } from '../../hooks/useNow';
@@ -27,6 +28,15 @@ function HeroPoster() {
       alt="Ilustração 3D do The King Brooklyn"
       fetchPriority="high"
     />
+  );
+}
+
+/** Foto real no lugar do 3D (HERO_PHOTO em src/config/scene.ts) */
+function HeroPhoto({ alt }: { alt: string }) {
+  return (
+    <figure className="hero__photo">
+      <img src={HERO_PHOTO} alt={alt} fetchPriority="high" decoding="async" />
+    </figure>
   );
 }
 
@@ -64,7 +74,7 @@ export function Hero() {
   const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setUse3D(hasWebGL());
+    setUse3D(!HERO_PHOTO && hasWebGL());
   }, []);
 
   // Paralaxe 2.5D pelo mouse: fundo quase parado, número 1005 médio, burger e
@@ -215,10 +225,12 @@ export function Hero() {
           data-interactive={interactive || undefined}
           onPointerEnter={() => finePointer && interactive && setCursor(true)}
           onPointerLeave={() => setCursor(false)}
-          role="img"
-          aria-label={`Ilustração 3D do ${item.name}, montado camada por camada`}
+          role={HERO_PHOTO ? undefined : 'img'}
+          aria-label={HERO_PHOTO ? undefined : `Ilustração 3D do ${item.name}, montado camada por camada`}
         >
-          {use3D ? (
+          {HERO_PHOTO ? (
+            <HeroPhoto alt={item.name} />
+          ) : use3D ? (
             <Suspense fallback={null}>
               <Hero3D
                 pointer={pointer}
@@ -253,14 +265,16 @@ export function Hero() {
             {item.name}
           </h2>
           <p className="hero-card__desc">{item.description}</p>
-          <div className="hero-card__prices">
-            <Price value={item.price} className="hero-card__price" />
-            {item.comboPrice ? (
-              <span className="hero-card__combo">
-                Combo <Price value={item.comboPrice} />
-              </span>
-            ) : null}
-          </div>
+          {item.price !== undefined ? (
+            <div className="hero-card__prices">
+              <Price value={item.price} className="hero-card__price" />
+              {item.comboPrice ? (
+                <span className="hero-card__combo">
+                  Combo <Price value={item.comboPrice} />
+                </span>
+              ) : null}
+            </div>
+          ) : null}
           <a
             className="hero-card__link u-link"
             href="#cardapio"

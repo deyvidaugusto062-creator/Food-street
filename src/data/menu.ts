@@ -186,8 +186,6 @@ export const menu: MenuItem[] = [
     comboPrice: 69.9,
     description:
       'Burger de 180g, mussarela, bacon, onion rings e barbecue de cerveja no pão preto.',
-    featured: true,
-    render: '/images/burgers/renders/augustas',
   },
   {
     id: 'station',
@@ -217,8 +215,17 @@ export const menu: MenuItem[] = [
     comboPrice: 69.9,
     description:
       'Burger de 180g, cheddar, cebola roxa picada, ketchup, bacon, picles e maionese defumada no pão preto.',
+  },
+  {
+    id: 'poseidon',
+    name: 'Poseidon Burger',
+    category: 'burgers',
+    description: 'Burger de porco, camarão, vinagrete de maxixe e rúcula.',
+    image: '/images/burgers/poseidon.webp',
     featured: true,
-    render: '/images/burgers/renders/brooklyn-pickles',
+    needsConfirmation: true,
+    confirmationNote:
+      'Item do post "Raio-X do burger" (Instagram), sem preço no material. Preencha `price` e `comboPrice`.',
   },
 
   /* ───────────── TUNADOS ───────────── */
@@ -230,8 +237,6 @@ export const menu: MenuItem[] = [
     comboPrice: 85,
     description:
       'Três smashes de 90g, cheddar, mussarela, bacon, picles, onion rings e barbecue de cerveja no pão preto.',
-    featured: true,
-    render: '/images/burgers/renders/the-king-brooklyn',
   },
   {
     id: 'food-street-2-0',
@@ -241,8 +246,6 @@ export const menu: MenuItem[] = [
     comboPrice: 85,
     description:
       '2 burgers de 180g, cheddar, mussarela, tomate, picles e maionese de alho no pão brioche.',
-    featured: true,
-    render: '/images/burgers/renders/food-street-2-0',
   },
   {
     id: 'crazy-cheddar',
@@ -259,8 +262,6 @@ export const menu: MenuItem[] = [
     comboPrice: 85,
     description:
       'Três smashes de 90g, mussarela, bacon, cebola roxa e maionese defumada no pão brioche.',
-    featured: true,
-    render: '/images/burgers/renders/the-boss',
   },
 
   /* ───────────── STREET ───────────── */
@@ -273,8 +274,6 @@ export const menu: MenuItem[] = [
     comboPrice: 69.9,
     description:
       'Sobrecoxa de frango empanada, cheddar, tomate, barbecue e maionese de alho no pão brioche.',
-    featured: true,
-    render: '/images/burgers/renders/street-chicken',
   },
 
   /*
@@ -291,6 +290,8 @@ export const menu: MenuItem[] = [
     price: 18,
     withFriesPrice: 27,
     description: 'Pão brioche, smash 90g, mussarela e maionese de alho.',
+    image: '/images/burgers/street-cheese-burger.webp',
+    featured: true,
     needsConfirmation: true,
     confirmationNote: 'Preço de outra versão do cardápio. Confirmar se está vigente.',
   },
@@ -302,6 +303,8 @@ export const menu: MenuItem[] = [
     price: 18,
     withFriesPrice: 27,
     description: 'Pão preto, smash 90g, cheddar e barbecue.',
+    image: '/images/burgers/street-brooklyn-burger.webp',
+    featured: true,
     needsConfirmation: true,
     confirmationNote: 'Preço de outra versão do cardápio. Confirmar se está vigente.',
   },
@@ -313,6 +316,8 @@ export const menu: MenuItem[] = [
     price: 23,
     withFriesPrice: 32,
     description: 'Pão preto, dois smashes de 90g e maionese de manjericão.',
+    image: '/images/burgers/street-pc-burger.webp',
+    featured: true,
     needsConfirmation: true,
     confirmationNote: 'Preço de outra versão do cardápio. Confirmar se está vigente.',
   },
@@ -324,6 +329,8 @@ export const menu: MenuItem[] = [
     price: 23,
     withFriesPrice: 32,
     description: 'Pão brioche, smash 90g, mussarela, bacon e maionese defumada.',
+    image: '/images/burgers/street-bacon.webp',
+    featured: true,
     needsConfirmation: true,
     confirmationNote: 'Preço de outra versão do cardápio. Confirmar se está vigente.',
   },
@@ -335,6 +342,8 @@ export const menu: MenuItem[] = [
     price: 16,
     withFriesPrice: 25,
     description: 'Pão brioche, duas salsichas, ketchup, maionese, mostarda e alface.',
+    image: '/images/burgers/street-dog.webp',
+    featured: true,
     needsConfirmation: true,
     confirmationNote: 'Preço de outra versão do cardápio. Confirmar se está vigente.',
   },
@@ -382,16 +391,19 @@ export const DESSERT_PRICES_TO_ASSIGN = [16, 24, 35] as const;
 
 /** Ordem dos destaques (seção "Escolha o seu favorito" e aba Destaques) */
 export const featuredOrder = [
-  'the-king-brooklyn',
-  'food-street-2-0',
-  'the-boss',
-  'street-chicken',
-  'augustas',
-  'brooklyn-pickles',
+  'poseidon',
+  'street-bacon',
+  'street-pc-burger',
+  'street-brooklyn-burger',
+  'street-cheese-burger',
+  'street-dog',
 ];
 
-/** Item exibido no card do hero */
-export const heroItemId = 'the-king-brooklyn';
+/**
+ * Item exibido no card do hero. Com o burger 3D (HERO_PHOTO vazio em
+ * src/config/scene.ts), use o mesmo burger de HERO_STACK_ID.
+ */
+export const heroItemId = 'poseidon';
 
 export function getItem(id: string): MenuItem | undefined {
   return menu.find((item) => item.id === id);

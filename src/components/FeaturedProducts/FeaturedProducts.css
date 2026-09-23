@@ -178,6 +178,14 @@
   font-size: var(--fs-21);
 }
 
+.product-card__price--muted {
+  font-weight: 500;
+  font-stretch: 80%;
+  font-size: var(--fs-14);
+  letter-spacing: 0.04em;
+  color: var(--ink-60);
+}
+
 .combo-label {
   font-stretch: 80%;
   font-weight: 600;
