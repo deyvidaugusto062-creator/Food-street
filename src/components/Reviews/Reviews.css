@@ -1,0 +1,217 @@
+.reviews {
+  overflow: clip;
+}
+
+.reviews__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-16);
+  margin-bottom: var(--s-48);
+}
+
+.reviews__head .eyebrow {
+  color: var(--ember);
+}
+
+.reviews__head .title em {
+  color: var(--ember);
+}
+
+.reviews__list {
+  --pad: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-24);
+  padding-inline: var(--pad);
+}
+
+.review-card {
+  position: relative;
+  display: flex;
+  border-radius: var(--r-12);
+  background: #fffdf7;
+  box-shadow:
+    inset 0 0 0 1px var(--ink-14),
+    0 1px 0 var(--ink-08);
+  transition:
+    transform 250ms var(--ease-out),
+    box-shadow 250ms var(--ease-out);
+}
+
+.review-card article {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--s-32);
+}
+
+.review-card__mark {
+  position: absolute;
+  top: -0.12em;
+  right: var(--s-24);
+  font-family: var(--serif);
+  font-size: 8rem;
+  line-height: 1;
+  color: var(--orange);
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 250ms var(--ease-out),
+    transform 250ms var(--ease-out);
+  pointer-events: none;
+}
+
+.review-card__text {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2vw, 1.75rem);
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.review-card__text[data-expanded] {
+  display: block;
+  -webkit-line-clamp: unset;
+}
+
+.review-card__more {
+  align-self: flex-start;
+  min-height: 44px;
+  margin-top: var(--s-4);
+  font-size: var(--fs-14);
+  font-weight: 600;
+  color: var(--ember);
+}
+
+.review-card__ratings {
+  display: grid;
+  gap: var(--s-8);
+  margin-top: var(--s-24);
+  padding-top: var(--s-16);
+  border-top: 1px solid var(--ink-14);
+  font-size: var(--fs-14);
+}
+
+.review-card__ratings > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-12);
+}
+
+.review-card__ratings dd {
+  display: flex;
+  align-items: center;
+  gap: var(--s-8);
+  margin: 0;
+  font-weight: 600;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.stars svg {
+  width: 15px;
+  height: 15px;
+  color: var(--ember);
+  transition:
+    color 200ms var(--ease-out),
+    fill 200ms var(--ease-out);
+}
+
+.stars svg.is-on {
+  fill: currentColor;
+}
+
+.review-card__foot {
+  margin-top: auto;
+  padding-top: var(--s-24);
+}
+
+.review-card__author {
+  font-weight: 700;
+  font-size: var(--fs-16);
+}
+
+.review-card__meta {
+  margin-top: 2px;
+  font-size: var(--fs-14);
+  color: var(--ink-60);
+}
+
+.review-card__details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-8) var(--s-24);
+  margin-top: var(--s-12);
+  font-size: var(--fs-12);
+}
+
+.review-card__details dt {
+  font-stretch: 80%;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.review-card__details dd {
+  margin: 0;
+  font-size: var(--fs-14);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .review-card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+      inset 0 0 0 1px var(--orange),
+      0 24px 40px -30px rgb(84 40 24 / 0.6);
+  }
+
+  .review-card:hover .review-card__mark {
+    opacity: 0.9;
+    transform: none;
+  }
+
+  .review-card:hover .stars svg {
+    color: var(--orange);
+  }
+}
+
+@media (max-width: 1023px) {
+  .reviews__list {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--pad);
+    scrollbar-width: none;
+    padding-bottom: var(--s-16);
+  }
+
+  .reviews__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .review-card {
+    flex: none;
+    width: min(84vw, 420px);
+    scroll-snap-align: start;
+  }
+
+  .review-card article {
+    padding: var(--s-24);
+  }
+
+  .review-card__mark {
+    opacity: 0.9;
+    transform: none;
+    font-size: 5rem;
+  }
+}

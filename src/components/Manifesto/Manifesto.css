@@ -1,0 +1,57 @@
+.manifesto__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(3rem, 8vw, 8rem);
+  align-items: end;
+}
+
+.manifesto__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-24);
+}
+
+.manifesto__text .eyebrow {
+  color: var(--sand);
+}
+
+.manifesto__title {
+  font-size: clamp(2.75rem, 6vw, 5.5rem);
+}
+
+.manifesto__title em {
+  color: var(--orange);
+}
+
+.manifesto__text .lede {
+  color: var(--cream-64);
+}
+
+.manifesto__list {
+  border-top: 1px solid var(--cream-14);
+}
+
+.manifesto__list li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-24);
+  padding-block: var(--s-24);
+  border-bottom: 1px solid var(--cream-14);
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+  line-height: 1.1;
+}
+
+.manifesto__list svg {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  color: var(--orange);
+  stroke-width: 1.25;
+}
+
+@media (max-width: 900px) {
+  .manifesto__grid {
+    grid-template-columns: 1fr;
+  }
+}

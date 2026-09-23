@@ -1,0 +1,37 @@
+{
+  "name": "food-street-augusta",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Site da Food Street Augusta — Burger and Bar (Rua Augusta, 1005, São Paulo).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b",
+    "render:burgers": "node scripts/render-burgers.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.8.0",
+    "gsap": "^3.15.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "three": "0.182.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/three": "0.182.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "playwright-core": "1.56.1",
+    "sharp": "^0.35.4",
+    "typescript": "~5.9.3",
+    "vite": "^8.3.0"
+  },
+  "engines": {
+    "node": ">=20.19"
+  }
+}

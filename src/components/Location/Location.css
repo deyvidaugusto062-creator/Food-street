@@ -1,0 +1,226 @@
+.location__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-32);
+  margin-bottom: clamp(3rem, 7vw, 6rem);
+}
+
+.location__head .eyebrow {
+  color: var(--sand);
+  margin-bottom: var(--s-24);
+}
+
+.location__title {
+  font-size: clamp(3.25rem, 9vw, 8.5rem);
+}
+
+.location__title em {
+  color: var(--orange);
+}
+
+.location__sign {
+  padding-bottom: var(--s-16);
+}
+
+.location__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: stretch;
+}
+
+.location__col {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s-48) var(--s-32);
+  align-content: start;
+}
+
+.contact {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s-16) var(--s-32);
+}
+
+.contact__title,
+.hours__title {
+  grid-column: 1 / -1;
+  font-stretch: 75%;
+  font-weight: 700;
+  font-size: var(--fs-14);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.contact__address {
+  font-style: normal;
+  font-family: var(--serif);
+  font-size: var(--fs-24);
+  line-height: 1.2;
+}
+
+.contact__phone {
+  display: inline-flex;
+  align-items: center;
+  align-self: start;
+  gap: var(--s-12);
+  min-height: 44px;
+  font-family: var(--serif);
+  font-size: var(--fs-24);
+}
+
+.contact__phone svg {
+  width: 22px;
+  height: 22px;
+  color: var(--orange);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact__phone:hover {
+    color: var(--sand);
+  }
+}
+
+.contact__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-12);
+  margin-top: var(--s-8);
+}
+
+/* ───────── Horários ───────── */
+
+.hours {
+  grid-column: 1 / -1;
+}
+
+.hours__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-8) var(--s-16);
+  margin-bottom: var(--s-16);
+}
+
+.hours__status {
+  font-size: var(--fs-14);
+  color: var(--cream-64);
+}
+
+.hours__status[data-open] {
+  color: var(--orange);
+}
+
+.hours__table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid var(--cream-14);
+}
+
+.hours__table tr {
+  border-bottom: 1px solid var(--cream-14);
+}
+
+.hours__table th,
+.hours__table td {
+  padding: var(--s-12) var(--s-12);
+  font-size: var(--fs-16);
+  text-align: left;
+}
+
+.hours__table th {
+  font-weight: 500;
+}
+
+.hours__table td {
+  text-align: right;
+  color: var(--cream-80);
+}
+
+.hours__table tr[data-today] {
+  background: rgb(237 121 54 / 0.1);
+  box-shadow: inset 2px 0 0 var(--orange);
+}
+
+.hours__table tr[data-today] td {
+  color: var(--cream);
+  font-weight: 600;
+}
+
+.hours__today {
+  margin-left: var(--s-12);
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: var(--ink);
+  font-stretch: 80%;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  vertical-align: 2px;
+}
+
+.hours__note {
+  margin-top: var(--s-12);
+  font-size: var(--fs-12);
+  color: var(--cream-64);
+}
+
+/* ───────── Mapa ───────── */
+
+.map {
+  position: relative;
+  min-height: 420px;
+  overflow: hidden;
+  border-radius: var(--r-12);
+  background:
+    radial-gradient(40% 40% at 50% 50%, rgb(237 121 54 / 0.12), transparent 70%),
+    var(--char);
+  box-shadow: inset 0 0 0 1px var(--cream-14);
+}
+
+.map iframe {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* mapa escuro para acompanhar a seção */
+  filter: grayscale(0.85) invert(0.9) hue-rotate(180deg) contrast(0.92) brightness(0.95);
+}
+
+.map__fallback {
+  position: absolute;
+  inset: auto var(--s-24) var(--s-24);
+  font-size: var(--fs-14);
+  color: var(--cream-64);
+}
+
+@media (max-width: 1023px) {
+  .location__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .map {
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 560px) {
+  .contact,
+  .location__col {
+    grid-template-columns: 1fr;
+  }
+
+  .contact__actions .btn {
+    flex: 1 1 100%;
+  }
+}

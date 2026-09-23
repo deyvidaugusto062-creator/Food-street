@@ -1,0 +1,63 @@
+:root {
+  /* Paleta Food Street */
+  --ink: #0d0d0b;
+  --char: #20221d;
+  --cream: #fff8e9;
+  --orange: #ed7936;
+  --sand: #ebc9a5;
+  --ember: #542818;
+
+  /* Derivados — tintas da própria paleta, nunca cinza neutro */
+  --cream-80: rgb(255 248 233 / 0.8);
+  --cream-64: rgb(255 248 233 / 0.64);
+  --cream-40: rgb(255 248 233 / 0.4);
+  --cream-14: rgb(255 248 233 / 0.14);
+  --cream-08: rgb(255 248 233 / 0.08);
+  --ink-72: rgb(13 13 11 / 0.72);
+  --ink-60: rgb(13 13 11 / 0.6);
+  --ink-14: rgb(13 13 11 / 0.14);
+  --ink-08: rgb(13 13 11 / 0.08);
+  --sand-deep: #e2b98d;
+
+  /* Tipografia */
+  --serif: 'Instrument Serif', 'Iowan Old Style', 'Times New Roman', serif;
+  --sans: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Escala tipográfica (Elements of Typographic Style) */
+  --fs-12: 0.75rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;
+  --fs-18: 1.125rem;
+  --fs-21: 1.3125rem;
+  --fs-24: 1.5rem;
+  --fs-36: 2.25rem;
+  --fs-48: clamp(2.25rem, 4vw, 3rem);
+  --fs-72: clamp(2.75rem, 6.4vw, 4.5rem);
+  --fs-display: clamp(3.4rem, 8.4vw, 8.75rem);
+
+  /* Espaçamento (4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128) */
+  --s-4: 0.25rem;
+  --s-8: 0.5rem;
+  --s-12: 0.75rem;
+  --s-16: 1rem;
+  --s-24: 1.5rem;
+  --s-32: 2rem;
+  --s-48: 3rem;
+  --s-64: 4rem;
+  --s-96: 6rem;
+  --s-128: 8rem;
+
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --max: 1440px;
+  --section-y: clamp(4.5rem, 10vw, 9rem);
+  --header-h: 72px;
+
+  /* Movimento */
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+
+  /* Raios: pequenos, com hierarquia — nada de pílula em tudo */
+  --r-2: 2px;
+  --r-6: 6px;
+  --r-12: 12px;
+}

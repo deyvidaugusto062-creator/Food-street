@@ -1,0 +1,239 @@
+.featured {
+  overflow: clip;
+}
+
+.featured__head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-32);
+  margin-bottom: var(--s-48);
+}
+
+.featured__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-16);
+}
+
+.featured__intro .eyebrow {
+  color: var(--ember);
+}
+
+.featured__intro .title em {
+  color: var(--ember);
+}
+
+.featured__intro .lede {
+  color: var(--ink-72);
+  margin-top: var(--s-8);
+}
+
+.featured__controls {
+  display: flex;
+  gap: var(--s-8);
+}
+
+.round-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--ink-60);
+  color: var(--ink);
+  transition:
+    background-color 150ms var(--ease-out),
+    color 150ms var(--ease-out),
+    opacity 150ms var(--ease-out),
+    transform 150ms var(--ease-out);
+}
+
+.round-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.round-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.round-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .round-btn:hover:not(:disabled) {
+    background: var(--ink);
+    color: var(--cream);
+  }
+}
+
+/* ───────── Trilho horizontal ───────── */
+
+.rail {
+  --rail-pad: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
+  position: relative;
+  z-index: 2;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--rail-pad);
+  scrollbar-width: none;
+  padding-block: var(--s-8) var(--s-24);
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.rail:focus-visible {
+  outline-offset: -4px;
+}
+
+.rail__track {
+  display: flex;
+  gap: var(--s-24);
+  width: max-content;
+  padding-inline: var(--rail-pad);
+}
+
+.product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: clamp(272px, 27vw, 380px);
+  scroll-snap-align: start;
+  transition: transform 250ms var(--ease-out);
+}
+
+.product-card__media {
+  aspect-ratio: 5 / 4;
+  border-radius: var(--r-6);
+  background:
+    radial-gradient(70% 60% at 50% 38%, rgb(255 248 233 / 0.55), transparent 70%),
+    var(--sand);
+  box-shadow: 0 1px 0 var(--ink-08);
+  transition: box-shadow 250ms var(--ease-out);
+}
+
+.product-card__media img {
+  object-fit: cover;
+}
+
+.product-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-top: var(--s-16);
+}
+
+.product-card__cat {
+  font-stretch: 78%;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ember);
+}
+
+.product-card__name {
+  margin-top: var(--s-8);
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+/* o link cobre o card inteiro */
+.product-card__name a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.product-card__desc {
+  margin-top: var(--s-8);
+  font-size: var(--fs-14);
+  line-height: 1.5;
+  color: var(--ink-72);
+  max-width: 40ch;
+}
+
+.product-card__prices {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-12);
+  margin-top: auto;
+  padding-top: var(--s-16);
+}
+
+.product-card__price {
+  font-weight: 700;
+  font-stretch: 92%;
+  font-size: var(--fs-21);
+}
+
+.combo-label {
+  font-stretch: 80%;
+  font-weight: 600;
+  font-size: var(--fs-12);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.section--cream .combo-label,
+.section--sand .combo-label {
+  color: var(--ember);
+}
+
+.section--char .combo-label,
+.section--ink .combo-label {
+  color: var(--sand);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .product-card:hover .product-card__media {
+    box-shadow: 0 24px 40px -28px rgb(84 40 24 / 0.7);
+  }
+
+  .product-card:hover .product-card__media img {
+    transform: scale(1.03);
+  }
+}
+
+.product-card:has(a:focus-visible) {
+  outline: 2px solid var(--orange);
+  outline-offset: 6px;
+  border-radius: var(--r-6);
+}
+
+.product-card a:focus-visible {
+  outline: none;
+}
+
+@media (max-width: 767px) {
+  .featured__head {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: var(--s-32);
+  }
+
+  .featured__controls {
+    display: none;
+  }
+
+  .product-card {
+    width: 80vw;
+    max-width: 340px;
+  }
+}

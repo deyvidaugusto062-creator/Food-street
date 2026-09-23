@@ -1,0 +1,14 @@
+.hero3d {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.hero3d[data-ready] {
+  opacity: 1;
+}
+
+.hero3d canvas {
+  touch-action: pan-y;
+}
