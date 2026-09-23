@@ -185,7 +185,6 @@ própria. Esses itens estão marcados com `needsConfirmation: true` em `src/data
 | ---- | ----------- |
 | **Station** | Preço do combo (possível inconsistência no material). O site mostra "Combo a confirmar". |
 | **Linha Street** (Cheese Burger R$ 18, Brooklyn Burger, PC Burger, Street Bacon, Street Dog) | Valores de outra parte do material. Podem ser de outro período. Ficam separados da tabela principal, com aviso. |
-| **Poseidon Burger** | Preço e combo. Veio do post "Raio-X do burger" no Instagram, sem valores. O site mostra "Valor a confirmar". |
 | **Sobremesas** (Pudim, Vaka-Loka, Bolo de chocolate) | Foram informados R$ 16, R$ 24 e R$ 35 sem dizer qual é de qual. Os preços não aparecem no site. Os valores estão em `DESSERT_PRICES_TO_ASSIGN`. |
 
 Também ficaram de fora até confirmação: WhatsApp, redes sociais, delivery, reservas,

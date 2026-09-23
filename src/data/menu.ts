@@ -220,12 +220,10 @@ export const menu: MenuItem[] = [
     id: 'poseidon',
     name: 'Poseidon Burger',
     category: 'burgers',
+    price: 35,
     description: 'Burger de porco, camarão, vinagrete de maxixe e rúcula.',
     image: '/images/burgers/poseidon.webp',
     featured: true,
-    needsConfirmation: true,
-    confirmationNote:
-      'Item do post "Raio-X do burger" (Instagram), sem preço no material. Preencha `price` e `comboPrice`.',
   },
 
   /* ───────────── TUNADOS ───────────── */
