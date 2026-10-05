@@ -1,0 +1,217 @@
+.pcard {
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--r-lg);
+  background: var(--paper);
+  box-shadow: var(--shadow-1), inset 0 0 0 1px var(--line);
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition:
+    transform 600ms var(--ease-out),
+    box-shadow var(--t-slow) var(--ease-out);
+  will-change: transform;
+}
+.pcard[data-tilting] {
+  transition:
+    transform 120ms linear,
+    box-shadow var(--t-slow) var(--ease-out);
+  box-shadow: var(--shadow-3), inset 0 0 0 1px var(--line);
+}
+@media (hover: hover) {
+  .pcard:hover {
+    box-shadow: var(--shadow-3), inset 0 0 0 1px var(--line);
+  }
+}
+/* toque: resposta leve ao pressionar */
+@media (hover: none) {
+  .pcard:active {
+    transform: scale(0.985);
+  }
+}
+
+.pcard__media {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  margin: 8px 8px 0;
+  border-radius: calc(var(--r-lg) - 6px);
+  overflow: hidden;
+  background:
+    radial-gradient(90% 70% at 50% 40%, var(--paper), transparent 70%),
+    linear-gradient(180deg, #f3f7f5, #e8f1ec);
+  isolation: isolate;
+}
+.pcard__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6% 7%;
+  /* funde o fundo branco do packshot ao fundo do card */
+  mix-blend-mode: multiply;
+  transform: translate3d(calc((var(--mx) - 50%) * -0.06), calc((var(--my) - 50%) * -0.06), 0) scale(1);
+  transition:
+    transform var(--t-slow) var(--ease-out),
+    opacity var(--t-slow) var(--ease-out);
+}
+.pcard__img.is-photo {
+  object-fit: cover;
+  padding: 0;
+  mix-blend-mode: normal;
+}
+.pcard__img--alt {
+  opacity: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .pcard:hover .pcard__img {
+    transform: translate3d(calc((var(--mx) - 50%) * -0.06), calc((var(--my) - 50%) * -0.06), 0) scale(1.05);
+  }
+  .pcard:hover .pcard__img--alt {
+    opacity: 1;
+  }
+  .pcard:has(.pcard__img--alt):hover .pcard__img:not(.pcard__img--alt) {
+    opacity: 0;
+  }
+}
+.pcard__glare {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--mx) var(--my), rgb(255 255 255 / 0.5), transparent 45%);
+  opacity: 0;
+  transition: opacity var(--t-med);
+  mix-blend-mode: soft-light;
+}
+.pcard[data-tilting] .pcard__glare {
+  opacity: 1;
+}
+.pcard__badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pcard__swatch {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px 5px 6px;
+  border-radius: var(--r-pill);
+  background: rgb(255 255 255 / 0.86);
+  box-shadow: var(--shadow-1);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.pcard__swatch > span:first-child {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15);
+}
+
+.pcard__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 18px 20px 20px;
+}
+.pcard__meta {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+.pcard__title {
+  margin-top: 4px;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+}
+.pcard__title a {
+  display: block;
+  padding-block: 10px;
+  margin-block: -10px;
+  text-decoration: none;
+}
+.pcard__title a:hover {
+  text-decoration: underline;
+}
+.pcard__desc {
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+.pcard__price {
+  margin-top: auto;
+  padding-top: 16px;
+}
+.pcard__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 14px;
+}
+.pcard__actions .btn {
+  padding: 0 0.9em;
+}
+.pcard__add.is-added {
+  --btn-bg: var(--green-600);
+}
+.pcard__add svg {
+  transition: transform var(--t-med) var(--ease-spring);
+}
+.pcard__add.is-added svg {
+  animation: pop 420ms var(--ease-spring);
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.4) rotate(-20deg);
+  }
+}
+
+/* Preço */
+.price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+.price__value {
+  font-family: var(--f-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--green-800);
+  font-variant-numeric: tabular-nums;
+}
+.price__note {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.price--ask {
+  font-weight: 700;
+  color: var(--green-800);
+}
+
+/* Grade de produtos */
+.pgrid {
+  display: grid;
+  gap: clamp(14px, 1.6vw, 24px);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 268px), 1fr));
+}

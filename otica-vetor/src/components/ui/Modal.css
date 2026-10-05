@@ -1,0 +1,90 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+.modal::backdrop {
+  opacity: 0;
+  transition: opacity var(--t-med) var(--ease-out);
+}
+.modal[data-state='open']::backdrop {
+  opacity: 1;
+}
+.modal__panel {
+  position: absolute;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: var(--shadow-3);
+  overflow: auto;
+  overscroll-behavior: contain;
+  transition:
+    transform var(--t-slow) var(--ease-out),
+    opacity var(--t-med) var(--ease-out);
+}
+
+/* Centro: produto */
+.modal--center .modal__panel {
+  inset: auto;
+  left: 50%;
+  top: 50%;
+  width: min(1080px, calc(100% - 32px));
+  max-height: calc(100dvh - 48px);
+  border-radius: var(--r-xl);
+  transform: translate(-50%, -46%) scale(0.97);
+  opacity: 0;
+}
+.modal--center[data-state='open'] .modal__panel {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+/* Gaveta lateral: carrinho */
+.modal--drawer .modal__panel {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(460px, 100%);
+  border-radius: var(--r-xl) 0 0 var(--r-xl);
+  transform: translateX(104%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.modal--drawer[data-state='open'] .modal__panel {
+  transform: none;
+}
+
+/* Tela cheia: menu e galeria */
+.modal--fullscreen .modal__panel {
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.02);
+}
+.modal--fullscreen[data-state='open'] .modal__panel {
+  opacity: 1;
+  transform: none;
+}
+
+/* Celular: produto vira folha de baixo para cima */
+@media (max-width: 760px) {
+  .modal--center .modal__panel {
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    max-height: calc(100dvh - 24px);
+    border-radius: var(--r-xl) var(--r-xl) 0 0;
+    transform: translateY(100%);
+    opacity: 1;
+  }
+  .modal--center[data-state='open'] .modal__panel {
+    transform: none;
+  }
+  .modal--drawer .modal__panel {
+    border-radius: 0;
+  }
+}
