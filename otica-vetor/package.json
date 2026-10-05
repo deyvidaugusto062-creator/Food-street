@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "build:preview": "tsc -b && vite build --mode staging",
+    "build:single": "tsc -b && vite build --mode single && vite build --mode single-revisao && node scripts/finish-single.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -b",
     "test": "node --test src/**/*.test.ts",
@@ -36,6 +37,7 @@
     "playwright-core": "^1.56.1",
     "sharp": "^0.35.5",
     "typescript": "~5.9.3",
-    "vite": "^8.3.2"
+    "vite": "^8.3.2",
+    "vite-plugin-singlefile": "^2.3.3"
   }
 }

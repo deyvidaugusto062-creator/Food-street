@@ -1,5 +1,6 @@
 import type { ImgHTMLAttributes } from 'react';
 import type { ProductPhoto } from '../../types/product';
+import { imageSources } from '../../utils/asset';
 
 type Props = { photo: Pick<ProductPhoto, 'src' | 'alt' | 'width' | 'height'>; priority?: boolean } & Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'width' | 'height'>;
 
@@ -22,10 +23,11 @@ export function ProductImage({ photo, priority, ...img }: Props) {
 
   if (hasExtension(photo.src)) return <img src={photo.src} {...common} />;
 
+  const { avif, webp } = imageSources(photo.src);
   return (
     <picture>
-      <source srcSet={`${photo.src}.avif`} type="image/avif" />
-      <img src={`${photo.src}.webp`} {...common} />
+      {avif && <source srcSet={avif} type="image/avif" />}
+      <img src={webp} {...common} />
     </picture>
   );
 }

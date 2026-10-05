@@ -30,8 +30,8 @@ export const hasFinePointer = () =>
 export function isLowPowerDevice(): boolean {
   const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
   if (nav.connection?.saveData) return true;
-  if ((nav.hardwareConcurrency ?? 8) <= 4) return true;
-  if ((nav.deviceMemory ?? 8) <= 4) return true;
+  if ((nav.hardwareConcurrency ?? 8) <= 2) return true;
+  if ((nav.deviceMemory ?? 8) <= 2) return true;
   return false;
 }
 

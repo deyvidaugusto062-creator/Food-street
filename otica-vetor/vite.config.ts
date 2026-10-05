@@ -1,6 +1,8 @@
-import { resolve } from 'node:path';
+import { readdirSync, readFileSync } from 'node:fs';
+import { join, relative, resolve } from 'node:path';
 import { defineConfig, type HtmlTagDescriptor, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
+import { viteSingleFile } from 'vite-plugin-singlefile';
 import { business, SITE_URL } from './src/data/business.ts';
 import { hours } from './src/data/hours.ts';
 
@@ -122,17 +124,56 @@ function preloadFonts(): Plugin {
   };
 }
 
-export default defineConfig({
-  plugins: [react(), seo(), preloadFonts()],
-  build: {
-    target: 'es2022',
-    cssCodeSplit: true,
-    chunkSizeWarningLimit: 1200,
-    rollupOptions: {
-      input: {
-        main: resolve(import.meta.dirname, 'index.html'),
-        armacoes: resolve(import.meta.dirname, 'armacoes/index.html'),
-      },
+/**
+ * Versão de arquivo único: embute as imagens (WebP) e o favicon no HTML como data URI,
+ * expostos em window.__OV_ASSETS__ (lidos por src/utils/asset.ts).
+ */
+function embedImages(): Plugin {
+  const root = resolve(import.meta.dirname, 'public');
+  const walk = (dir: string): string[] =>
+    readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(dir, e.name)) : [join(dir, e.name)]));
+  return {
+    name: 'otica-vetor-embed-images',
+    transformIndexHtml() {
+      const map: Record<string, string> = {};
+      for (const file of walk(join(root, 'images')).filter((f) => f.endsWith('.webp'))) {
+        map[`/${relative(root, file)}`] = `data:image/webp;base64,${readFileSync(file).toString('base64')}`;
+      }
+      const favicon = `data:image/svg+xml;base64,${readFileSync(join(root, 'favicon.svg')).toString('base64')}`;
+      return [
+        { tag: 'link', attrs: { rel: 'icon', type: 'image/svg+xml', href: favicon }, injectTo: 'head' },
+        { tag: 'script', children: `window.__OV_ASSETS__=${JSON.stringify(map)};`, injectTo: 'head' },
+      ];
     },
-  },
-});
+  };
+}
+
+export default defineConfig(({ mode }) =>
+  mode.startsWith('single')
+    ? {
+        // npm run build:single → um único HTML, sem servidor
+        plugins: [react(), embedImages(), viteSingleFile({ removeViteModuleLoader: true })],
+        publicDir: false,
+        build: {
+          target: 'es2022',
+          outDir: mode === 'single' ? 'dist-single' : 'dist-single-revisao',
+          assetsInlineLimit: Number.MAX_SAFE_INTEGER,
+          chunkSizeWarningLimit: 4000,
+          rollupOptions: { input: resolve(import.meta.dirname, 'single.html') },
+        },
+      }
+    : {
+        plugins: [react(), seo(), preloadFonts()],
+        build: {
+          target: 'es2022',
+          cssCodeSplit: true,
+          chunkSizeWarningLimit: 1200,
+          rollupOptions: {
+            input: {
+              main: resolve(import.meta.dirname, 'index.html'),
+              armacoes: resolve(import.meta.dirname, 'armacoes/index.html'),
+            },
+          },
+        },
+      },
+);

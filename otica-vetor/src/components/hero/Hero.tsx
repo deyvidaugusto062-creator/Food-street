@@ -6,7 +6,10 @@ import { getOpenStatus } from '../../utils/hours';
 import { useNow } from '../../hooks/useNow';
 import { business, mapLinks, telLink } from '../../data/business';
 import { SHOP_URL } from '../../data/nav';
+import { imageSources } from '../../utils/asset';
 import './Hero.css';
+
+const poster = imageSources('/images/hero/armacao-3d');
 
 /** Three.js só é baixado depois da primeira pintura, e nunca com "reduzir movimento" ou sem WebGL */
 const HeroScene = lazy(() => import('../../three/HeroScene'));
@@ -149,9 +152,9 @@ export function Hero() {
           </svg>
 
           <picture className="hero__poster">
-            <source srcSet="/images/hero/armacao-3d.avif" type="image/avif" />
+            {poster.avif && <source srcSet={poster.avif} type="image/avif" />}
             <img
-              src="/images/hero/armacao-3d.webp"
+              src={poster.webp}
               alt="Armação 3D ilustrativa em acetato verde, suspensa no ar"
               width={1200}
               height={900}

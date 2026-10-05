@@ -5,6 +5,9 @@ import { about } from '../../data/content';
 import { business, addressLine, mapLinks, telLink } from '../../data/business';
 import { hoursSummary } from '../../data/hours';
 import { SHOW_PENDING } from '../../config/site';
+import { imageSources } from '../../utils/asset';
+
+const photo = imageSources('/images/produtos/demo-06-redonda-metal-dourada');
 
 export function About() {
   const visual = useRef<HTMLDivElement>(null);
@@ -17,9 +20,9 @@ export function About() {
         <div className="about__visual" ref={visual} data-reveal="scale">
           <div className="about__lens">
             <picture>
-              <source srcSet="/images/produtos/demo-06-redonda-metal-dourada.avif" type="image/avif" />
+              {photo.avif && <source srcSet={photo.avif} type="image/avif" />}
               <img
-                src="/images/produtos/demo-06-redonda-metal-dourada.webp"
+                src={photo.webp}
                 alt="Mulher usando armação redonda de aro fino dourado (imagem ilustrativa)"
                 width={315}
                 height={419}

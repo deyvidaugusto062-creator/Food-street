@@ -1,3 +1,4 @@
+import { SINGLE_FILE } from '../config/site';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 
 /**
@@ -31,6 +32,7 @@ export function ProductViewProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const openProduct = useCallback((next: string) => {
+    if (SINGLE_FILE) return setSlug(next); // arquivo local: sem alterar a URL
     const url = new URL(location.href);
     url.searchParams.set(PARAM, next);
     if (fromUrl()) history.replaceState(history.state, '', url);
@@ -43,6 +45,7 @@ export function ProductViewProvider({ children }: { children: ReactNode }) {
 
   const closeProduct = useCallback(() => {
     setSlug(null);
+    if (SINGLE_FILE) return;
     if (pushed.current) {
       pushed.current = false;
       history.back();

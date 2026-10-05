@@ -19,6 +19,8 @@ import {
 } from '../../services/filters';
 import { formatPrice, pluralize } from '../../utils/format';
 import { business, telLink } from '../../data/business';
+import { HOME_URL } from '../../data/nav';
+import { SINGLE_FILE } from '../../config/site';
 import './Shop.css';
 
 export function Shop() {
@@ -35,6 +37,7 @@ export function Shop() {
 
   // mantém a busca na URL (link compartilhável), sem criar entradas no histórico
   useEffect(() => {
+    if (SINGLE_FILE) return;
     const params = filtersToParams(state, new URLSearchParams(location.search));
     const qs = params.toString();
     const url = `${location.pathname}${qs ? `?${qs}` : ''}${location.hash}`;
@@ -55,7 +58,7 @@ export function Shop() {
           <nav aria-label="Você está em" className="crumbs">
             <ol role="list">
               <li>
-                <a href="/">Início</a>
+                <a href={HOME_URL}>Início</a>
               </li>
               <li aria-current="page">Armações</li>
             </ol>

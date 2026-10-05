@@ -3,7 +3,7 @@ import { Icon } from '../ui/Icon';
 import { Logo } from '../ui/Logo';
 import { Modal } from '../ui/Modal';
 import { useCart } from '../../store/cart';
-import { navItems, SHOP_URL, type Page } from '../../data/nav';
+import { HOME_URL, navItems, SHOP_URL, type Page } from '../../data/nav';
 import { business, telLink } from '../../data/business';
 import './Header.css';
 
@@ -18,7 +18,10 @@ export function Header({ page }: { page: Page }) {
 
   // fundo de vidro depois que a página rola
   useEffect(() => {
-    if (page !== 'home') return;
+    if (page !== 'home') {
+      setSolid(true);
+      return;
+    }
     const onScroll = () => setSolid(scrollY > 24);
     onScroll();
     addEventListener('scroll', onScroll, { passive: true });
@@ -57,7 +60,7 @@ export function Header({ page }: { page: Page }) {
     <>
       <header className={`header ${solid ? 'is-solid' : 'is-overlay on-dark'}`}>
         <div className="header__inner container">
-          <a className="header__brand" href={page === 'home' ? '#inicio' : '/'} aria-label={`${business.name} — página inicial`}>
+          <a className="header__brand" href={page === 'home' ? '#inicio' : HOME_URL} aria-label={`${business.name} — página inicial`}>
             <Logo />
           </a>
 

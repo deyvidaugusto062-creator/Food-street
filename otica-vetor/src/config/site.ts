@@ -31,3 +31,9 @@ export const FULFILLMENT_OPTIONS: string[] = [];
 
 /** Quantidade máxima por item no carrinho */
 export const MAX_QTY = 10;
+
+/**
+ * Versão "arquivo único" (npm run build:single): um só HTML que abre direto do computador,
+ * sem servidor. Navegação por #/armacoes e imagens embutidas no próprio arquivo.
+ */
+export const SINGLE_FILE: boolean = import.meta.env.VITE_SINGLE_FILE === 'true';

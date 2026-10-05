@@ -7,7 +7,7 @@ import { Icon } from '../ui/Icon';
 import { useTilt } from '../../hooks/useTilt';
 import { useCart } from '../../store/cart';
 import { useProductView } from '../../store/productView';
-import { SHOP_URL } from '../../data/nav';
+import { productHref } from '../../data/nav';
 import './ProductCard.css';
 
 export function ProductCard({ product, headingLevel = 3 }: { product: Product; headingLevel?: 2 | 3 }) {
@@ -24,7 +24,7 @@ export function ProductCard({ product, headingLevel = 3 }: { product: Product; h
     return () => clearTimeout(t);
   }, [added]);
 
-  const href = `${SHOP_URL}?produto=${product.slug}`;
+  const href = productHref(product.slug);
   const open = (e: ReactMouseEvent) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
     e.preventDefault();
