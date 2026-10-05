@@ -41,7 +41,7 @@
   overflow: hidden;
   background:
     radial-gradient(90% 70% at 50% 40%, var(--paper), transparent 70%),
-    linear-gradient(180deg, #f3f7f5, #e8f1ec);
+    linear-gradient(180deg, #f6f6f6, #ececec);
   isolation: isolate;
 }
 .pcard__img {
@@ -168,7 +168,7 @@
   padding: 0 0.9em;
 }
 .pcard__add.is-added {
-  --btn-bg: var(--green-600);
+  --btn-bg: var(--accent-500);
 }
 .pcard__add svg {
   transition: transform var(--t-med) var(--ease-spring);
@@ -194,7 +194,7 @@
   font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-  color: var(--green-800);
+  color: var(--dark-800);
   font-variant-numeric: tabular-nums;
 }
 .price__note {
@@ -206,7 +206,7 @@
 }
 .price--ask {
   font-weight: 700;
-  color: var(--green-800);
+  color: var(--dark-800);
 }
 
 /* Grade de produtos */

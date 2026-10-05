@@ -40,7 +40,7 @@ export function Location() {
                 <svg className="map-facade__art" viewBox="0 0 600 420" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
                   <defs>
                     <pattern id="mf-grid" width="30" height="30" patternUnits="userSpaceOnUse">
-                      <path d="M30 0H0V30" fill="none" stroke="rgb(24 63 54 / .07)" />
+                      <path d="M30 0H0V30" fill="none" stroke="rgb(17 17 17 / .07)" />
                     </pattern>
                   </defs>
                   <rect width="600" height="420" fill="url(#mf-grid)" />
@@ -49,7 +49,7 @@ export function Location() {
                   <path d="M420 -20 L 380 440" stroke="#fff" strokeWidth="10" />
                   <path d="M-20 120 L 620 200" stroke="#fff" strokeWidth="8" />
                   <path d="M60 440 L 140 -20" stroke="#fff" strokeWidth="8" />
-                  <text x="380" y="196" fontSize="13" fill="rgb(24 63 54 / .55)" fontFamily="sans-serif" transform="rotate(-21 380 196)">
+                  <text x="380" y="196" fontSize="13" fill="rgb(17 17 17 / .55)" fontFamily="sans-serif" transform="rotate(-21 380 196)">
                     Av. Cupecê
                   </text>
                 </svg>

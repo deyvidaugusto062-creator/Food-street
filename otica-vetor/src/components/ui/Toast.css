@@ -10,7 +10,7 @@
   max-width: calc(100% - 32px);
   padding: 8px 8px 8px 12px;
   border-radius: var(--r-pill);
-  background: var(--green-900);
+  background: var(--dark-900);
   color: var(--on-dark);
   box-shadow: var(--shadow-3);
   transform: translate(-50%, calc(100% + 40px));
@@ -31,8 +31,8 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--mint-300);
-  color: var(--green-950);
+  background: var(--accent-300);
+  color: var(--dark-950);
   flex: none;
 }
 .toast__icon svg {

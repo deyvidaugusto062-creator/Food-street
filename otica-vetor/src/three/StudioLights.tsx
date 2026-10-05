@@ -14,7 +14,7 @@ export function StudioLights({ intensity = 1, resolution = 256 }: { intensity?: 
         <Lightformer form="rect" intensity={2.2} position={[0, 5, 0]} rotation-x={Math.PI / 2} scale={[10, 4, 1]} />
         <Lightformer form="rect" intensity={3.2} position={[-5, 1, 1]} rotation-y={Math.PI / 2} scale={[6, 0.6, 1]} />
         <Lightformer form="rect" intensity={2.4} position={[5, 0.5, 2]} rotation-y={-Math.PI / 2} scale={[6, 0.5, 1]} />
-        <Lightformer form="rect" intensity={1.4} color="#90cba9" position={[0, -2, 5]} scale={[8, 1, 1]} />
+        <Lightformer form="rect" intensity={1.4} color="#ff8a33" position={[0, -2, 5]} scale={[8, 1, 1]} />
         <Lightformer form="ring" intensity={4} position={[2, 2.5, 5]} scale={1.2} />
       </Environment>
     </>

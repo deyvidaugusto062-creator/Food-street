@@ -1,38 +1,41 @@
 /*
  * Design tokens — Ótica Vetor
- * Paleta inicial do briefing (#183F36, #F8FCFA, #90CBA9). Se a ótica tiver identidade
- * oficial, troque os valores aqui: o site inteiro acompanha.
+ * Paleta: laranja, preto e branco. Para trocar a identidade, altere os valores aqui:
+ * o site inteiro acompanha.
  */
 :root {
-  /* Verde profundo */
-  --green-950: #0a1d18;
-  --green-900: #0f2a24;
-  --green-800: #183f36; /* marca */
-  --green-700: #21564a;
-  --green-600: #2d6e5e;
-  /* Menta */
-  --mint-400: #78bf96;
-  --mint-300: #90cba9; /* marca */
-  --mint-200: #b8dec8;
-  --mint-100: #dcefe3;
-  --mint-50: #edf7f1;
-  /* Neutros */
-  --white: #f8fcfa; /* marca */
+  /* Preto (escala escura: fundos, botões principais, textos fortes) */
+  --dark-950: #070707;
+  --dark-900: #0e0e0e;
+  --dark-800: #161616; /* preto da marca */
+  --dark-700: #262626;
+  --dark-600: #3a3a3a;
+  /* Laranja (acento) */
+  --accent-700: #b54700; /* laranja escuro: texto sobre fundo branco (contraste AA) */
+  --accent-500: #ff6b00; /* laranja da marca */
+  --accent-400: #ff7a1a;
+  --accent-300: #ff8a33; /* acento sobre fundo preto */
+  --accent-200: #ffb27a;
+  --accent-100: #ffe2cc;
+  --accent-50: #fff4eb;
+  /* Branco e neutros */
+  --white: #ffffff; /* branco da marca */
   --paper: #ffffff;
-  --ink: #0f1f1b;
-  --ink-2: #3b4f49;
-  --ink-3: #5d716b;
-  --line: rgb(24 63 54 / 0.13);
-  --line-strong: rgb(24 63 54 / 0.24);
-  --on-dark: #eaf5ef;
-  --on-dark-2: rgb(234 245 239 / 0.74);
-  --line-dark: rgb(184 222 200 / 0.18);
+  --surface: #f7f7f7; /* fundos claros alternados */
+  --ink: #111111;
+  --ink-2: #444444;
+  --ink-3: #666666;
+  --line: rgb(17 17 17 / 0.12);
+  --line-strong: rgb(17 17 17 / 0.24);
+  --on-dark: #f5f5f5;
+  --on-dark-2: rgb(255 255 255 / 0.72);
+  --line-dark: rgb(255 255 255 / 0.14);
 
-  /* Avisos administrativos (somente desenvolvimento) */
-  --pending: #8a5300;
-  --pending-bg: #fff4dc;
+  /* Avisos administrativos (somente desenvolvimento) — azul, para não confundir com o laranja da marca */
+  --pending: #1e40af;
+  --pending-bg: #eaf0ff;
 
-  --danger: #a3261f;
+  --danger: #b42318;
   --success: #1d6b45;
 
   /* Tipografia */
@@ -60,11 +63,11 @@
   --r-xl: 34px;
   --r-pill: 999px;
 
-  /* Profundidade — sombras em camadas com tom verde */
-  --shadow-1: 0 1px 2px rgb(15 42 36 / 0.06), 0 2px 8px rgb(15 42 36 / 0.05);
-  --shadow-2: 0 2px 4px rgb(15 42 36 / 0.05), 0 10px 28px -6px rgb(15 42 36 / 0.16);
-  --shadow-3: 0 4px 10px rgb(15 42 36 / 0.06), 0 28px 60px -18px rgb(15 42 36 / 0.32);
-  --shadow-glow: 0 0 0 1px rgb(144 203 169 / 0.35), 0 18px 50px -12px rgb(144 203 169 / 0.45);
+  /* Profundidade — sombras em camadas */
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.06), 0 2px 8px rgb(0 0 0 / 0.05);
+  --shadow-2: 0 2px 4px rgb(0 0 0 / 0.05), 0 10px 28px -6px rgb(0 0 0 / 0.16);
+  --shadow-3: 0 4px 10px rgb(0 0 0 / 0.06), 0 28px 60px -18px rgb(0 0 0 / 0.32);
+  --shadow-glow: 0 0 0 1px rgb(255 122 26 / 0.35), 0 18px 50px -12px rgb(255 122 26 / 0.45);
 
   /* Movimento (direção "Sedance 2.5": curvas naturais, sem exagero) */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -75,8 +78,8 @@
   --t-slow: 560ms;
   --t-reveal: 900ms;
 
-  --focus: 0 0 0 3px var(--paper), 0 0 0 5px var(--green-700);
-  --focus-dark: 0 0 0 3px var(--green-900), 0 0 0 5px var(--mint-300);
+  --focus: 0 0 0 3px var(--paper), 0 0 0 5px var(--accent-500);
+  --focus-dark: 0 0 0 3px var(--dark-900), 0 0 0 5px var(--accent-300);
 
   color-scheme: light;
 }

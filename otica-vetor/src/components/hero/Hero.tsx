@@ -17,7 +17,7 @@ const HeroScene = lazy(() => import('../../three/HeroScene'));
 const TITLE = 'Encontre a armação que combina com você.';
 
 export function Hero() {
-  const [finish, setFinish] = useState<FinishKey>('verde');
+  const [finish, setFinish] = useState<FinishKey>('laranja');
   const [load3d, setLoad3d] = useState(false);
   const [ready, setReady] = useState(false);
   const [active, setActive] = useState(true);
@@ -155,7 +155,7 @@ export function Hero() {
             {poster.avif && <source srcSet={poster.avif} type="image/avif" />}
             <img
               src={poster.webp}
-              alt="Armação 3D ilustrativa em acetato verde, suspensa no ar"
+              alt="Armação 3D ilustrativa em acetato laranja, suspensa no ar"
               width={1200}
               height={900}
               fetchPriority="high"

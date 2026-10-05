@@ -57,7 +57,7 @@ Todo o conteúdo fica centralizado em `src/data/` e `src/config/` — não é pr
 | Horários                                        | `src/data/hours.ts` |
 | Sobre, diferenciais, galeria, FAQ               | `src/data/content.ts` |
 | Formulário de contato, retirada/entrega, API do catálogo | `src/config/site.ts` (+ `.env`) |
-| Cores, fontes, espaçamentos, curvas de animação | `src/styles/tokens.css` |
+| Cores (laranja, preto e branco), fontes, espaçamentos, curvas de animação | `src/styles/tokens.css` |
 | Logotipo (provisório)                           | `src/components/ui/Logo.tsx` e `public/favicon.svg` |
 | Acabamentos do 3D do hero                       | `src/three/finishes.ts` |
 
@@ -149,7 +149,7 @@ Em `src/data/content.ts`:
 - **Hero:** armação 3D procedural (montada por código, sem arquivos pesados): aros chanfrados, ponte,
   dobradiças e hastes que se abrem na entrada; lentes com reflexo de antirreflexo; iluminação de estúdio
   gerada em tempo real. Segue o mouse, gira ao arrastar (com inércia), flutua e inclina com a rolagem.
-  Os botões de acabamento (verde, tartaruga, cristal, preto) trocam o material — são **ilustrativos**.
+  Os botões de acabamento (laranja, tartaruga, cristal, preto) trocam o material — são **ilustrativos**.
 - **Carregamento sob demanda:** o Three.js (~250 kB gzip) só é baixado depois da primeira pintura,
   quando o palco está na tela. Em celulares e aparelhos modestos, só depois da primeira interação
   (toque/rolagem); até lá aparece a imagem estática gerada da própria cena. A cena pausa fora da tela,
@@ -217,5 +217,5 @@ Nada abaixo foi inventado — tudo está marcado como pendente no código.
 | FAQ | Pagamento, retirada, entrega, lentes de grau, disponibilidade. |
 | Retirada/entrega | Não confirmadas — pergunta oculta na finalização. |
 | Formulário de contato | Sem backend — oculto. |
-| Logotipo e identidade | Assinatura e paleta provisórias (briefing). Trocar se houver identidade oficial. |
+| Logotipo e identidade | Assinatura provisória e paleta laranja/preto/branco. Trocar se houver identidade oficial. |
 | Domínio | `SITE_URL` vazio — sem sitemap/canonical até definir. |

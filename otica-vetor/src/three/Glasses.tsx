@@ -47,7 +47,7 @@ export function Glasses({ finish, quality, unfold }: Props) {
 
   const mats = useMemo(() => {
     const frame = new THREE.MeshPhysicalMaterial({
-      color: '#2a6656',
+      color: '#ff6b00',
       roughness: 0.22,
       metalness: 0,
       clearcoat: 1,
@@ -56,7 +56,7 @@ export function Glasses({ finish, quality, unfold }: Props) {
       envMapIntensity: 1.25,
     });
     const lens = new THREE.MeshPhysicalMaterial({
-      color: '#e8f5ee',
+      color: '#f5f5f5',
       transparent: true,
       opacity: 0.1,
       roughness: 0.02,
@@ -70,11 +70,11 @@ export function Glasses({ finish, quality, unfold }: Props) {
       depthWrite: false,
       side: THREE.DoubleSide,
     });
-    const metal = new THREE.MeshStandardMaterial({ color: '#cfd8d3', metalness: 1, roughness: 0.22, envMapIntensity: 1.4 });
+    const metal = new THREE.MeshStandardMaterial({ color: '#d4d4d4', metalness: 1, roughness: 0.22, envMapIntensity: 1.4 });
     return { frame, lens, metal };
   }, [tex]);
 
-  const targetColor = useRef(new THREE.Color('#2a6656'));
+  const targetColor = useRef(new THREE.Color('#ff6b00'));
 
   // aplica o acabamento escolhido
   useEffect(() => {
@@ -87,8 +87,8 @@ export function Glasses({ finish, quality, unfold }: Props) {
     m.roughness = 0.22;
     m.clearcoat = 1;
     switch (finish) {
-      case 'verde':
-        targetColor.current.set('#2a6656');
+      case 'laranja':
+        targetColor.current.set('#ff6b00');
         break;
       case 'tartaruga':
         targetColor.current.set('#ffffff');
@@ -96,7 +96,7 @@ export function Glasses({ finish, quality, unfold }: Props) {
         m.roughness = 0.18;
         break;
       case 'cristal':
-        targetColor.current.set('#eef8f2');
+        targetColor.current.set('#f7f7f7');
         m.roughness = 0.06;
         if (quality === 'full') {
           m.transmission = 0.94;

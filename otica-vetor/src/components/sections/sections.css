@@ -21,13 +21,13 @@
   width: 20px;
   height: 20px;
   flex: none;
-  color: var(--green-700);
+  color: var(--accent-500);
   margin-top: 2px;
 }
 .pcard-skeleton {
   aspect-ratio: 3 / 4;
   border-radius: var(--r-lg);
-  background: linear-gradient(100deg, var(--mint-50) 30%, var(--paper) 50%, var(--mint-50) 70%) 0 0 / 300% 100%;
+  background: linear-gradient(100deg, var(--accent-50) 30%, var(--paper) 50%, var(--accent-50) 70%) 0 0 / 300% 100%;
   animation: shimmer 1.4s linear infinite;
 }
 @keyframes shimmer {
@@ -39,7 +39,7 @@
 /* ───────── Sobre ───────── */
 .about {
   background:
-    radial-gradient(60% 50% at 0% 50%, var(--mint-50), transparent 70%),
+    radial-gradient(60% 50% at 0% 50%, var(--accent-50), transparent 70%),
     var(--white);
 }
 .about__grid {
@@ -88,7 +88,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1.5px dashed var(--mint-400);
+  border: 1.5px dashed var(--accent-400);
   opacity: 0.6;
   transform: translateZ(-30px);
   animation: spin 70s linear infinite;
@@ -115,7 +115,7 @@
 .about__card svg {
   width: 22px;
   height: 22px;
-  color: var(--green-700);
+  color: var(--accent-500);
   flex: none;
 }
 .about__card--a {
@@ -210,8 +210,8 @@
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(50% 60% at 100% 0%, rgb(144 203 169 / 0.16), transparent),
-    radial-gradient(40% 50% at 0% 100%, rgb(45 110 94 / 0.4), transparent);
+    radial-gradient(50% 60% at 100% 0%, rgb(255 122 26 / 0.16), transparent),
+    radial-gradient(40% 50% at 0% 100%, rgb(255 107 0 / 0.14), transparent);
 }
 .diff__grid {
   display: grid;
@@ -244,7 +244,7 @@
   font-weight: 600;
   line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 1px var(--mint-300);
+  -webkit-text-stroke: 1px var(--accent-300);
   margin-bottom: 12px;
 }
 .diff h3 {
@@ -255,11 +255,11 @@
   color: var(--on-dark-2);
 }
 .diff--pending {
-  box-shadow: inset 0 0 0 1.5px rgb(255 196 92 / 0.55);
-  background: rgb(255 196 92 / 0.06);
+  box-shadow: inset 0 0 0 1.5px rgb(143 179 255 / 0.55);
+  background: rgb(143 179 255 / 0.06);
 }
 .diff--pending .pending-tag {
-  color: #ffc45c;
+  color: #8fb3ff;
 }
 
 /* ───────── Galeria ───────── */
@@ -279,7 +279,7 @@
   position: relative;
   border-radius: var(--r-lg);
   overflow: hidden;
-  background: linear-gradient(180deg, #f3f7f5, #e8f1ec);
+  background: linear-gradient(180deg, #f6f6f6, #ececec);
 }
 .gallery__tile--0,
 .gallery__tile--3 {
@@ -324,7 +324,7 @@
   gap: 2px;
   padding: 10px 12px;
   border-radius: var(--r-md);
-  background: rgb(10 29 24 / 0.72);
+  background: rgb(10 10 10 / 0.72);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: var(--on-dark);
@@ -340,7 +340,7 @@
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--mint-300);
+  color: var(--accent-300);
   font-size: 0.66rem;
 }
 .gallery__tile button:hover .gallery__cap,
@@ -367,7 +367,7 @@
 
 /* Lightbox */
 .lightbox .modal__panel {
-  background: rgb(6 18 15 / 0.96);
+  background: rgb(8 8 8 / 0.96);
   color: var(--on-dark);
   box-shadow: none;
 }
@@ -404,7 +404,7 @@
   color: var(--on-dark-2);
 }
 .lightbox__figure figcaption span {
-  color: var(--mint-300);
+  color: var(--accent-300);
   font-weight: 800;
   font-variant-numeric: tabular-nums;
 }
@@ -485,7 +485,7 @@
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--green-600);
+  color: var(--accent-700);
 }
 .faq__q {
   grid-column: 1;
@@ -502,8 +502,8 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--mint-100);
-  color: var(--green-800);
+  background: var(--accent-100);
+  color: var(--dark-800);
   transition: transform var(--t-med) var(--ease-spring);
 }
 .faq__icon svg {
@@ -542,7 +542,7 @@
   min-height: 340px;
   border-radius: var(--r-xl);
   overflow: hidden;
-  background: var(--mint-50);
+  background: var(--accent-50);
   box-shadow: var(--shadow-2), inset 0 0 0 1px var(--line);
 }
 .location__map iframe {
@@ -560,7 +560,7 @@
   justify-items: center;
   gap: 10px;
   padding: 24px;
-  background: linear-gradient(160deg, #e6f2eb, #d4e9dd);
+  background: linear-gradient(160deg, #f3eee9, #e8e0d8);
 }
 .map-facade__art {
   position: absolute;
@@ -575,14 +575,14 @@
   transform: translate(-50%, -100%);
   display: grid;
   place-items: center;
-  color: var(--green-800);
+  color: var(--dark-800);
 }
 .map-facade__pin svg {
   width: 52px;
   height: 52px;
   fill: var(--paper);
   stroke-width: 1.6;
-  filter: drop-shadow(0 8px 10px rgb(15 42 36 / 0.3));
+  filter: drop-shadow(0 8px 10px rgb(0 0 0 / 0.3));
   animation: pin-bob 2.6s var(--ease-in-out) infinite;
 }
 .map-facade__pin span {
@@ -591,7 +591,7 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  border: 2px solid var(--green-700);
+  border: 2px solid var(--accent-500);
   transform: scaleY(0.4);
   animation: pin-wave 2.6s var(--ease-out) infinite;
 }
@@ -693,17 +693,17 @@
   font-weight: 700;
 }
 .hours tr.is-today {
-  background: var(--mint-50);
+  background: var(--accent-50);
 }
 .hours tr.is-today th,
 .hours tr.is-today td {
-  color: var(--green-800);
+  color: var(--dark-800);
 }
 .hours__today {
   margin-left: 8px;
   padding: 1px 8px;
   border-radius: var(--r-pill);
-  background: var(--green-800);
+  background: var(--dark-800);
   color: var(--white);
   font-size: 0.66rem;
   font-weight: 800;
@@ -729,8 +729,8 @@
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(45% 60% at 90% 10%, rgb(144 203 169 / 0.18), transparent),
-    linear-gradient(180deg, var(--green-900), var(--green-800));
+    radial-gradient(45% 60% at 90% 10%, rgb(255 122 26 / 0.18), transparent),
+    linear-gradient(180deg, var(--dark-900), var(--dark-800));
 }
 .contact__grid {
   display: grid;
@@ -755,7 +755,7 @@
 .ccard[data-tilting] {
   transition-duration: 120ms;
   box-shadow:
-    inset 0 0 0 1px rgb(144 203 169 / 0.4),
+    inset 0 0 0 1px rgb(255 122 26 / 0.4),
     0 24px 50px -20px rgb(0 0 0 / 0.5);
 }
 .ccard__icon {
@@ -765,11 +765,11 @@
   height: 48px;
   margin-bottom: 10px;
   border-radius: 14px;
-  background: var(--mint-300);
-  color: var(--green-950);
+  background: var(--accent-300);
+  color: var(--dark-950);
   box-shadow:
     inset 0 -3px 0 rgb(0 0 0 / 0.12),
-    0 10px 20px -8px rgb(144 203 169 / 0.6);
+    0 10px 20px -8px rgb(255 122 26 / 0.6);
 }
 .ccard__icon svg {
   width: 24px;
@@ -781,7 +781,7 @@
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--mint-300);
+  color: var(--accent-300);
 }
 .ccard__value {
   font-family: var(--f-display);
@@ -809,7 +809,7 @@
   margin-top: auto;
   padding-top: 10px;
   font-weight: 700;
-  color: var(--mint-200);
+  color: var(--accent-200);
   text-decoration: none;
 }
 .ccard__link svg {
@@ -846,7 +846,7 @@
 }
 .contact__form .btn {
   justify-self: start;
-  --btn-bg: var(--green-800);
+  --btn-bg: var(--dark-800);
   --btn-fg: var(--white);
 }
 .contact__status--ok {

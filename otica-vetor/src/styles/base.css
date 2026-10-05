@@ -87,8 +87,8 @@ ol[role='list'] {
   box-shadow: var(--focus-dark);
 }
 ::selection {
-  background: var(--mint-300);
-  color: var(--green-950);
+  background: var(--accent-300);
+  color: var(--dark-950);
 }
 
 /* ───────── Utilitários ───────── */
@@ -113,7 +113,7 @@ ol[role='list'] {
   left: 12px;
   z-index: 1000;
   padding: 12px 18px;
-  background: var(--green-800);
+  background: var(--dark-800);
   color: var(--white);
   border-radius: var(--r-sm);
   font-weight: 700;
@@ -129,11 +129,11 @@ ol[role='list'] {
   position: relative;
 }
 .section--dark {
-  background: var(--green-900);
+  background: var(--dark-900);
   color: var(--on-dark);
 }
 .section--tint {
-  background: var(--mint-50);
+  background: var(--surface);
 }
 
 .eyebrow {
@@ -145,7 +145,7 @@ ol[role='list'] {
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--green-700);
+  color: var(--accent-700);
 }
 .eyebrow::before {
   content: '';
@@ -156,7 +156,7 @@ ol[role='list'] {
 }
 .on-dark .eyebrow,
 .section--dark .eyebrow {
-  color: var(--mint-300);
+  color: var(--accent-300);
 }
 
 .section-head {
@@ -175,6 +175,14 @@ ol[role='list'] {
 .section--dark .section-head p {
   color: var(--on-dark-2);
 }
+/* o selo acima do título mantém o próprio estilo dentro do cabeçalho da seção */
+.section-head .eyebrow {
+  font-size: var(--fs-xs);
+  color: var(--accent-700);
+}
+.section--dark .section-head .eyebrow {
+  color: var(--accent-300);
+}
 .section-head--split {
   max-width: none;
   grid-template-columns: 1fr;
@@ -189,9 +197,9 @@ ol[role='list'] {
 
 /* ───────── Botões com profundidade ───────── */
 .btn {
-  --btn-bg: var(--green-800);
+  --btn-bg: var(--dark-800);
   --btn-fg: var(--white);
-  --btn-edge: var(--green-950);
+  --btn-edge: var(--dark-950);
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -213,8 +221,8 @@ ol[role='list'] {
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.16),
     inset 0 -2px 0 rgb(0 0 0 / 0.18),
-    0 1px 2px rgb(15 42 36 / 0.2),
-    0 8px 20px -8px rgb(15 42 36 / 0.45);
+    0 1px 2px rgb(0 0 0 / 0.2),
+    0 8px 20px -8px rgb(0 0 0 / 0.45);
   transition:
     transform var(--t-med) var(--ease-spring),
     box-shadow var(--t-med) var(--ease-out),
@@ -236,8 +244,8 @@ ol[role='list'] {
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 0.18),
       inset 0 -2px 0 rgb(0 0 0 / 0.18),
-      0 2px 4px rgb(15 42 36 / 0.18),
-      0 16px 32px -10px rgb(15 42 36 / 0.5);
+      0 2px 4px rgb(0 0 0 / 0.18),
+      0 16px 32px -10px rgb(0 0 0 / 0.5);
   }
   .btn:hover::after {
     transform: translateX(120%);
@@ -258,29 +266,29 @@ ol[role='list'] {
   flex: none;
 }
 .btn--mint {
-  --btn-bg: var(--mint-300);
-  --btn-fg: var(--green-950);
+  --btn-bg: var(--accent-300);
+  --btn-fg: var(--dark-950);
 }
 .btn--light {
   --btn-bg: var(--paper);
-  --btn-fg: var(--green-900);
+  --btn-fg: var(--dark-900);
 }
 .btn--ghost {
   --btn-bg: transparent;
-  --btn-fg: var(--green-800);
+  --btn-fg: var(--dark-800);
   box-shadow: inset 0 0 0 1.5px var(--line-strong);
 }
 .btn--ghost:hover {
-  box-shadow: inset 0 0 0 1.5px var(--green-800);
+  box-shadow: inset 0 0 0 1.5px var(--dark-800);
 }
 .on-dark .btn--ghost,
 .section--dark .btn--ghost {
   --btn-fg: var(--on-dark);
-  box-shadow: inset 0 0 0 1.5px rgb(184 222 200 / 0.35);
+  box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.35);
 }
 .on-dark .btn--ghost:hover,
 .section--dark .btn--ghost:hover {
-  box-shadow: inset 0 0 0 1.5px var(--mint-300);
+  box-shadow: inset 0 0 0 1.5px var(--accent-300);
 }
 .btn--block {
   width: 100%;
@@ -301,7 +309,7 @@ ol[role='list'] {
     transform var(--t-med) var(--ease-spring);
 }
 .icon-btn:hover {
-  background: rgb(24 63 54 / 0.08);
+  background: rgb(17 17 17 / 0.08);
 }
 .icon-btn:active {
   transform: scale(0.94);
@@ -318,7 +326,7 @@ ol[role='list'] {
   min-height: 44px;
   font-family: var(--f-display);
   font-weight: 600;
-  color: var(--green-800);
+  color: var(--accent-700);
   text-decoration: none;
 }
 .link-arrow svg {
@@ -341,12 +349,12 @@ ol[role='list'] {
   font-weight: 700;
   letter-spacing: 0.04em;
   line-height: 1.3;
-  background: var(--mint-100);
-  color: var(--green-800);
+  background: var(--accent-100);
+  color: var(--dark-800);
 }
 .badge--demo {
-  background: rgb(15 42 36 / 0.86);
-  color: var(--mint-200);
+  background: rgb(0 0 0 / 0.86);
+  color: var(--accent-200);
   backdrop-filter: blur(6px);
 }
 .badge--pending {
@@ -415,7 +423,7 @@ dialog {
   max-height: none;
 }
 dialog::backdrop {
-  background: rgb(10 29 24 / 0.5);
+  background: rgb(10 10 10 / 0.5);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
@@ -423,7 +431,7 @@ dialog::backdrop {
 [data-fx='off'] dialog::backdrop {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  background: rgb(10 29 24 / 0.62);
+  background: rgb(10 10 10 / 0.62);
 }
 body:has(dialog[open]) {
   overflow: hidden;
@@ -459,8 +467,8 @@ textarea.input {
   resize: vertical;
 }
 .input:focus-visible {
-  border-color: var(--green-700);
-  box-shadow: 0 0 0 3px rgb(45 110 94 / 0.22);
+  border-color: var(--accent-500);
+  box-shadow: 0 0 0 3px rgb(255 107 0 / 0.22);
   border-radius: var(--r-sm);
 }
 .input[aria-invalid='true'] {
@@ -486,7 +494,7 @@ textarea.input {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  color: var(--green-800);
+  color: var(--dark-800);
 }
 .qty button:disabled {
   opacity: 0.35;

@@ -20,7 +20,7 @@
   }
 }
 .pm__media {
-  background: linear-gradient(180deg, #f3f7f5, #e6f0eb);
+  background: linear-gradient(180deg, #f6f6f6, #ebebeb);
   padding: clamp(12px, 2vw, 24px);
   display: flex;
   flex-direction: column;
@@ -103,10 +103,10 @@
   gap: 6px;
   padding: 6px 12px 6px 9px;
   border-radius: var(--r-pill);
-  background: var(--mint-50);
+  background: var(--accent-50);
   font-size: var(--fs-xs);
   font-weight: 700;
-  color: var(--green-800);
+  color: var(--dark-800);
 }
 .pm__details svg {
   width: 14px;
@@ -133,7 +133,7 @@
   margin-top: 18px;
   padding: 12px 14px;
   border-radius: var(--r-md);
-  background: var(--mint-50);
+  background: var(--accent-50);
   font-size: var(--fs-xs);
   color: var(--ink-2);
 }
@@ -141,7 +141,7 @@
   width: 18px;
   height: 18px;
   flex: none;
-  color: var(--green-700);
+  color: var(--accent-500);
 }
 .pm__notfound {
   display: grid;
@@ -173,7 +173,7 @@
   font-size: var(--fs-xs);
 }
 .pgallery__views button[aria-pressed='true'] {
-  background: var(--green-800);
+  background: var(--dark-800);
   color: var(--white);
 }
 .zoom {
@@ -183,7 +183,7 @@
   aspect-ratio: 5 / 4;
   border-radius: var(--r-lg);
   overflow: hidden;
-  background: radial-gradient(80% 70% at 50% 45%, #fff, #eef4f1);
+  background: radial-gradient(80% 70% at 50% 45%, #fff, #f1f1f1);
   cursor: zoom-in;
   touch-action: pan-y;
   user-select: none;
@@ -232,7 +232,7 @@
   border-radius: 50%;
   background: rgb(255 255 255 / 0.92);
   box-shadow: var(--shadow-1);
-  color: var(--green-800);
+  color: var(--dark-800);
 }
 .zoom__toggle svg {
   width: 20px;
@@ -276,7 +276,7 @@
 }
 .pgallery__thumbs button[aria-pressed='true'] {
   opacity: 1;
-  box-shadow: 0 0 0 2px var(--green-700);
+  box-shadow: 0 0 0 2px var(--accent-500);
 }
 .pgallery__thumbs img {
   width: 100%;
@@ -295,7 +295,7 @@
   min-height: 300px;
   border-radius: var(--r-lg);
   overflow: hidden;
-  background: radial-gradient(80% 70% at 50% 45%, #fff, #e8f0ec);
+  background: radial-gradient(80% 70% at 50% 45%, #fff, #ededed);
 }
 .model-viewer {
   position: absolute;
