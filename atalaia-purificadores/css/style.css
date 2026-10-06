@@ -788,7 +788,11 @@ input[aria-invalid='true']:focus, textarea[aria-invalid='true']:focus { box-shad
 /* =========================================================
    GARANTIA
    ========================================================= */
-.trust { background: linear-gradient(180deg, #fff, var(--blue-50)); }
+/* Fica colada na área de compra: continua o fundo da seção de produtos. */
+#purificadores { padding-bottom: clamp(32px, 4vw, 48px); }
+.trust { padding-top: clamp(8px, 2vw, 16px); background: linear-gradient(180deg, #f8fafc, var(--blue-50)); }
+.trust .section-head { margin-bottom: clamp(20px, 3vw, 32px); }
+.trust .section-head h2 { font-size: clamp(1.4rem, 1.1rem + 1.4vw, 1.9rem); }
 .trust__grid { display: grid; gap: 18px; max-width: 900px; margin-inline: auto; }
 .trust-card {
   position: relative; display: flex; gap: 18px; align-items: flex-start;

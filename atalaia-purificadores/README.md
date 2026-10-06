@@ -144,8 +144,9 @@ ou anos de experiência inventados.
 
 ## Decisões de UX
 
-- **Ordem das seções pensada para o celular:** Apresentação → Promoção → Produtos → WhatsApp → Serviços →
-  Diagnóstico → Área de atendimento → Sobre/Diferenciais → Galeria → Avaliações → Garantia → Contato.
+- **Ordem das seções pensada para o celular:** Apresentação → Promoção → Produtos → Garantia e compra segura →
+  WhatsApp → Serviços → Diagnóstico → Área de atendimento → Sobre/Diferenciais → Galeria → Avaliações → Contato.
+  A garantia fica logo abaixo da área de compra, onde o cliente está decidindo.
   O menu mantém a ordem pedida (Início, Sobre, Purificadores…) e cada link leva à seção correspondente.
 - **Prévia antes do WhatsApp:** compra, serviço e diagnóstico mostram a mensagem completa antes de abrir o
   WhatsApp, com opção de voltar e editar.
