@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+<defs>
+<radialGradient id="r-bg" cx="50%" cy="40%" r="70%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d6e8fa"/></radialGradient>
+<linearGradient id="r-body" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#dfe7ef"/><stop offset=".3" stop-color="#ffffff"/><stop offset=".75" stop-color="#e3eaf1"/><stop offset="1" stop-color="#b9c5d2"/></linearGradient>
+<linearGradient id="r-cap" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1f6fd0"/><stop offset=".35" stop-color="#4b9bf0"/><stop offset="1" stop-color="#0b4f96"/></linearGradient>
+<linearGradient id="r-core" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#cfd8e2"/><stop offset=".5" stop-color="#eef2f6"/><stop offset="1" stop-color="#b6c2cf"/></linearGradient>
+<radialGradient id="r-shadow"><stop offset="0" stop-color="#0a2540" stop-opacity=".28"/><stop offset="1" stop-color="#0a2540" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="600" height="600" fill="url(#r-bg)"/>
+<circle cx="300" cy="290" r="236" fill="#cfe4fa" fill-opacity=".45"/>
+<circle cx="122" cy="140" r="10" fill="#ffffff" fill-opacity=".55" stroke="#7fb6ec" stroke-opacity=".6" stroke-width="1.5"/><circle cx="479" cy="120" r="7" fill="#ffffff" fill-opacity=".55" stroke="#7fb6ec" stroke-opacity=".6" stroke-width="1.5"/><circle cx="496" cy="330" r="12" fill="#ffffff" fill-opacity=".55" stroke="#7fb6ec" stroke-opacity=".6" stroke-width="1.5"/><circle cx="98" cy="380" r="8" fill="#ffffff" fill-opacity=".55" stroke="#7fb6ec" stroke-opacity=".6" stroke-width="1.5"/><circle cx="445" cy="455" r="6" fill="#ffffff" fill-opacity=".55" stroke="#7fb6ec" stroke-opacity=".6" stroke-width="1.5"/><circle cx="137" cy="250" r="5" fill="#ffffff" fill-opacity=".55" stroke="#7fb6ec" stroke-opacity=".6" stroke-width="1.5"/><circle cx="524" cy="230" r="5" fill="#ffffff" fill-opacity=".55" stroke="#7fb6ec" stroke-opacity=".6" stroke-width="1.5"/>
+<ellipse cx="300" cy="498" rx="140" ry="20" fill="url(#r-shadow)"/>
+<rect x="215" y="150" width="170" height="330" rx="26" fill="url(#r-body)" stroke="#b3c0ce" stroke-width="2"/>
+<rect x="232" y="190" width="136" height="10" rx="5" fill="url(#r-core)"/><rect x="232" y="214" width="136" height="10" rx="5" fill="url(#r-core)"/><rect x="232" y="238" width="136" height="10" rx="5" fill="url(#r-core)"/><rect x="232" y="262" width="136" height="10" rx="5" fill="url(#r-core)"/><rect x="232" y="286" width="136" height="10" rx="5" fill="url(#r-core)"/><rect x="232" y="310" width="136" height="10" rx="5" fill="url(#r-core)"/><rect x="232" y="334" width="136" height="10" rx="5" fill="url(#r-core)"/><rect x="232" y="358" width="136" height="10" rx="5" fill="url(#r-core)"/><rect x="232" y="382" width="136" height="10" rx="5" fill="url(#r-core)"/><rect x="232" y="406" width="136" height="10" rx="5" fill="url(#r-core)"/><rect x="232" y="430" width="136" height="10" rx="5" fill="url(#r-core)"/>
+<rect x="205" y="120" width="190" height="52" rx="18" fill="url(#r-cap)"/>
+<rect x="205" y="452" width="190" height="44" rx="18" fill="url(#r-cap)"/>
+<rect x="272" y="92" width="56" height="34" rx="10" fill="#0b4f96"/>
+<rect x="282" y="82" width="36" height="16" rx="6" fill="#4b9bf0"/>
+<rect x="222" y="132" width="10" height="28" rx="5" fill="#ffffff" fill-opacity=".45"/>
+<rect x="228" y="176" width="10" height="268" rx="5" fill="#ffffff" fill-opacity=".7"/>
+</svg>
