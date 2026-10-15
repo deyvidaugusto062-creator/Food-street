@@ -153,6 +153,15 @@ export class GLProcessor {
     this.srcTex = this.makeTex();
     this.curvesTex = this.makeTex();
     this.lutTex = gl.createTexture()!;
+    // Texturas neutras para que os samplers de curvas (unit 1) e LUT 3D (unit 2) sempre apontem
+    // para unidades e tipos válidos — senão o WebGL2 recusa o draw (INVALID_OPERATION).
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, this.curvesTex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]));
+    gl.activeTexture(gl.TEXTURE2);
+    gl.bindTexture(gl.TEXTURE_3D, this.lutTex);
+    gl.texImage3D(gl.TEXTURE_3D, 0, gl.RGBA8, 1, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]));
+    gl.activeTexture(gl.TEXTURE0);
     gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
     gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE);
   }
@@ -313,6 +322,8 @@ export class GLProcessor {
       u.f('uWhites', val('whites'));
       u.f('uGamma', Math.max(0.2, val('gamma')));
       const curves = c?.curves && hasCurves(c.curves) ? c.curves : null;
+      u.i('uCurves', 1);
+      u.i('uLut', 2);
       u.i('uUseCurves', curves ? 1 : 0);
       if (curves) {
         const r = curveTable(curves.r);
@@ -324,7 +335,6 @@ export class GLProcessor {
         gl.activeTexture(gl.TEXTURE1);
         gl.bindTexture(gl.TEXTURE_2D, this.curvesTex);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 256, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
-        u.i('uCurves', 1);
       }
       const hsl = c?.hsl?.some((b) => b.hueShift || b.saturation || b.luminance) ? c.hsl : null;
       u.i('uUseHsl', hsl ? 1 : 0);
@@ -337,12 +347,16 @@ export class GLProcessor {
       u.i('uUseLut', useLut ? 1 : 0);
       if (useLut) {
         this.uploadLut(p.lut!);
-        u.i('uLut', 2);
         u.f('uLutSize', p.lut!.size);
         u.f('uLutIntensity', c!.lutIntensity ?? 1);
       }
+      gl.activeTexture(gl.TEXTURE1);
+      gl.bindTexture(gl.TEXTURE_2D, this.curvesTex);
+      gl.activeTexture(gl.TEXTURE2);
+      gl.bindTexture(gl.TEXTURE_3D, this.lutTex);
       this.bindTex(0, this.srcTex);
       this.draw(cur, w, h);
+      this.checkError('cor');
     }
 
     // Passadas de efeitos.
@@ -451,9 +465,20 @@ export class GLProcessor {
       gl.bindFramebuffer(gl.FRAMEBUFFER, null);
       gl.clear(gl.COLOR_BUFFER_BIT);
       this.draw(null, w, h);
+      this.checkError('saída');
       this.release(cur);
     }
     return this.canvas;
+  }
+
+  private reported = false;
+  private checkError(stage: string): void {
+    if (this.reported) return;
+    const err = this.gl.getError();
+    if (err !== this.gl.NO_ERROR) {
+      this.reported = true;
+      console.error(`WebGL: erro ${err} na passada "${stage}"`);
+    }
   }
 
   /** Desfoque simples de uma imagem inteira (usado pela transição "blur"). */

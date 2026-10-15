@@ -538,7 +538,7 @@ export function Timeline({ compact = false }: { compact?: boolean }) {
                       <button
                         key={t.id}
                         className={cx(
-                          'absolute top-1/2 z-20 h-5 -translate-y-1/2 rounded-md border text-[9px] font-semibold uppercase tracking-wide',
+                          'absolute bottom-[5px] z-20 h-3.5 rounded border text-[8px] font-semibold leading-none',
                           selectedTransition === t.id ? 'border-white bg-accent text-white' : 'border-accent/70 bg-accent/40 text-white hover:bg-accent/70',
                         )}
                         style={{ left: x0, width: Math.max(10, t.duration * ppf) }}
