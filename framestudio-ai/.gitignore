@@ -1,0 +1,15 @@
+node_modules
+dist
+*.local
+.DS_Store
+.vite
+test-results
+playwright-report
+tests/fixtures/*.webm
+tests/fixtures/*.mp4
+tests/fixtures/*.wav
+tests/fixtures/*.png
+tests/fixtures/*.mov
+tests/out
+*.tsbuildinfo
+apps/desktop/src-tauri/target

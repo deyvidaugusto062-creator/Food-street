@@ -1,0 +1,186 @@
+@import 'tailwindcss';
+@source '../../../packages/ui/src';
+
+@theme inline {
+  --color-bg: var(--fs-bg);
+  --color-bg-2: var(--fs-bg-2);
+  --color-panel: var(--fs-panel);
+  --color-panel-2: var(--fs-panel-2);
+  --color-panel-3: var(--fs-panel-3);
+  --color-line: var(--fs-line);
+  --color-fg: var(--fs-fg);
+  --color-fg-muted: var(--fs-fg-muted);
+  --color-fg-subtle: var(--fs-fg-subtle);
+  --color-accent: #8257ff;
+  --color-accent-hover: #9572ff;
+  --color-accent-soft: var(--fs-accent-soft);
+  --color-blue: #4f8cff;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f05252;
+  --color-clip-video: var(--fs-clip-video);
+  --color-clip-audio: var(--fs-clip-audio);
+  --color-clip-text: var(--fs-clip-text);
+  --color-clip-caption: var(--fs-clip-caption);
+  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Roboto Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+  --fs-bg: #101014;
+  --fs-bg-2: #19191f;
+  --fs-panel: #19191f;
+  --fs-panel-2: #222229;
+  --fs-panel-3: #2c2c35;
+  --fs-line: #2e2e38;
+  --fs-fg: #f5f5f7;
+  --fs-fg-muted: #a1a1aa;
+  --fs-fg-subtle: #71717a;
+  --fs-accent-soft: #b39cff;
+  --fs-clip-video: #3b2f7a;
+  --fs-clip-audio: #1d4f4a;
+  --fs-clip-text: #6b3a7a;
+  --fs-clip-caption: #7a5a1d;
+  --fs-checker: #1c1c22;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+  --fs-bg: #f4f4f6;
+  --fs-bg-2: #ffffff;
+  --fs-panel: #ffffff;
+  --fs-panel-2: #f1f1f4;
+  --fs-panel-3: #e4e4ea;
+  --fs-line: #dcdce3;
+  --fs-fg: #17171c;
+  --fs-fg-muted: #52525b;
+  --fs-fg-subtle: #8a8a94;
+  --fs-accent-soft: #6a3df5;
+  --fs-clip-video: #c9bcff;
+  --fs-clip-audio: #a5e3d8;
+  --fs-clip-text: #ebc2f2;
+  --fs-clip-caption: #f6dca3;
+  --fs-checker: #e7e7ec;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--fs-bg);
+  color: var(--fs-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--fs-panel-3) transparent;
+}
+
+::selection {
+  background: rgb(130 87 255 / 0.35);
+}
+
+.fs-checker {
+  background-color: var(--fs-checker);
+  background-image:
+    linear-gradient(45deg, rgb(255 255 255 / 0.03) 25%, transparent 25%),
+    linear-gradient(-45deg, rgb(255 255 255 / 0.03) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgb(255 255 255 / 0.03) 75%),
+    linear-gradient(-45deg, transparent 75%, rgb(255 255 255 / 0.03) 75%);
+  background-size: 16px 16px;
+}
+
+@keyframes fs-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fs-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fs-dialog-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+@keyframes fs-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fs-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+.fs-pop {
+  animation: fs-pop-in 140ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.fs-fade {
+  animation: fs-fade-in 160ms ease-out;
+}
+.fs-dialog {
+  animation: fs-dialog-in 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.fs-toast,
+.fs-sheet {
+  animation: fs-slide-up 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.fs-indeterminate {
+  animation: fs-indeterminate 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* Inputs de range nativos usados em controles compactos. */
+input[type='range'].fs-range {
+  accent-color: #8257ff;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}

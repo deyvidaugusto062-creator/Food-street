@@ -1,0 +1,44 @@
+{
+  "name": "@framestudio/web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173 --strictPort"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/montserrat": "^5.3.0",
+    "@fontsource-variable/oswald": "^5.3.0",
+    "@fontsource-variable/playfair-display": "^5.3.0",
+    "@fontsource-variable/roboto-mono": "^5.3.0",
+    "@fontsource/anton": "^5.3.0",
+    "@fontsource/bebas-neue": "^5.3.0",
+    "@fontsource/permanent-marker": "^5.3.0",
+    "@fontsource/poppins": "^5.3.0",
+    "@framestudio/ai-engine": "*",
+    "@framestudio/audio-engine": "*",
+    "@framestudio/editor-core": "*",
+    "@framestudio/media-engine": "*",
+    "@framestudio/project-storage": "*",
+    "@framestudio/render-engine": "*",
+    "@framestudio/shared": "*",
+    "@framestudio/timeline": "*",
+    "@framestudio/ui": "*",
+    "lucide-react": "^1.57.0",
+    "radix-ui": "^1.8.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.4"
+  }
+}
