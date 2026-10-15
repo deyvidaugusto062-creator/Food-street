@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Button, Dialog, Panel, ResizeHandle, Spinner, toast } from '@framestudio/ui';
 import { errorMessage, type MediaAsset, type Project } from '@framestudio/shared';
 import { ACCEPT_ATTRIBUTE } from '@framestudio/media-engine';
-import { useEditor } from '../../state/editor.ts';
+import { setThumbnailProvider, useEditor } from '../../state/editor.ts';
 import { repo } from '../../services/repo.ts';
 import { bindProject, processAsset, relinkAsset, releaseMediaCaches } from '../../services/media.ts';
 import { useSettings } from '../../services/settings.ts';
@@ -24,6 +24,7 @@ import { SettingsDialog } from '../common/SettingsDialog.tsx';
 import { MobileEditor } from '../mobile/MobileEditor.tsx';
 
 bindProject(() => useEditor.getState().project);
+setThumbnailProvider(() => preview.snapshot());
 
 // Gancho somente-leitura para testes automatizados e depuração.
 (window as unknown as { __framestudio: unknown }).__framestudio = { editor: useEditor };
@@ -69,10 +70,9 @@ export default function EditorPage({ projectId }: { projectId: string }) {
       alive = false;
       // Captura a miniatura antes de fechar.
       void (async () => {
-        const thumb = await preview.snapshot().catch(() => null);
+        await Promise.resolve();
         // Uma nova montagem (ex.: StrictMode) já assumiu o editor: não fecha.
         if (myGen !== generation) return;
-        if (thumb) useEditor.getState().dispatch({ type: 'project.update', patch: { thumbnail: thumb } }, { silent: true });
         await useEditor.getState().close();
         if (myGen === generation) releaseMediaCaches();
       })();

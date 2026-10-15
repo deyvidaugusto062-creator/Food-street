@@ -1,5 +1,21 @@
-/** Baixa um blob como arquivo. */
+/** Executando dentro do app desktop (Tauri)? */
+export function isDesktopApp(): boolean {
+  return typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window;
+}
+
+/** No desktop, grava pelo diálogo nativo do sistema (retorna o caminho, ou null se cancelado). */
+export async function saveWithNativeDialog(blob: Blob, fileName: string): Promise<string | null> {
+  const { invoke } = await import('@tauri-apps/api/core');
+  const bytes = new Uint8Array(await blob.arrayBuffer());
+  return invoke<string | null>('save_file', bytes, { headers: { 'x-file-name': fileName } });
+}
+
+/** Baixa um blob como arquivo (ou abre o diálogo nativo no app desktop). */
 export function downloadBlob(blob: Blob, fileName: string): void {
+  if (isDesktopApp()) {
+    void saveWithNativeDialog(blob, fileName).catch((e) => console.error('Falha ao salvar', e));
+    return;
+  }
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;

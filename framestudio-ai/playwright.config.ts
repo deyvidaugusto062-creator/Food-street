@@ -19,7 +19,7 @@ export default defineConfig({
   },
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } }, testIgnore: /mobile/ },
-    { name: 'mobile', use: { ...devices['Pixel 7'] }, testMatch: /mobile/ },
+    { name: 'mobile', use: { ...devices['Pixel 7'] }, testMatch: /mobile|screens/ },
   ],
   webServer: {
     command: 'npm run build && npm run preview',

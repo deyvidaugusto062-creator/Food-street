@@ -326,6 +326,7 @@ export function Select<T extends string>({
   ariaLabel,
   className,
   disabled,
+  placeholder,
 }: {
   value: T;
   onChange: (v: T) => void;
@@ -333,9 +334,12 @@ export function Select<T extends string>({
   ariaLabel?: string;
   className?: string;
   disabled?: boolean;
+  /** Texto exibido quando `value` é vazio (o Radix não aceita itens com valor ""). */
+  placeholder?: string;
 }) {
+  const items = options.filter((o) => o.value !== '');
   return (
-    <RSelect.Root value={value} onValueChange={(v) => onChange(v as T)} disabled={disabled}>
+    <RSelect.Root value={value === '' ? undefined : value} onValueChange={(v) => onChange(v as T)} disabled={disabled}>
       <RSelect.Trigger
         aria-label={ariaLabel}
         className={cx(
@@ -343,7 +347,7 @@ export function Select<T extends string>({
           className,
         )}
       >
-        <RSelect.Value />
+        <RSelect.Value placeholder={<span className="text-fg-subtle">{placeholder ?? options.find((o) => o.value === '')?.label ?? 'Selecionar…'}</span>} />
         <RSelect.Icon>
           <ChevronDown size={14} className="text-fg-subtle" />
         </RSelect.Icon>
@@ -351,7 +355,7 @@ export function Select<T extends string>({
       <RSelect.Portal>
         <RSelect.Content position="popper" sideOffset={4} className="fs-pop z-[120] max-h-80 min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-lg border border-line bg-panel-2 shadow-xl">
           <RSelect.Viewport className="p-1">
-            {options.map((o) => (
+            {items.map((o) => (
               <RSelect.Item
                 key={o.value}
                 value={o.value}

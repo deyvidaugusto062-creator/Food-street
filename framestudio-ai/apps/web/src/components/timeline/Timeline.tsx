@@ -28,7 +28,7 @@ import * as A from '../../lib/actions.ts';
 import { dragState } from '../../lib/dnd.ts';
 import { TimelineClip } from './TimelineClip.tsx';
 
-export const HEADER_W = 168;
+export const HEADER_W = 196;
 const RULER_H = 28;
 const SNAP_PX = 8;
 
@@ -647,7 +647,7 @@ function TrackHeader({ track, project, height, width, compact }: { track: Track;
   const kindColor = track.kind === 'audio' ? 'bg-clip-audio' : track.kind === 'text' ? 'bg-clip-text' : track.kind === 'caption' ? 'bg-clip-caption' : 'bg-clip-video';
   return (
     <ContextMenu items={items}>
-      <div className="sticky left-0 z-20 flex shrink-0 items-center gap-1 border-b border-r border-line bg-panel pl-2 pr-1" style={{ width, height }}>
+      <div className="sticky left-0 z-20 flex shrink-0 items-center gap-1 overflow-hidden border-b border-r border-line bg-panel pl-2 pr-1" style={{ width, height }}>
         <div className={cx('h-6 w-1 rounded-full', kindColor)} />
         {!compact && (
           <span className="min-w-0 flex-1 truncate text-[11px] font-medium text-fg-muted" title={track.name}>
@@ -662,14 +662,16 @@ function TrackHeader({ track, project, height, width, compact }: { track: Track;
             {track.hidden ? <EyeOff size={12} /> : <Eye size={12} />}
           </IconButton>
         )}
-        {(track.kind === 'audio' || track.kind === 'video') && (
+        {(track.kind === 'audio' || (track.kind === 'video' && !compact)) && (
           <>
             <IconButton label={track.muted ? 'Ativar som' : 'Silenciar faixa'} size="sm" active={track.muted} onClick={() => upd({ muted: !track.muted })} className="size-6">
               {track.muted ? <VolumeX size={12} /> : <Volume2 size={12} />}
             </IconButton>
-            <IconButton label="Solo" size="sm" active={track.solo} onClick={() => upd({ solo: !track.solo })} className="size-6 text-[10px] font-bold">
-              S
-            </IconButton>
+            {!compact && (
+              <IconButton label="Solo" size="sm" active={track.solo} onClick={() => upd({ solo: !track.solo })} className="size-6 text-[10px] font-bold">
+                S
+              </IconButton>
+            )}
           </>
         )}
       </div>

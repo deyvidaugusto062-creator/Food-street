@@ -54,6 +54,12 @@ export interface EditorState {
 
 const history = new History();
 
+let thumbnailProvider: (() => Promise<string | null>) | null = null;
+/** Registra quem gera a miniatura do projeto ao fechar (o motor de preview). */
+export function setThumbnailProvider(fn: (() => Promise<string | null>) | null): void {
+  thumbnailProvider = fn;
+}
+
 const autosaver = new Autosaver({
   debounceMs: 1500,
   save: async (p) => {
@@ -104,8 +110,11 @@ export const useEditor = create<EditorState>((set, get) => ({
   },
 
   async close() {
-    const { project, savedProject } = get();
     autosaver.cancel();
+    // Miniatura do projeto a partir do quadro atual do preview.
+    const thumb = await thumbnailProvider?.().catch(() => null);
+    if (thumb && get().project) set({ project: { ...get().project!, thumbnail: thumb } });
+    const { project, savedProject } = get();
     if (project && project !== savedProject) {
       try {
         await repo.save(project);

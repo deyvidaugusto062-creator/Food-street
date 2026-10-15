@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "FrameStudio AI",
+  "version": "0.1.0",
+  "identifier": "ai.framestudio.desktop",
+  "build": {
+    "frontendDist": "../../web/dist",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "npm run dev --prefix ../..",
+    "beforeBuildCommand": "npm run build --prefix ../.."
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "FrameStudio AI",
+        "width": 1440,
+        "height": 900,
+        "minWidth": 960,
+        "minHeight": 600,
+        "resizable": true,
+        "dragDropEnabled": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' blob: data:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; connect-src 'self' blob: ipc: http://ipc.localhost https://huggingface.co https://*.huggingface.co https://*.hf.co https://api.anthropic.com"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["deb", "appimage", "msi", "nsis", "dmg", "app"],
+    "category": "Video",
+    "shortDescription": "Editor de vídeo com IA local",
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"]
+  }
+}

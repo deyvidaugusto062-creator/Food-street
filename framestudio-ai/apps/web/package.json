@@ -28,6 +28,7 @@
     "@framestudio/timeline": "*",
     "@framestudio/ui": "*",
     "@huggingface/transformers": "^4.3.1",
+    "@tauri-apps/api": "^2.12.4",
     "lucide-react": "^1.57.0",
     "radix-ui": "^1.8.1",
     "react": "^19.3.1",

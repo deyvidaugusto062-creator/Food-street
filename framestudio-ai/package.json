@@ -6,24 +6,31 @@
   "description": "FrameStudio AI — editor de vídeo profissional, multiplataforma, com IA local.",
   "workspaces": [
     "packages/*",
-    "apps/web"
+    "apps/web",
+    "apps/desktop",
+    "apps/mobile"
   ],
   "scripts": {
     "dev": "npm run dev -w @framestudio/web",
     "build": "npm run build -w @framestudio/web",
     "preview": "npm run preview -w @framestudio/web",
-    "typecheck": "tsc -b",
+    "typecheck": "node scripts/typecheck.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "fixtures": "node scripts/make-fixtures.mjs",
-    "check": "npm run typecheck && npm test"
+    "check": "npm run typecheck && npm test",
+    "desktop:dev": "npm run dev -w @framestudio/desktop",
+    "desktop:build": "npm run build -w @framestudio/desktop",
+    "mobile:sync": "npm run sync -w @framestudio/mobile",
+    "examples": "tsx scripts/make-examples.ts"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1",
     "@types/node": "^22.19.0",
     "fake-indexeddb": "^6.2.5",
     "jsdom": "^30.1.3",
+    "tsx": "^4.23.15",
     "typescript": "~5.9.3",
     "vitest": "^5.0.5"
   },

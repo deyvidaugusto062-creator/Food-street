@@ -96,10 +96,10 @@ export function ColorSection({ clip }: { clip: ColorClip }) {
       <HslSection clip={clip} />
       <Section title="LUT" defaultOpen={!!c.lutId}>
         <Select
-          value={c.lutId ?? ''}
-          onChange={(lutId) => upd(clip, { lutId: lutId || undefined, lutIntensity: c.lutIntensity ?? 1 }, 'lut')}
+          value={c.lutId ?? 'none'}
+          onChange={(lutId) => upd(clip, { lutId: lutId === 'none' ? undefined : lutId, lutIntensity: c.lutIntensity ?? 1 }, 'lut')}
           ariaLabel="LUT"
-          options={[{ value: '', label: 'Nenhum' }, ...Object.values(luts).map((l) => ({ value: l.id, label: `${l.name} (${l.size}³)` }))]}
+          options={[{ value: 'none', label: 'Nenhum' }, ...Object.values(luts).map((l) => ({ value: l.id, label: `${l.name} (${l.size}³)` }))]}
         />
         {c.lutId && <Slider label="Intensidade" value={c.lutIntensity ?? 1} min={0} max={1} onChange={(v) => upd(clip, { lutIntensity: v }, 'lut-int')} format={(v) => `${Math.round(v * 100)}%`} />}
         {Object.keys(luts).length === 0 && <p className="text-[11px] text-fg-subtle">Importe arquivos .cube na aba Filtros.</p>}
