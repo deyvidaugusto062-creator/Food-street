@@ -21,6 +21,8 @@ export interface AppSettings {
   snapping: boolean;
   showSafeArea: boolean;
   whisperModel: 'tiny' | 'base' | 'small';
+  /** Servidor de modelos (Hugging Face ou espelho próprio). */
+  modelHost: string;
   ai: AiProviderSettings;
   shortcuts: Record<string, string>;
   layout: { left: number; right: number; timeline: number };
@@ -35,6 +37,7 @@ const DEFAULTS: AppSettings = {
   snapping: true,
   showSafeArea: false,
   whisperModel: 'base',
+  modelHost: 'https://huggingface.co/',
   ai: { enabled: false, provider: 'anthropic', baseUrl: 'https://api.anthropic.com', apiKey: '', model: 'claude-sonnet-5-5' },
   shortcuts: {},
   layout: { left: 320, right: 320, timeline: 300 },

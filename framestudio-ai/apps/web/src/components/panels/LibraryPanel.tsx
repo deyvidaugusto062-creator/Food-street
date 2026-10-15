@@ -16,10 +16,12 @@ import {
   Square,
   Type,
   Upload,
+  Wand2,
 } from 'lucide-react';
 import { Button, ColorInput, DropdownMenu, EmptyState, IconButton, ProgressBar, Spinner, Tabs, TabsContent, TabsList, TabsTrigger, toast, cx } from '@framestudio/ui';
 import { EFFECT_DEFS, TRANSITION_DEFS } from '@framestudio/editor-core';
 import { createAdjustmentClip } from '@framestudio/timeline';
+import { AiStudioPanel } from './AiStudioPanel.tsx';
 import { parseCubeLut } from '@framestudio/render-engine';
 import { ACCEPT_ATTRIBUTE } from '@framestudio/media-engine';
 import { errorMessage, formatDuration, type EffectType, type MediaAsset } from '@framestudio/shared';
@@ -31,7 +33,7 @@ import { dragState } from '../../lib/dnd.ts';
 import { pickFiles } from '../../lib/download.ts';
 import * as A from '../../lib/actions.ts';
 
-type LibTab = 'media' | 'text' | 'audio' | 'elements' | 'effects' | 'transitions' | 'filters';
+type LibTab = 'media' | 'text' | 'audio' | 'elements' | 'effects' | 'transitions' | 'filters' | 'ai';
 
 const TAB_DEFS: { id: LibTab; label: string; icon: React.ReactNode }[] = [
   { id: 'media', label: 'Mídia', icon: <Film size={13} /> },
@@ -41,6 +43,7 @@ const TAB_DEFS: { id: LibTab; label: string; icon: React.ReactNode }[] = [
   { id: 'effects', label: 'Efeitos', icon: <Sparkles size={13} /> },
   { id: 'transitions', label: 'Transições', icon: <Blend size={13} /> },
   { id: 'filters', label: 'Filtros', icon: <Palette size={13} /> },
+  { id: 'ai', label: 'AI Studio', icon: <Wand2 size={13} /> },
 ];
 
 export function LibraryPanel({ missing }: { missing: Set<string> }) {
@@ -85,6 +88,9 @@ export function LibraryTabs({ initial, only, missing }: { initial: LibTab; only?
         </TabsContent>
         <TabsContent value="filters">
           <FiltersTab />
+        </TabsContent>
+        <TabsContent value="ai">
+          <AiStudioPanel />
         </TabsContent>
       </div>
     </Tabs>

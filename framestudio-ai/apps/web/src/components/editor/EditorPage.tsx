@@ -25,6 +25,9 @@ import { MobileEditor } from '../mobile/MobileEditor.tsx';
 
 bindProject(() => useEditor.getState().project);
 
+// Gancho somente-leitura para testes automatizados e depuração.
+(window as unknown as { __framestudio: unknown }).__framestudio = { editor: useEditor };
+
 let generation = 0;
 
 export default function EditorPage({ projectId }: { projectId: string }) {

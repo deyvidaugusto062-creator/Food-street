@@ -11,6 +11,18 @@ export default defineConfig({
     target: 'es2022',
     sourcemap: true,
     chunkSizeWarningLimit: 1500,
+    rolldownOptions: {
+      output: {
+        // Bibliotecas de UI num chunk próprio: garante que o React seja inicializado antes dos
+        // chunks do editor (evita ciclos entre o bundle principal e os chunks sob demanda).
+        advancedChunks: {
+          groups: [
+            { name: 'vendor-react', test: /node_modules[\\/](react|react-dom|scheduler|radix-ui|@radix-ui|lucide-react|zustand|use-sync-external-store)[\\/]/, priority: 20 },
+            { name: 'vendor-media', test: /node_modules[\\/](mediabunny|immer|fflate)[\\/]/, priority: 10 },
+          ],
+        },
+      },
+    },
   },
   worker: { format: 'es' },
 });

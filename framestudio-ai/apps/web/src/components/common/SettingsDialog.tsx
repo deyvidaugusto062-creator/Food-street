@@ -43,6 +43,9 @@ export function SettingsDialog({ open, onOpenChange }: { open: boolean; onOpenCh
               ]}
             />
           </Field>
+          <Field label="Servidor de modelos de IA" hint="Hugging Face por padrão. Pode apontar para um espelho próprio (mesma estrutura de pastas).">
+            <TextInput value={s.modelHost} onChange={(e) => s.set({ modelHost: e.target.value })} />
+          </Field>
         </section>
         <section className="flex flex-col gap-3 rounded-xl border border-line p-4">
           <Switch checked={s.snapping} onChange={(snapping) => s.set({ snapping })} label="Snap magnético na timeline" />

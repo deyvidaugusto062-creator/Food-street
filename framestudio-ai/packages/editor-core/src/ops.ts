@@ -51,6 +51,8 @@ export type EditOp =
   | { type: 'clip.duplicate'; clipIds: Id[] }
   | { type: 'clip.paste'; clips: Clip[]; at: number }
   | { type: 'clip.slip'; clipId: Id; deltaSeconds: number }
+  | { type: 'range.remove'; start: number; end: number; trackIds?: Id[] }
+  | { type: 'clip.replaceAsset'; clipId: Id; assetId: Id }
   | { type: 'clip.speed'; clipId: Id; speed: number }
   | { type: 'clip.freeze'; clipId: Id; frame: number; duration: number }
   | { type: 'clip.detachAudio'; clipId: Id }
@@ -111,6 +113,8 @@ const LABELS: Record<EditOp['type'], string> = {
   'clip.duplicate': 'Duplicar clipe',
   'clip.paste': 'Colar clipes',
   'clip.slip': 'Slip',
+  'range.remove': 'Remover trecho',
+  'clip.replaceAsset': 'Substituir mídia',
   'clip.speed': 'Alterar velocidade',
   'clip.freeze': 'Congelar frame',
   'clip.detachAudio': 'Separar áudio',
@@ -279,6 +283,28 @@ function applyInner(p: Project, op: EditOp, created: Id[]): void {
     case 'clip.slip':
       T.slipClip(p, op.clipId, finite(op.deltaSeconds, 'deslocamento'));
       return;
+    case 'range.remove':
+      T.removeRange(p, finite(op.start, 'início'), finite(op.end, 'fim'), op.trackIds);
+      return;
+    case 'clip.replaceAsset': {
+      const c = requireClip(p, op.clipId);
+      const asset = p.assets[op.assetId];
+      if (!asset) fail('Mídia não encontrada.');
+      if (!('assetId' in c)) fail('Este elemento não usa mídia.');
+      const kind = c.type === 'audio' ? 'audio' : c.type === 'image' ? 'image' : 'video';
+      const compatible = kind === 'audio' ? asset.kind === 'audio' || asset.hasAudio : asset.kind === 'video' || asset.kind === 'image';
+      if (!compatible) fail('Tipo de mídia incompatível com o clipe.');
+      if (c.type === 'image' && asset.kind === 'video') fail('Para trocar uma imagem por vídeo, remova e adicione o novo clipe.');
+      if ((c.type === 'video') && asset.kind === 'image') fail('Para trocar um vídeo por imagem, remova e adicione o novo clipe.');
+      (c as { assetId: string }).assetId = asset.id;
+      c.name = asset.name;
+      if ('sourceIn' in c) {
+        c.sourceIn = 0;
+        c.duration = Math.min(c.duration, T.maxClipDuration(c, asset, p.settings.fps));
+      }
+      T.pruneInvalidTransitions(p);
+      return;
+    }
     case 'clip.speed':
       T.setClipSpeed(p, op.clipId, finite(op.speed, 'velocidade'));
       return;

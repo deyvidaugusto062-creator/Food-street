@@ -16,6 +16,8 @@ import {
   Type,
   Undo2,
   X,
+  Wand2,
+  Captions,
   PencilRuler,
 } from 'lucide-react';
 import { Button, IconButton, cx } from '@framestudio/ui';
@@ -50,10 +52,12 @@ const TOOLS: { id: Exclude<Tool, null>; label: string; icon: ReactNode }[] = [
   { id: 'cut', label: 'Cortar', icon: <Scissors size={20} /> },
   { id: 'audio', label: 'Áudio', icon: <AudioLines size={20} /> },
   { id: 'text', label: 'Texto', icon: <Type size={20} /> },
+  { id: 'captions', label: 'Legendas', icon: <Captions size={20} /> },
   { id: 'effects', label: 'Efeitos', icon: <Sparkles size={20} /> },
   { id: 'filters', label: 'Filtros', icon: <Palette size={20} /> },
   { id: 'speed', label: 'Velocidade', icon: <Gauge size={20} /> },
   { id: 'adjust', label: 'Ajustar', icon: <SlidersHorizontal size={20} /> },
+  { id: 'ai', label: 'AI Studio', icon: <Wand2 size={20} /> },
 ];
 
 export function MobileEditor({ onExport, onSettings, missing }: { onExport: () => void; onSettings: () => void; missing: Set<string> }) {
@@ -228,7 +232,7 @@ function ToolSheet({ tool, clip, missing }: { tool: Exclude<Tool, null>; clip?: 
       return clip && (clip.type === 'text' || clip.type === 'caption') ? <TextSection clip={clip} /> : <LibraryTabs initial="text" only={['text', 'elements']} missing={missing} />;
     case 'captions':
     case 'ai':
-      return <NeedClip>Em breve.</NeedClip>;
+      return <LibraryTabs initial="ai" only={['ai']} missing={missing} />;
     case 'effects':
       return clip && 'effects' in clip ? (
         <>

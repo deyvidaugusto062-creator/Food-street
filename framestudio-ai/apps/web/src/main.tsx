@@ -19,6 +19,3 @@ createRoot(document.getElementById('root')!).render(
 
 registerServiceWorker();
 
-// Ganchos somente-leitura para testes automatizados e depuração.
-import { useEditor } from './state/editor.ts';
-(window as unknown as { __framestudio: unknown }).__framestudio = { editor: useEditor };

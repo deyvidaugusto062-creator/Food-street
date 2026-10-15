@@ -698,3 +698,42 @@ export function setProjectFps(p: Project, fps: number): void {
   p.exportSettings.fps = fps;
   pruneInvalidTransitions(p);
 }
+
+/**
+ * Remove o intervalo [start, end) de todas as faixas desbloqueadas (ou das informadas): divide os
+ * clipes nas bordas, apaga o que está dentro e puxa o restante para a esquerda, mantendo as
+ * faixas sincronizadas. Faixas bloqueadas não são alteradas.
+ */
+export function removeRange(p: Project, start: number, end: number, trackIds?: readonly string[]): number {
+  const s = Math.max(0, Math.round(start));
+  const e = Math.round(end);
+  if (e <= s) fail('Intervalo vazio.');
+  const len = e - s;
+  const tracks = p.tracks.filter((t) => !t.locked && (!trackIds || trackIds.includes(t.id)));
+  const allowed = new Set(tracks.map((t) => t.id));
+  for (const id of Object.keys(p.clips)) {
+    const c = p.clips[id];
+    if (!c || !allowed.has(c.trackId)) continue;
+    if (s > c.start && s < clipEnd(c)) splitClip(p, c.id, s);
+  }
+  for (const id of Object.keys(p.clips)) {
+    const c = p.clips[id];
+    if (!c || !allowed.has(c.trackId)) continue;
+    if (e > c.start && e < clipEnd(c)) splitClip(p, c.id, e);
+  }
+  for (const id of Object.keys(p.clips)) {
+    const c = p.clips[id]!;
+    if (!allowed.has(c.trackId)) continue;
+    if (c.start >= s && clipEnd(c) <= e) {
+      removeTransitionsOf(p, c.id);
+      delete p.clips[id];
+    }
+  }
+  for (const id in p.clips) {
+    const c = p.clips[id]!;
+    if (allowed.has(c.trackId) && c.start >= e) c.start -= len;
+  }
+  for (const m of p.markers) if (m.frame >= e) m.frame -= len;
+  pruneInvalidTransitions(p);
+  return len;
+}
