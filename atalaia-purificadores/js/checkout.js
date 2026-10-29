@@ -81,7 +81,7 @@
 
   function productCard(p) {
     const card = document.createElement('article');
-    card.className = 'product-card reveal';
+    card.className = 'product-card reveal-fill';
     card.dataset.tilt = '';
     card.dataset.tiltMax = '5';
     card.innerHTML = `

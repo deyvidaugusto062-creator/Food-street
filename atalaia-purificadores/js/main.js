@@ -30,45 +30,104 @@
   });
   A.$$('[data-year]').forEach((el) => (el.textContent = new Date().getFullYear()));
 
-  /* ---------- Rolagem: header, barra de leitura, parallax, WhatsApp flutuante ---------- */
+  // Preços citados no texto da história vêm do config.js
+  A.$$('[data-cat-price]').forEach((el) => {
+    const cat = CONFIG.categories[el.dataset.catPrice];
+    if (cat) el.textContent = A.formatBRL(cat.price);
+  });
+
+  /* ---------- Rolagem: header, copo medidor, WhatsApp flutuante ---------- */
   const header = A.$('[data-header]');
-  const progress = A.$('[data-scroll-progress]');
   const waFloat = A.$('.wa-float');
+  const glass = A.$('[data-glass]');
   const mqSmall = window.matchMedia('(max-width: 767px)');
-  const layers = allowFx && window.matchMedia('(min-width: 768px)').matches ? A.$$('[data-parallax]') : [];
+  const darkZones = '.story, .section--dark, .flow-type, .site-footer';
   let lastY = window.scrollY;
   let typing = false;
-  let ticking = false;
+  const requestScroll = A.requestScroll;
 
-  function onScroll() {
-    ticking = false;
+  A.onScroll(() => {
     const y = window.scrollY;
     const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? y / max : 0;
     header.classList.toggle('is-scrolled', y > 24);
-    // Some ao rolar para baixo, volta ao rolar para cima (mais espaço para o conteúdo).
-    const menuOpen = html.classList.contains('menu-open');
-    if (!menuOpen && !header.contains(document.activeElement)) {
+    // Header escuro sobre seções escuras, claro sobre as claras
+    const under = document.elementFromPoint(window.innerWidth / 2, header.offsetHeight + 2);
+    header.classList.toggle('on-dark', !!(under && under.closest(darkZones)));
+    // Some ao rolar para baixo e volta ao rolar para cima
+    if (!html.classList.contains('menu-open') && !header.contains(document.activeElement)) {
       if (y > 480 && y > lastY + 6) header.classList.add('is-hidden');
       else if (y < lastY - 6 || y <= 480) header.classList.remove('is-hidden');
     }
     lastY = y;
-    if (progress) progress.style.setProperty('--sp', max > 0 ? (y / max).toFixed(4) : 0);
-    if (layers.length && y < window.innerHeight * 1.2) {
-      layers.forEach((l) => (l.style.transform = `translate3d(0, ${(y * Number(l.dataset.parallax)).toFixed(1)}px, 0)`));
+    // Copo: enche conforme a leitura; aparece depois da história
+    if (glass) {
+      glass.style.setProperty('--sp', pct.toFixed(4));
+      glass.classList.toggle('is-on', y > 300 && !html.classList.contains('in-story'));
     }
-    // no topo o header já mostra o botão do WhatsApp
     waFloat.classList.toggle('is-hidden', y < 160 || (mqSmall.matches && typing));
-  }
-  const requestScroll = () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(onScroll);
-    }
-  };
-  window.addEventListener('scroll', requestScroll, { passive: true });
-  window.addEventListener('resize', requestScroll, { passive: true });
+  });
   mqSmall.addEventListener('change', requestScroll);
-  onScroll();
+  if (glass) {
+    glass.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: motion ? 'smooth' : 'auto' });
+      A.$('.brand', header).focus({ preventScroll: true });
+    });
+  }
+
+  /* ---------- Efeitos ligados à rolagem (simples, só transform/opacity) ---------- */
+  if (motion) {
+    // Faixa de marca: as duas linhas correm em sentidos opostos conforme a rolagem
+    const flow = A.$('[data-flow]');
+    if (flow) {
+      const rows = A.$$('[data-flow-row]', flow);
+      A.onScroll(() => {
+        const p = A.progressThrough(flow);
+        rows.forEach((row) => {
+          const dir = Number(row.dataset.flowRow);
+          const span = row.scrollWidth - window.innerWidth;
+          const x = dir < 0 ? -p * span * 0.6 : -span * 0.6 + p * span * 0.6;
+          row.style.setProperty('--fx', `${x.toFixed(1)}px`);
+        });
+      });
+    }
+
+    // Como funciona: a água desce pela linha e "molha" cada passo
+    const pipe = A.$('[data-pipe]');
+    if (pipe) {
+      const pipeSteps = A.$$('.pipe__step', pipe);
+      A.onScroll(() => {
+        const r = pipe.getBoundingClientRect();
+        const line = window.innerHeight * 0.62 - r.top; // onde a "água" chegou
+        const fill = Math.max(0, Math.min(1, line / r.height));
+        pipe.style.setProperty('--fill', fill.toFixed(4));
+        pipeSteps.forEach((st) => st.classList.toggle('is-wet', st.offsetTop + 30 < line));
+      });
+    }
+
+    // Serviços: cartões empilham e o de baixo recua levemente
+    const stack = A.$$('.stack__card');
+    stack.forEach((c, i) => c.style.setProperty('--i', i));
+    if (stack.length) {
+      A.onScroll(() => {
+        stack.forEach((card, i) => {
+          const next = stack[i + 1];
+          if (!next) return;
+          const a = card.getBoundingClientRect();
+          const b = next.getBoundingClientRect();
+          const cover = Math.max(0, Math.min(1, 1 - (b.top - a.top) / a.height));
+          card.style.setProperty('--sc', (1 - cover * 0.06).toFixed(4));
+          card.style.setProperty('--br', (1 - cover * 0.4).toFixed(3));
+        });
+      });
+    }
+  } else {
+    const pipe = A.$('[data-pipe]');
+    if (pipe) {
+      pipe.style.setProperty('--fill', 1);
+      A.$$('.pipe__step', pipe).forEach((st) => st.classList.add('is-wet'));
+    }
+  }
 
   // No celular, o WhatsApp flutuante sai da frente enquanto o teclado está aberto.
   document.addEventListener('focusin', (e) => {
@@ -167,27 +226,34 @@
   if (motion) A.$$('[data-split]').forEach(splitWords);
 
   /* ---------- Entradas ao rolar ---------- */
-  const revealEls = A.$$('.reveal, .is-split, [data-steps]');
+  const revealEls = A.$$('.reveal, .reveal-fill, .is-split');
   if (!('IntersectionObserver' in window) || !motion) {
     revealEls.forEach((el) => el.classList.add('is-visible'));
   } else {
+    // Elementos com .reveal-fill começam recortados (clip-path) e o observador não os "vê";
+    // por isso observamos o elemento-pai e revelamos os filhos.
+    const watch = new Map();
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            io.unobserve(entry.target);
-          }
+          if (!entry.isIntersecting) return;
+          (watch.get(entry.target) || []).forEach((el) => el.classList.add('is-visible'));
+          io.unobserve(entry.target);
         });
       },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+      { rootMargin: '0px 0px -10% 0px', threshold: 0 }
     );
     revealEls.forEach((el) => {
       // atraso em cascata entre irmãos do mesmo grupo
-      const siblings = el.parentElement ? Array.from(el.parentElement.children).filter((c) => c.classList.contains('reveal')) : [];
+      const siblings = el.parentElement ? Array.from(el.parentElement.children).filter((c) => c.classList.contains('reveal') || c.classList.contains('reveal-fill')) : [];
       const i = Math.max(0, siblings.indexOf(el));
       el.style.setProperty('--reveal-delay', `${Math.min(i, 6) * 90}ms`);
-      io.observe(el);
+      const target = el.classList.contains('reveal-fill') && el.parentElement ? el.parentElement : el;
+      if (!watch.has(target)) {
+        watch.set(target, []);
+        io.observe(target);
+      }
+      watch.get(target).push(el);
     });
   }
 

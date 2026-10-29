@@ -9,7 +9,7 @@ import {
   WebGLRenderer, Scene, PerspectiveCamera, Group, Mesh, MeshPhysicalMaterial, MeshStandardMaterial,
   MeshBasicMaterial, PlaneGeometry, CylinderGeometry, LatheGeometry, SphereGeometry, TorusGeometry,
   CanvasTexture, Vector2, Color, DirectionalLight, PMREMGenerator, SRGBColorSpace, NeutralToneMapping,
-  InstancedMesh, Object3D, MathUtils, DoubleSide, Clock, AdditiveBlending,
+  InstancedMesh, Object3D, MathUtils, DoubleSide, Clock, AdditiveBlending, Vector3,
 } from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
@@ -185,16 +185,24 @@ function buildPurifier(v, opts) {
     color: '#2f8fe6', transparent: true, opacity: hq ? 0.82 : 0.78, roughness: 0.03, clearcoat: 1,
     emissive: '#1f7ae0', emissiveIntensity: 0.35,
   });
-  const water = new Mesh(new CylinderGeometry(0.278, 0.252, 0.36, 48), waterMat);
-  water.position.set(0, 0.14 + 0.05 + 0.18, 1.12);
+  // Base da água em y=0 para o nível poder subir (scale.y = quanto o copo está cheio).
+  const WATER_H = 0.36;
+  const WATER_BASE = 0.19;
+  const waterGeo = new CylinderGeometry(0.278, 0.252, WATER_H, 48);
+  waterGeo.translate(0, WATER_H / 2, 0);
+  const water = new Mesh(waterGeo, waterMat);
+  water.position.set(0, WATER_BASE, 1.12);
   root.add(water);
 
   // jato de água
   const streamMat = new MeshPhysicalMaterial({
     color: '#bfe6ff', transparent: true, opacity: 0.85, roughness: 0, clearcoat: 1, emissive: '#4aa8ff', emissiveIntensity: 0.25,
   });
-  const stream = new Mesh(new CylinderGeometry(0.036, 0.042, 0.46, 16, 1, true), streamMat);
-  stream.position.set(0, 0.69, 1.2);
+  const NOZZLE_Y = 0.92;
+  const streamGeo = new CylinderGeometry(0.036, 0.042, 1, 16, 1, true);
+  streamGeo.translate(0, -0.5, 0);
+  const stream = new Mesh(streamGeo, streamMat);
+  stream.position.set(0, NOZZLE_Y, 1.2);
   root.add(stream);
 
   // ondulação na superfície da água
@@ -222,7 +230,19 @@ function buildPurifier(v, opts) {
   shadow.position.set(0, 0.002, 0.25);
   root.add(shadow);
 
-  return { root: outer, stream, ripple, panelMat: panel.material, dispose() {
+  // Nível do copo (0 a 1) e jato ligado/desligado.
+  function setWater(level, flowing) {
+    const l = Math.max(0.02, Math.min(1, level));
+    water.scale.y = l;
+    const surface = WATER_BASE + WATER_H * l;
+    ripple.position.y = surface + 0.003;
+    stream.visible = flowing;
+    ripple.visible = flowing;
+    stream.scale.y = Math.max(0.01, NOZZLE_Y - surface);
+  }
+  setWater(1, true);
+
+  return { root: outer, stream, ripple, setWater, bodyMat, capMat: cap.material, panelMat: panel.material, dispose() {
     outer.traverse((o) => {
       if (o.geometry) o.geometry.dispose();
       if (o.material) {
@@ -293,12 +313,42 @@ function lights(scene, renderer, rim = '#5cc8ff') {
 }
 
 const easeOut = (t) => 1 - Math.pow(1 - t, 4);
+const smooth = (t) => t * t * (3 - 2 * t);
+
+/*
+ * Roteiro da rolagem (p = 0 no topo da história, 1 no fim):
+ * 0 apresentação · 0.25 escolha (acabamento muda) · 0.5 instalação (vista lateral)
+ * 0.75 cuidado (close no copo enchendo) · 1 "Beba água limpa" (copo cheio)
+ */
+const STORY = [
+  { p: 0, ry: -0.45, cam: [0, 2.6, 13], look: [0, 1.6, 0], fill: 0.12, mix: 0 },
+  { p: 0.25, ry: 0.05, cam: [0, 2.3, 11.6], look: [0, 1.7, 0], fill: 0.12, mix: 1 },
+  { p: 0.5, ry: -1.2, cam: [0.4, 1.9, 11.2], look: [0, 1.6, 0], fill: 0.12, mix: 0 },
+  { p: 0.75, ry: -0.3, cam: [1.1, 1.5, 5.6], look: [0, 0.95, 0.55], fill: 0.7, mix: 0 },
+  { p: 1, ry: -0.55, cam: [0, 2.5, 12.4], look: [0, 1.6, 0], fill: 1, mix: 0 },
+];
+const lerp = (a, b, t) => a + (b - a) * t;
+function storyAt(p) {
+  let i = 0;
+  while (i < STORY.length - 2 && p > STORY[i + 1].p) i++;
+  const a = STORY[i];
+  const b = STORY[i + 1];
+  const t = smooth(Math.max(0, Math.min(1, (p - a.p) / (b.p - a.p))));
+  return {
+    ry: lerp(a.ry, b.ry, t),
+    cam: a.cam.map((v, k) => lerp(v, b.cam[k], t)),
+    look: a.look.map((v, k) => lerp(v, b.look[k], t)),
+    fill: lerp(a.fill, b.fill, t),
+    mix: lerp(a.mix, b.mix, t),
+  };
+}
 
 /* ---------- Cena interativa (hero) ---------- */
 export function mount(canvas, opts = {}) {
   const mobile = window.matchMedia('(max-width: 767px)').matches;
   let quality = opts.quality || (mobile ? 'medium' : 'high');
-  const maxDpr = mobile ? 1.5 : 2;
+  // A cena da história ocupa a tela inteira: resolução limitada para não pesar em GPUs integradas.
+  const maxDpr = opts.story ? (mobile ? 1.25 : 1.5) : (mobile ? 1.5 : 2);
   const renderer = createRenderer(canvas, { pixelRatio: Math.min(window.devicePixelRatio || 1, maxDpr) });
   const scene = new Scene();
   const env = lights(scene, renderer);
@@ -314,6 +364,15 @@ export function mount(canvas, opts = {}) {
 
   const target = { rx: 0, ry: 0 };
   const current = { rx: 0, ry: 0 };
+  // modo história: a rolagem controla câmera, giro e água
+  const story = { target: 0, p: 0 };
+  const colA = new Color(VARIANTS.branco.body);
+  const colB = new Color(VARIANTS.prata.body);
+  const capA = colA.clone().multiplyScalar(0.92);
+  const capB = colB.clone().multiplyScalar(0.92);
+  const camPos = new Vector3();
+  const camLook = new Vector3();
+  let lastFill = -1;
   const onPointer = (e) => {
     const r = canvas.getBoundingClientRect();
     target.ry = ((e.clientX - r.left) / r.width - 0.5) * 0.9;
@@ -330,10 +389,17 @@ export function mount(canvas, opts = {}) {
     const h = canvas.clientHeight || 1;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    // enquadramento: afasta a câmera em telas estreitas
-    const fit = camera.aspect < 0.85 ? 14.6 : 13;
-    camera.position.set(0, 2.6, fit);
-    camera.lookAt(0, 1.6, 0);
+    if (opts.story) {
+      // Desloca o enquadramento: purificador à direita no desktop, mais abaixo no celular.
+      const dx = camera.aspect >= 1 ? (opts.offsetX ?? 0.2) : 0;
+      const dy = camera.aspect < 1 ? (opts.offsetY ?? 0.2) : 0;
+      camera.setViewOffset(w, h, -dx * w, -dy * h, w, h);
+      camera.fov = camera.aspect < 0.7 ? 38 : 30;
+    } else {
+      const fit = camera.aspect < 0.85 ? 14.6 : 13;
+      camera.position.set(0, 2.6, fit);
+      camera.lookAt(0, 1.6, 0);
+    }
     camera.updateProjectionMatrix();
   }
   const ro = new ResizeObserver(resize);
@@ -356,10 +422,29 @@ export function mount(canvas, opts = {}) {
 
     current.rx += (target.rx - current.rx) * 0.05;
     current.ry += (target.ry - current.ry) * 0.05;
-    const scroll = Math.min(window.scrollY / (window.innerHeight || 1), 1.2);
-    stage.rotation.y = -0.45 + (1 - intro) * -0.9 + current.ry + Math.sin(t * 0.4) * 0.08 + scroll * 0.5;
-    stage.rotation.x = current.rx;
-    stage.position.y = (1 - intro) * -1.2 + Math.sin(t * 0.9) * 0.04 - scroll * 0.4;
+    if (opts.story) {
+      // inércia: a cena acompanha a rolagem com suavidade
+      story.p += (story.target - story.p) * Math.min(1, dt * 6);
+      const k = storyAt(story.p);
+      stage.rotation.y = k.ry + (1 - intro) * -0.8 + current.ry * 0.5 + Math.sin(t * 0.4) * 0.05;
+      stage.rotation.x = current.rx * 0.5;
+      stage.position.y = (1 - intro) * -1.2 + Math.sin(t * 0.9) * 0.035;
+      camPos.set(k.cam[0], k.cam[1], k.cam[2] * (camera.aspect < 0.7 ? 1.45 : 1));
+      camLook.set(k.look[0], k.look[1], k.look[2]);
+      camera.position.copy(camPos);
+      camera.lookAt(camLook);
+      model.bodyMat.color.lerpColors(colA, colB, k.mix);
+      model.bodyMat.metalness = lerp(VARIANTS.branco.metal, VARIANTS.prata.metal, k.mix);
+      model.capMat.color.lerpColors(capA, capB, k.mix);
+      const filling = k.fill > lastFill + 0.0005 && k.fill < 0.999;
+      model.setWater(k.fill, filling || (k.fill > 0.15 && k.fill < 0.999 && story.p > 0.52));
+      lastFill = k.fill;
+    } else {
+      const scroll = Math.min(window.scrollY / (window.innerHeight || 1), 1.2);
+      stage.rotation.y = -0.45 + (1 - intro) * -0.9 + current.ry + Math.sin(t * 0.4) * 0.08 + scroll * 0.5;
+      stage.rotation.x = current.rx;
+      stage.position.y = (1 - intro) * -1.2 + Math.sin(t * 0.9) * 0.04 - scroll * 0.4;
+    }
 
     model.stream.scale.x = model.stream.scale.z = 1 + Math.sin(t * 22) * 0.08;
     const rp = (t * 1.4) % 1;
@@ -392,6 +477,9 @@ export function mount(canvas, opts = {}) {
   }
 
   return {
+    setProgress(p) {
+      story.target = Math.max(0, Math.min(1, p));
+    },
     setVariant(name) {
       stage.remove(model.root);
       model.dispose();

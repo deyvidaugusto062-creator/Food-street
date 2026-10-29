@@ -11,6 +11,23 @@ topo), que já vem empacotado em `js/scene3d.js` e só é carregado quando o apa
 
 ---
 
+## Conceito: a rolagem conta a história da água
+
+O topo do site é uma **história em capítulos**. O purificador 3D fica fixo na tela enquanto o visitante rola,
+e a rolagem controla a cena:
+
+| Capítulo | Texto | O que acontece no 3D |
+|---|---|---|
+| Abertura | "Água limpa, segurança e qualidade para sua família." | Purificador no pedestal, girando com o cursor |
+| 01 Escolha | "Novo ou seminovo. Você escolhe." (preços do `config.js`) | Gira de frente e o acabamento muda de branco para prata |
+| 02 Instalação | "Instalado onde você precisa." | Vista lateral |
+| 03 Cuidado | "Filtro em dia, água cuidada." | A câmera aproxima e **o copo começa a encher** |
+| Final | "Beba água limpa." | Copo cheio, purificador inteiro |
+
+O mesmo tema segue pelo site: um **copo que enche conforme a leitura** (canto inferior esquerdo, volta ao
+topo), a **água que desce pela linha** do "Como funciona", cartões que **aparecem de baixo para cima como
+água subindo** e uma faixa de marca que corre com a rolagem.
+
 ## Direção de arte
 
 - **Conceito "água cristalina":** seções escuras e profundas (confiança, tecnologia) alternadas com branco e
@@ -36,6 +53,7 @@ atalaia-purificadores/
 │   ├── checkout.js         Catálogo, compra, serviços, diagnóstico em etapas e prévia da mensagem
 │   ├── gallery.js          Vitrine (carrossel) + lightbox
 │   ├── reviews.js          Avaliações (camada de dados trocável)
+│   ├── story.js            História em rolagem (capítulos, progresso 0→1 para a cena)
 │   ├── hero3d.js           Decide se carrega a cena 3D e faz a troca imagem → 3D
 │   ├── scene3d.js          Cena 3D empacotada (gerada — não editar à mão)
 │   └── main.js             Menu, rolagem, animações e microinterações
@@ -155,6 +173,12 @@ ou anos de experiência inventados.
 
 ## Experiência e movimento
 
+- **História no topo:** com "Pular apresentação" sempre à mão. No celular, o 3D fica esmaecido atrás do texto
+  de abertura e surge quando a história começa. Sem WebGL (ou em aparelhos modestos), as imagens 3D
+  estáticas trocam a cada capítulo; com "reduzir movimento", tudo aparece sem animação.
+- **Efeitos ligados à rolagem:** um único laço por quadro (`Atalaia.onScroll` em `js/utils.js`) alimenta a
+  história, o copo medidor, a faixa de marca, a linha d'água, os cartões empilhados dos serviços e a cor do
+  cabeçalho (escuro sobre seções escuras, claro sobre as claras). Nada sequestra a rolagem.
 - **Ordem das seções (prioridade do celular):** Topo → Purificadores → Garantia e compra segura →
   Como funciona (com WhatsApp) → Serviços → Diagnóstico → Área de atendimento → Sobre/Diferenciais →
   Galeria → Avaliações → Contato. O menu mantém a ordem pedida.
@@ -172,8 +196,9 @@ ou anos de experiência inventados.
   que segue o cursor, ícones em camadas, radar animado na área de atendimento e faixa de marca contínua.
   Tudo usa `transform`/`opacity`; não há sequestro de rolagem.
 - **Desempenho do 3D:** a imagem estática aparece primeiro; a cena (530 KB, ~136 KB com gzip) só carrega
-  depois da página, quando há WebGL2, sem "reduzir movimento" e sem economia de dados. Ela pausa fora da tela
-  e com a aba oculta, limita a resolução no celular e reduz a qualidade sozinha se os quadros ficarem lentos.
+  depois da página, quando há WebGL2, sem "reduzir movimento" e sem economia de dados. Ela pausa quando a
+  história sai da tela e com a aba oculta, limita a resolução (1,5× no desktop, 1,25× no celular) e reduz a
+  qualidade sozinha se os quadros ficarem lentos.
   Se algo falhar, a imagem continua no lugar.
 - **Movimento reduzido / aparelhos modestos:** com `prefers-reduced-motion` todas as animações são
   desligadas e o 3D não é carregado; em aparelhos modestos (≤ 4 núcleos / ≤ 4 GB / economia de dados) os
@@ -196,6 +221,10 @@ Testado com Chromium (Playwright) em 320, 375, 390, 430, 768, 1024, 1366, 1440 e
 
 - Sem rolagem horizontal e sem erros no console em todas as larguras
 - Menu desktop e mobile (abrir, Esc, fechar ao navegar, posição da seção abaixo do header)
+- História em rolagem: capítulos avançam 1→4, imagem do capítulo ativa, progresso chega a 1, preços vindos do
+  `config.js`, "Pular apresentação", capítulo "Instalação" abre o pedido de serviço
+- Copo medidor (aparece depois da história, enche com a leitura, volta ao topo), cartões empilhados,
+  linha d'água do "Como funciona" e faixa de marca guiada pela rolagem
 - Cena 3D: carrega com WebGL, sem erros, canvas com tamanho; imagem de reserva carregada; com
   "reduzir movimento" o 3D não é baixado e o conteúdo fica visível
 - Promoção removida: sem seção, sem contador, sem `promotion.js`

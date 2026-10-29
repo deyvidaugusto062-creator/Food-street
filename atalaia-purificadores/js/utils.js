@@ -127,6 +127,35 @@
     },
   };
 
+  /* ---------- Rolagem: um único laço por quadro para todos os efeitos ligados à rolagem ---------- */
+  const scrollFns = [];
+  let scrollTicking = false;
+  const runScroll = () => {
+    scrollTicking = false;
+    scrollFns.forEach((fn) => fn());
+  };
+  const requestScroll = () => {
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(runScroll);
+    }
+  };
+  window.addEventListener('scroll', requestScroll, { passive: true });
+  window.addEventListener('resize', requestScroll, { passive: true });
+  A.onScroll = (fn) => {
+    scrollFns.push(fn);
+    fn();
+  };
+  A.requestScroll = requestScroll;
+  // Progresso (0 a 1) de um elemento atravessando a tela: 0 quando o topo entra por baixo, 1 quando o fim sai por cima.
+  A.progressThrough = (el, { start = 1, end = 0 } = {}) => {
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const from = vh * start;
+    const to = -r.height + vh * end;
+    return Math.max(0, Math.min(1, (from - r.top) / (from - to)));
+  };
+
   /* ---------- Toast ---------- */
   let toastTimer;
   A.toast = (message, ms = 4200) => {

@@ -32,11 +32,12 @@
   function start() {
     if (!window.AtalaiaScene) return;
     const canvas = document.createElement('canvas');
-    canvas.className = 'hero3d__canvas';
+    canvas.className = 'story__canvas';
     canvas.setAttribute('aria-hidden', 'true');
     host.appendChild(canvas);
     try {
-      window.AtalaiaScene.mount(canvas, { variant: 'branco' });
+      A.scene = window.AtalaiaScene.mount(canvas, { variant: 'branco', story: true });
+      A.scene.setProgress(A.storyProgress || 0);
       // espera um quadro renderizado antes de trocar a imagem pela cena
       requestAnimationFrame(() => requestAnimationFrame(() => host.classList.add('is-live')));
     } catch (e) {
