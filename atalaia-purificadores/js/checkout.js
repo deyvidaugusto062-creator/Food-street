@@ -61,19 +61,15 @@
       if (!items.length) return;
 
       const group = document.createElement('div');
-      group.className = 'catalog__group reveal';
+      group.className = 'catalog__group';
       group.innerHTML = `
-        <header class="catalog__head">
-          <div>
-            <h3 class="catalog__title"></h3>
-            <p class="catalog__desc"></p>
-          </div>
-          <p class="catalog__price"><small>a partir de</small> <strong></strong></p>
+        <header class="catalog__head reveal">
+          <h3 class="catalog__title"></h3>
+          <p class="catalog__desc"></p>
         </header>
         <div class="catalog__grid"></div>`;
       A.$('.catalog__title', group).textContent = cat.title;
       A.$('.catalog__desc', group).textContent = cat.description;
-      A.$('.catalog__price strong', group).textContent = A.formatBRL(cat.price);
       const grid = A.$('.catalog__grid', group);
 
       items.forEach((p) => grid.appendChild(productCard(p)));
@@ -85,10 +81,13 @@
 
   function productCard(p) {
     const card = document.createElement('article');
-    card.className = 'product-card';
+    card.className = 'product-card reveal';
     card.dataset.tilt = '';
+    card.dataset.tiltMax = '5';
     card.innerHTML = `
-      <div class="product-card__media">
+      <div class="product-card__media" data-depth>
+        <span class="product-card__glow" aria-hidden="true"></span>
+        <span class="product-card__ring" aria-hidden="true"></span>
         <span class="tag ${p.condition === 'Novo' ? 'tag--new' : 'tag--used'}"></span>
       </div>
       <div class="product-card__body">
@@ -102,7 +101,9 @@
         </div>
       </div>`;
     const media = A.$('.product-card__media', card);
-    media.prepend(A.picture({ image: p.image, imageWebp: p.imageWebp, imageAvif: p.imageAvif, alt: p.imageAlt || p.name }));
+    const pic = A.picture({ image: p.image, imageWebp: p.imageWebp, imageAvif: p.imageAvif, alt: p.imageAlt || p.name });
+    pic.className = 'product-card__img';
+    media.appendChild(pic);
     if (p.illustrative) {
       const note = document.createElement('span');
       note.className = 'product-card__note';
@@ -138,15 +139,13 @@
   A.dialog.wire(dlgCheckout);
   A.forms.liveClear(formCheckout);
 
-  const priceOf = (p) => (p.isPromo ? A.promotion.getState().price : p.price);
-
   function openCheckout(product) {
     currentProduct = product;
     A.forms.clearAll(formCheckout);
     A.$('[data-order-img]', dlgCheckout).src = product.image;
     A.$('[data-order-name]', dlgCheckout).textContent = `${product.name} · Modelo: ${product.model}`;
     A.$('[data-order-condition]', dlgCheckout).textContent = product.condition;
-    A.$('[data-order-price]', dlgCheckout).textContent = A.formatBRL(priceOf(product));
+    A.$('[data-order-price]', dlgCheckout).textContent = A.formatBRL(product.price);
     formCheckout.product.value = product.name;
     formCheckout.model.value = product.model;
     A.dialog.open(dlgCheckout);
@@ -163,8 +162,6 @@
       return;
     }
     const p = currentProduct;
-    const price = priceOf(p);
-    const promoActive = p.isPromo && A.promotion.getState().active;
     const message = [
       'Olá, Atalaia Purificadores! Tenho interesse em comprar um purificador.',
       '',
@@ -173,9 +170,8 @@
       line('Produto', p.name),
       line('Modelo', p.model),
       line('Estado', p.condition),
-      line('Valor', A.formatBRL(price) + (promoActive ? ' (oferta especial)' : '')),
+      line('Valor', A.formatBRL(p.price)),
     ].join('\n');
-    A.$('[data-order-price]', dlgCheckout).textContent = A.formatBRL(price);
     showPreview({ message, label: 'Finalizar pelo WhatsApp' });
   });
 
@@ -231,6 +227,7 @@
     const wrap = document.createElement('div');
     wrap.className = 'check';
     wrap.innerHTML = `<input type="checkbox" name="problems" id="${id}"><label for="${id}"><span class="check__box" aria-hidden="true">${A.icon('check')}</span><span class="check__text"></span></label>`;
+    wrap.style.setProperty('--i', i);
     A.$('input', wrap).value = label;
     A.$('.check__text', wrap).textContent = label;
     problemsHost.appendChild(wrap);
@@ -247,38 +244,99 @@
     descOpt.textContent = otherChecked ? '(obrigatório para "Outro problema")' : '(opcional)';
   });
 
-  formDiag.addEventListener('submit', (e) => {
-    e.preventDefault();
-    A.forms.clearAll(formDiag);
-    let ok = true;
-    const selected = A.$$('input[name="problems"]:checked', formDiag).map((c) => c.value);
-    const description = A.cleanText(descInput.value, { max: 600, multiline: true });
+  /* Etapas: 1) problemas  2) detalhes  3) dados e endereço */
+  const steps = A.$$('[data-step]', formDiag);
+  const stepDots = A.$$('[data-step-dot]', formDiag);
+  const progress = A.$('[data-step-progress]', formDiag);
+  const btnPrev = A.$('[data-step-prev]', formDiag);
+  const btnNext = A.$('[data-step-next]', formDiag);
+  const btnSend = A.$('[data-step-send]', formDiag);
+  let current = 0;
 
-    if (!selected.length) {
+  const selectedProblems = () => A.$$('input[name="problems"]:checked', formDiag).map((c) => c.value);
+
+  const validators = [
+    () => {
+      if (selectedProblems().length) return true;
       A.$('#err-problems').textContent = 'Marque pelo menos uma opção.';
       const first = A.$('input[name="problems"]', formDiag);
       first.setAttribute('aria-invalid', 'true');
       first.setAttribute('aria-describedby', 'err-problems');
       first.dataset.errorId = 'err-problems';
-      ok = false;
+      return false;
+    },
+    () => {
+      const description = A.cleanText(descInput.value, { max: 600, multiline: true });
+      if (selectedProblems().includes(OTHER) && description.length < 5) {
+        A.forms.setError(descInput, 'Descreva o problema para que a equipe entenda o que está acontecendo.');
+        return false;
+      }
+      return true;
+    },
+    () => {
+      const okName = validateName(formDiag.name);
+      const okAddr = addrDiag.validate();
+      return okName && okAddr;
+    },
+  ];
+
+  function goTo(i, { focus = true } = {}) {
+    current = Math.max(0, Math.min(steps.length - 1, i));
+    steps.forEach((st, k) => {
+      st.hidden = k !== current;
+      st.classList.toggle('is-active', k === current);
+    });
+    stepDots.forEach((d, k) => {
+      d.classList.toggle('is-done', k < current);
+      d.classList.toggle('is-current', k === current);
+      if (k === current) d.setAttribute('aria-current', 'step');
+      else d.removeAttribute('aria-current');
+    });
+    if (progress) progress.style.setProperty('--p', String(current / (steps.length - 1)));
+    btnPrev.hidden = current === 0;
+    btnNext.hidden = current === steps.length - 1;
+    btnSend.hidden = current !== steps.length - 1;
+    if (focus) {
+      const title = A.$('.step__title', steps[current]);
+      if (title) {
+        title.setAttribute('tabindex', '-1');
+        title.focus({ preventScroll: true });
+      }
+      const top = formDiag.getBoundingClientRect().top;
+      if (top < 0) formDiag.scrollIntoView({ block: 'start', behavior: A.motionOK() ? 'smooth' : 'auto' });
     }
-    if (selected.includes(OTHER) && description.length < 5) {
-      A.forms.setError(descInput, 'Descreva o problema para que a equipe entenda o que está acontecendo.');
-      ok = false;
+  }
+
+  btnNext.addEventListener('click', () => {
+    A.forms.clearAll(formDiag);
+    if (validators[current]()) goTo(current + 1);
+    else A.forms.focusFirstError(formDiag);
+  });
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  if (steps.length) {
+    formDiag.classList.add('is-stepped');
+    goTo(0, { focus: false });
+  }
+
+  formDiag.addEventListener('submit', (e) => {
+    e.preventDefault();
+    A.forms.clearAll(formDiag);
+    // Revalida tudo; volta para a primeira etapa com erro.
+    for (let i = 0; i < validators.length; i++) {
+      if (!validators[i]()) {
+        if (i !== current) goTo(i, { focus: false });
+        A.forms.focusFirstError(formDiag);
+        return;
+      }
     }
-    if (!validateName(formDiag.name)) ok = false;
-    if (!addrDiag.validate()) ok = false;
-    if (!ok) {
-      A.forms.focusFirstError(formDiag);
-      return;
-    }
+    const description = A.cleanText(descInput.value, { max: 600, multiline: true });
     const model = A.cleanText(formDiag.model.value, { max: 80 });
     const message = [
       'Olá, Atalaia Purificadores! Meu purificador está apresentando um problema.',
       '',
       line('Nome', A.cleanText(formDiag.name.value, { max: 80 })),
       line('Modelo', model || 'Não informado'),
-      line('Problema(s)', selected.join(', ')),
+      line('Problema(s)', selectedProblems().join(', ')),
       line('Descrição', description || 'Não informada'),
       ...addressLines(addrDiag.value()),
     ].join('\n');

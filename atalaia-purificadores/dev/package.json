@@ -1,0 +1,12 @@
+{
+  "name": "atalaia-dev",
+  "private": true,
+  "description": "Ferramentas de desenvolvimento do site da Atalaia (não são necessárias para publicar).",
+  "scripts": {
+    "build:3d": "esbuild 3d/purifier-scene.js --bundle --minify --format=iife --target=es2019,safari14 --legal-comments=eof --outfile=../js/scene3d.js"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "three": "0.182.0"
+  }
+}

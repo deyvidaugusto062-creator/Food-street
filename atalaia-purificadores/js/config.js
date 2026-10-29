@@ -30,28 +30,6 @@ window.ATALAIA_CONFIG = {
   },
 
   /*
-   * PROMOÇÃO
-   * - Sem `endDate`: cada visitante recebe um prazo de `durationHours` a partir da
-   *   primeira visita. O prazo fica salvo no navegador (localStorage), então
-   *   atualizar a página NÃO reinicia o contador.
-   * - Com `endDate` (ex.: '2026-12-31T23:59:59-03:00'): todos os visitantes veem
-   *   o mesmo prazo real, definido pelo administrador. Recomendado em produção.
-   * - Para lançar uma NOVA promoção depois que a atual terminar, troque `id`.
-   */
-  promotion: {
-    id: 'oferta-purificador-novo-01',
-    endDate: null,
-    durationHours: 24,
-    originalPrice: 600,
-    promoPrice: 450,
-    productName: 'Purificador de Água Novo',
-    model: '[MODELO A CONFIRMAR]',
-    condition: 'Novo',
-    image: 'assets/products/purificador-branco.svg',
-    imageAlt: 'Ilustração de purificador de água branco com painel azul',
-  },
-
-  /*
    * PRODUTOS
    * category: 'novo' ou 'seminovo'. Para adicionar um produto, copie um bloco.
    * Imagens: coloque as fotos reais em assets/products/ e atualize `image`.
@@ -78,8 +56,8 @@ window.ATALAIA_CONFIG = {
         'Atendimento direto pelo WhatsApp',
         'Especificações técnicas: [A CONFIRMAR]',
       ],
-      image: 'assets/products/purificador-branco.svg',
-      imageAlt: 'Ilustração de purificador de água branco com painel azul',
+      image: 'assets/products/purificador-branco.webp',
+      imageAlt: 'Imagem 3D ilustrativa de purificador de água branco com painel azul',
       illustrative: true,
     },
     {
@@ -96,8 +74,8 @@ window.ATALAIA_CONFIG = {
         'Atendimento direto pelo WhatsApp',
         'Especificações técnicas: [A CONFIRMAR]',
       ],
-      image: 'assets/products/purificador-prata.svg',
-      imageAlt: 'Ilustração de purificador de água prata com painel escuro',
+      image: 'assets/products/purificador-prata.webp',
+      imageAlt: 'Imagem 3D ilustrativa de purificador de água prata com painel escuro',
       illustrative: true,
     },
   ],
@@ -114,23 +92,24 @@ window.ATALAIA_CONFIG = {
     'Outro problema',
   ],
 
-  // Fotos do carrossel da primeira seção.
-  heroSlides: [
-    { image: 'assets/products/purificador-branco.svg', alt: 'Ilustração de purificador de água branco com painel azul', caption: 'Purificadores novos' },
-    { image: 'assets/products/purificador-prata.svg', alt: 'Ilustração de purificador de água prata', caption: 'Purificadores seminovos' },
-    { image: 'assets/products/instalacao-parede.svg', alt: 'Ilustração de purificador instalado na parede da cozinha', caption: 'Instalação em São Paulo' },
-    { image: 'assets/products/refil-filtro.svg', alt: 'Ilustração de refil de filtro para purificador', caption: 'Troca de filtro' },
+  // Galeria (vitrine com troca automática + ampliação). Substitua pelas fotos reais
+  // e defina illustrative: false. As imagens atuais são renders 3D ilustrativos.
+  gallery: [
+    { image: 'assets/products/purificador-branco.webp', alt: 'Purificador de água branco com painel azul, vista em três quartos', caption: 'Purificador branco', illustrative: true },
+    { image: 'assets/products/purificador-prata.webp', alt: 'Purificador de água prata com painel escuro', caption: 'Purificador prata', illustrative: true },
+    { image: 'assets/products/purificador-grafite.webp', alt: 'Purificador de água grafite com painel azul', caption: 'Purificador grafite', illustrative: true },
+    { image: 'assets/products/purificador-azul.webp', alt: 'Purificador de água azul claro', caption: 'Purificador azul claro', illustrative: true },
+    { image: 'assets/products/detalhe-painel.webp', alt: 'Detalhe do painel e da saída de água do purificador', caption: 'Detalhe do painel', illustrative: true },
+    { image: 'assets/products/refil-filtro.webp', alt: 'Refil de filtro para purificador', caption: 'Refil de filtro', illustrative: true },
   ],
 
-  // Galeria. Substitua pelas fotos reais e defina illustrative: false.
-  gallery: [
-    { image: 'assets/products/purificador-branco.svg', alt: 'Ilustração de purificador de água branco', caption: 'Purificador branco com painel azul', illustrative: true },
-    { image: 'assets/products/purificador-prata.svg', alt: 'Ilustração de purificador de água prata', caption: 'Purificador prata', illustrative: true },
-    { image: 'assets/products/purificador-grafite.svg', alt: 'Ilustração de purificador de água grafite', caption: 'Purificador grafite', illustrative: true },
-    { image: 'assets/products/purificador-azul.svg', alt: 'Ilustração de purificador de água azul claro', caption: 'Purificador azul claro', illustrative: true },
-    { image: 'assets/products/instalacao-parede.svg', alt: 'Ilustração de purificador instalado na parede', caption: 'Purificador instalado na parede', illustrative: true },
-    { image: 'assets/products/refil-filtro.svg', alt: 'Ilustração de refil de filtro', caption: 'Refil de filtro', illustrative: true },
-  ],
+  // Imagem exibida no topo enquanto (ou se) a cena 3D não carrega.
+  hero: {
+    image: 'assets/products/purificador-pedestal.webp',
+    alt: 'Purificador de água branco em 3D sobre um pedestal iluminado',
+    // Cena 3D interativa (js/scene3d.js). Desative para usar só a imagem.
+    enable3d: true,
+  },
 
   integrations: {
     // Busca de endereço pelo CEP (API pública, gratuita, sem chave).

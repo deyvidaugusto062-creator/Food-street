@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Atalaia Purificadores | Purificadores de água em São Paulo</title>
   <meta name="description" content="Atalaia Purificadores: venda de purificadores de água novos e seminovos, instalação, manutenção, limpeza, sanitização e troca de filtro em toda São Paulo. Atendimento pelo WhatsApp.">
-  <meta name="theme-color" content="#0a3d73">
+  <meta name="theme-color" content="#04111f">
   <meta name="format-detection" content="telephone=no">
   <!-- Após publicar, troque SEU-DOMINIO pelo endereço real do site -->
   <link rel="canonical" href="https://SEU-DOMINIO.com.br/">
@@ -23,10 +23,11 @@
 
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="preload" as="image" href="assets/products/purificador-pedestal.webp" type="image/webp">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap">
   <link rel="stylesheet" href="css/style.css">
 
   <script type="application/ld+json">
@@ -55,15 +56,13 @@
   <script src="js/config.js" defer></script>
   <script src="js/utils.js" defer></script>
   <script src="js/location.js" defer></script>
-  <script src="js/promotion.js" defer></script>
   <script src="js/checkout.js" defer></script>
-  <script src="js/carousel.js" defer></script>
   <script src="js/gallery.js" defer></script>
   <script src="js/reviews.js" defer></script>
+  <script src="js/hero3d.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
-  <!-- Ícones (sprite SVG reutilizado com <use href="#i-...">) -->
   <svg xmlns="http://www.w3.org/2000/svg" class="sprite" aria-hidden="true" focusable="false">
     <defs>
       <linearGradient id="g-brand" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4b9bf0"/><stop offset="1" stop-color="#0a3d73"/></linearGradient>
@@ -102,6 +101,7 @@
   </svg>
 
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
 
   <!-- ===================== HEADER ===================== -->
   <header class="site-header" data-header>
@@ -124,9 +124,12 @@
           <li><a href="#avaliacoes">Avaliações</a></li>
           <li><a href="#contato">Contato</a></li>
         </ul>
-        <a class="btn btn--wa nav__cta-mobile" href="https://wa.me/5511954319514" data-wa="general" target="_blank" rel="noopener">
-          <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Falar no WhatsApp
-        </a>
+        <div class="nav__foot">
+          <a class="btn btn--wa btn--block" href="https://wa.me/5511954319514" data-wa="general" target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Falar no WhatsApp
+          </a>
+          <p class="nav__slogan">Água limpa é Atalaia.</p>
+        </div>
       </nav>
 
       <a class="btn btn--wa btn--sm site-header__cta" href="https://wa.me/5511954319514" data-wa="general" target="_blank" rel="noopener">
@@ -135,388 +138,403 @@
       </a>
 
       <button class="nav-toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu" data-nav-toggle>
-        <svg class="icon icon--open" aria-hidden="true"><use href="#i-menu"/></svg>
-        <svg class="icon icon--close" aria-hidden="true"><use href="#i-close"/></svg>
+        <span class="nav-toggle__bars" aria-hidden="true"><span></span><span></span></span>
       </button>
     </div>
   </header>
-  <div class="nav-backdrop" data-nav-backdrop hidden></div>
 
   <main id="conteudo">
 
     <!-- ===================== HERO ===================== -->
     <section class="hero" id="inicio" aria-labelledby="hero-title">
       <div class="hero__bg" aria-hidden="true">
-        <span class="hero__blob hero__blob--1" data-parallax="0.12"></span>
-        <span class="hero__blob hero__blob--2" data-parallax="-0.08"></span>
-        <span class="hero__bubble hero__bubble--1" data-parallax="0.25"></span>
-        <span class="hero__bubble hero__bubble--2" data-parallax="0.18"></span>
-        <span class="hero__bubble hero__bubble--3" data-parallax="0.32"></span>
-        <svg class="hero__wave" viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0 70c180-40 360-60 540-38s360 70 540 64 270-48 360-60v84H0z"/></svg>
+        <span class="hero__glow hero__glow--1" data-parallax="0.15"></span>
+        <span class="hero__glow hero__glow--2" data-parallax="-0.1"></span>
+        <span class="hero__lines"></span>
       </div>
 
       <div class="container hero__inner">
         <div class="hero__content">
-          <p class="eyebrow eyebrow--light reveal"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg> Purificadores de água em São Paulo</p>
-          <p class="hero__kicker reveal">Beba água limpa.</p>
-          <h1 class="hero__title reveal" id="hero-title">Água limpa, segurança e qualidade para sua família.</h1>
-          <p class="hero__lead reveal">
+          <p class="pill intro" style="--d:0"><span class="pill__dot" aria-hidden="true"></span> Atendimento em toda São Paulo</p>
+          <p class="hero__kicker intro" style="--d:1">Beba água limpa.</p>
+          <h1 class="hero__title" id="hero-title" data-split>Água limpa, segurança e qualidade para <em>sua família.</em></h1>
+          <p class="hero__lead intro" style="--d:4">
             A <strong>Atalaia Purificadores</strong> vende purificadores de água novos e seminovos e cuida de tudo o que vem depois:
-            instalação, manutenção, limpeza, sanitização e troca de filtro, com atendimento em toda São Paulo.
-            Você fala direto com a equipe pelo WhatsApp e recebe orientação clara do começo ao fim.
+            instalação, manutenção, limpeza, sanitização e troca de filtro, em toda São Paulo.
+            Você fala direto com a equipe pelo WhatsApp.
           </p>
-          <div class="hero__actions reveal">
-            <a class="btn btn--primary btn--lg" href="#purificadores">Ver Purificadores <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-            <a class="btn btn--glass btn--lg" href="#servicos">Solicitar Atendimento</a>
+          <div class="hero__actions intro" style="--d:5">
+            <a class="btn btn--aqua btn--lg" href="#purificadores" data-magnetic>Ver Purificadores <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <a class="btn btn--line btn--lg" href="#servicos" data-magnetic>Solicitar Atendimento</a>
           </div>
-          <ul class="hero__trust reveal" aria-label="Diferenciais">
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Atendimento em toda São Paulo</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Garantia de 3 meses</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Compra 100% segura</li>
+          <ul class="hero__trust intro" style="--d:6" aria-label="Por que comprar com a Atalaia">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><span><strong>Garantia</strong> de 3 meses</span></li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg><span><strong>Compra</strong> 100% segura</span></li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg><span><strong>WhatsApp</strong> direto</span></li>
           </ul>
         </div>
 
-        <div class="hero__visual reveal">
-          <div class="hero-stage" data-tilt data-tilt-max="5">
-            <div class="carousel" data-carousel aria-roledescription="carrossel" aria-label="Fotos de purificadores">
-              <div class="carousel__viewport">
-                <ul class="carousel__track" data-carousel-track>
-                  <!-- Slides gerados a partir de ATALAIA_CONFIG.heroSlides (js/config.js) -->
-                </ul>
-              </div>
-              <div class="carousel__controls">
-                <button class="carousel__btn" type="button" data-carousel-prev aria-label="Foto anterior"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
-                <div class="carousel__dots" data-carousel-dots></div>
-                <button class="carousel__btn" type="button" data-carousel-next aria-label="Próxima foto"><svg class="icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
-                <button class="carousel__btn carousel__btn--play" type="button" data-carousel-toggle aria-label="Pausar troca automática">
-                  <svg class="icon icon--pause" aria-hidden="true"><use href="#i-pause"/></svg>
-                  <svg class="icon icon--play" aria-hidden="true"><use href="#i-play"/></svg>
-                </button>
-              </div>
-            </div>
-            <p class="float-chip float-chip--a" aria-hidden="true"><svg class="icon"><use href="#i-drop"/></svg> Água limpa é Atalaia.</p>
-            <a class="float-chip float-chip--b" href="#oferta" data-promo-only>
-              <svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>
-              <span>Oferta do dia: <strong data-promo-price>R$ 450,00</strong></span>
-            </a>
+        <div class="hero__visual">
+          <div class="hero3d" data-hero3d>
+            <img class="hero3d__img" data-hero-img src="assets/products/purificador-pedestal.webp" width="1200" height="1200" alt="Purificador de água branco em 3D sobre um pedestal iluminado" fetchpriority="high" decoding="async">
           </div>
+          <p class="float-chip float-chip--a" aria-hidden="true"><svg class="icon"><use href="#i-drop"/></svg> Água limpa é Atalaia.</p>
+          <p class="float-chip float-chip--b" aria-hidden="true"><svg class="icon"><use href="#i-sparkle"/></svg> Instalação · Manutenção · Filtro</p>
+          <p class="hero3d__hint" aria-hidden="true">Imagem 3D ilustrativa<span class="hero3d__hint-move"> · mova o cursor</span></p>
         </div>
       </div>
+
+      <a class="scroll-cue" href="#purificadores" aria-label="Rolar para os purificadores"><span></span></a>
     </section>
 
-    <!-- ===================== PROMOÇÃO ===================== -->
-    <section class="section promo" id="oferta" aria-labelledby="promo-title" data-promo>
-      <div class="container">
-        <div class="promo__card reveal">
-          <div class="promo__visual">
-            <span class="promo__glow" aria-hidden="true"></span>
-            <img src="assets/products/purificador-branco.svg" width="600" height="600" alt="Ilustração de purificador de água branco com painel azul" data-promo-image>
-            <span class="promo__ribbon" data-promo-only>-25%</span>
-          </div>
-          <div class="promo__content">
-            <p class="badge badge--offer" data-promo-badge>Oferta especial</p>
-            <h2 class="promo__title" id="promo-title" data-promo-name>Purificador de Água Novo</h2>
-            <p class="promo__model">Modelo: <span data-promo-model>[MODELO A CONFIRMAR]</span> · Estado: <span data-promo-condition>Novo</span></p>
-
-            <div class="price" data-price>
-              <span class="price__old" data-promo-only><span class="sr-only">De </span><s data-promo-original>R$ 600,00</s></span>
-              <strong class="price__now"><span class="sr-only" data-promo-only>Por </span><span data-promo-price>R$ 450,00</span></strong>
-              <span class="price__save" data-promo-only>Economize <span data-promo-savings>R$ 150</span></span>
-            </div>
-
-            <div class="countdown" role="timer" aria-label="Tempo restante da oferta" data-countdown>
-              <p class="countdown__label" data-promo-label>A oferta termina em</p>
-              <div class="countdown__units">
-                <div class="countdown__unit" data-cd-days-wrap hidden><span data-cd="d">00</span><small>dias</small></div>
-                <div class="countdown__unit"><span data-cd="h">23</span><small>horas</small></div>
-                <span class="countdown__sep" aria-hidden="true">:</span>
-                <div class="countdown__unit"><span data-cd="m">59</span><small>min</small></div>
-                <span class="countdown__sep" aria-hidden="true">:</span>
-                <div class="countdown__unit"><span data-cd="s">59</span><small>seg</small></div>
-              </div>
-            </div>
-            <p class="promo__status" role="status" data-promo-status></p>
-
-            <div class="promo__actions">
-              <button class="btn btn--primary btn--lg" type="button" data-promo-buy>
-                <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> <span data-promo-cta>Aproveitar oferta</span>
-              </button>
-              <a class="btn btn--ghost" href="#purificadores">Ver todos os purificadores</a>
-            </div>
-          </div>
-        </div>
+    <!-- Faixa de marca (decorativa) -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Beba água limpa.</span><i></i><span>Instalação</span><i></i><span>Manutenção</span><i></i><span>Troca de filtro</span><i></i><span>Sanitização</span><i></i><span>Água limpa é Atalaia.</span><i></i><span>Toda São Paulo</span><i></i>
+        <span>Beba água limpa.</span><i></i><span>Instalação</span><i></i><span>Manutenção</span><i></i><span>Troca de filtro</span><i></i><span>Sanitização</span><i></i><span>Água limpa é Atalaia.</span><i></i><span>Toda São Paulo</span><i></i>
       </div>
-    </section>
+    </div>
 
     <!-- ===================== PURIFICADORES ===================== -->
-    <section class="section section--soft" id="purificadores" aria-labelledby="produtos-title">
+    <section class="section section--mist" id="purificadores" aria-labelledby="produtos-title">
       <div class="container">
-        <header class="section-head reveal">
-          <p class="eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-box"/></svg> Purificadores</p>
-          <h2 id="produtos-title">Escolha seu purificador</h2>
-          <p>Purificadores novos e seminovos para sua casa ou empresa em São Paulo. Escolha a opção ideal, informe seu endereço e receba o pedido pronto no WhatsApp.</p>
+        <header class="section-head section-head--split">
+          <div>
+            <p class="eyebrow reveal"><span>01</span> Purificadores</p>
+            <h2 id="produtos-title" data-split>Escolha seu <em>purificador</em></h2>
+          </div>
+          <p class="reveal">Novos ou seminovos, para casa ou empresa em São Paulo. Escolha o seu, informe o endereço e receba o pedido pronto no WhatsApp.</p>
         </header>
 
         <div class="catalog" id="catalog" data-catalog>
           <!-- Produtos gerados a partir de ATALAIA_CONFIG.products (js/config.js) -->
           <noscript><p class="notice">Para ver os produtos e montar seu pedido, ative o JavaScript ou fale conosco pelo WhatsApp: (11) 95431-9514.</p></noscript>
         </div>
-      </div>
-    </section>
 
-    <!-- ===================== GARANTIA ===================== -->
-    <section class="section trust" id="garantia" aria-labelledby="garantia-title">
-      <div class="container">
-        <header class="section-head reveal">
-          <h2 id="garantia-title">Compre com tranquilidade</h2>
-          <p>Seu purificador em boas mãos, do pedido ao atendimento.</p>
-        </header>
-        <div class="trust__grid">
-          <div class="trust-card reveal" data-tilt>
-            <span class="trust-card__check" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>
+        <!-- Garantia e compra segura: logo abaixo da área de compra -->
+        <div class="assurance" id="garantia" role="group" aria-labelledby="garantia-title">
+          <h3 class="sr-only" id="garantia-title">Garantia e segurança na compra</h3>
+          <div class="assurance__item reveal">
+            <span class="assurance__check" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5"/><path d="M7 12.4l3.2 3.2L17.2 8.6"/></svg></span>
             <div>
-              <h3>Garantia de 3 meses</h3>
+              <p class="assurance__title">Garantia de 3 meses</p>
               <p>Consulte as condições da garantia com a equipe pelo WhatsApp.</p>
             </div>
           </div>
-          <div class="trust-card reveal" data-tilt>
-            <span class="trust-card__check" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>
+          <div class="assurance__item reveal">
+            <span class="assurance__check" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5"/><path d="M7 12.4l3.2 3.2L17.2 8.6"/></svg></span>
             <div>
-              <h3>Compra 100% segura</h3>
-              <p>Pedido feito em conversa direta com a Atalaia, com todas as informações confirmadas antes da compra.</p>
+              <p class="assurance__title">Compra 100% segura</p>
+              <p>Pedido feito em conversa direta com a Atalaia, com tudo confirmado antes da compra.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== FAIXA DE MARCA ===================== -->
-    <section class="brand-band" aria-label="Fale com a Atalaia">
-      <div class="container brand-band__inner reveal">
-        <div>
-          <p class="brand-band__title">Água limpa é Atalaia.</p>
-          <p class="brand-band__text">Dúvida sobre qual purificador escolher? Fale com a gente e receba orientação direta.</p>
+    <!-- ===================== COMO FUNCIONA ===================== -->
+    <section class="section how" id="como-funciona" aria-labelledby="how-title">
+      <div class="container">
+        <header class="section-head section-head--split">
+          <div>
+            <p class="eyebrow reveal"><span>02</span> Como funciona</p>
+            <h2 id="how-title" data-split>Do clique à <em>água limpa</em></h2>
+          </div>
+          <p class="reveal">Sem cadastro e sem pagamento pelo site. Você monta o pedido aqui e finaliza conversando com a equipe.</p>
+        </header>
+        <ol class="steps" data-steps>
+          <li class="step-card reveal">
+            <span class="step-card__n">1</span>
+            <h3>Escolha</h3>
+            <p>Um purificador, um serviço ou conte o problema do seu equipamento.</p>
+          </li>
+          <li class="step-card reveal">
+            <span class="step-card__n">2</span>
+            <h3>Informe o endereço</h3>
+            <p>Digite, busque pelo CEP ou use sua localização.</p>
+          </li>
+          <li class="step-card reveal">
+            <span class="step-card__n">3</span>
+            <h3>Confira a mensagem</h3>
+            <p>Você vê o pedido completo antes de enviar.</p>
+          </li>
+          <li class="step-card reveal">
+            <span class="step-card__n">4</span>
+            <h3>Fale com a Atalaia</h3>
+            <p>O WhatsApp abre com tudo pronto. É só enviar.</p>
+          </li>
+        </ol>
+        <div class="how__cta reveal">
+          <p>Prefere conversar antes de escolher?</p>
+          <a class="btn btn--wa btn--lg" href="https://wa.me/5511954319514" data-wa="general" target="_blank" rel="noopener" data-magnetic>
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Falar no WhatsApp
+          </a>
         </div>
-        <a class="btn btn--white btn--lg" href="https://wa.me/5511954319514" data-wa="general" target="_blank" rel="noopener">
-          <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Falar no WhatsApp
-        </a>
       </div>
     </section>
 
     <!-- ===================== SERVIÇOS ===================== -->
-    <section class="section" id="servicos" aria-labelledby="servicos-title">
+    <section class="section section--dark" id="servicos" aria-labelledby="servicos-title">
+      <div class="section__bg" aria-hidden="true"><span class="glow glow--a"></span><span class="glow glow--b"></span></div>
       <div class="container">
-        <header class="section-head reveal">
-          <p class="eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-wrench"/></svg> Serviços</p>
-          <h2 id="servicos-title">Serviços Atalaia</h2>
-          <p>Manutenção de purificador, limpeza, troca de filtro, sanitização e instalação em São Paulo. Seu purificador em boas mãos.</p>
+        <header class="section-head section-head--split">
+          <div>
+            <p class="eyebrow eyebrow--dark reveal"><span>03</span> Serviços</p>
+            <h2 id="servicos-title" data-split>Serviços <em>Atalaia</em></h2>
+          </div>
+          <p class="reveal">Manutenção de purificador, limpeza, troca de filtro, sanitização e instalação em São Paulo. Seu purificador em boas mãos.</p>
         </header>
 
         <div class="services">
-          <article class="service-card reveal" data-tilt>
-            <span class="service-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-clean"/></svg></span>
+          <article class="service-card reveal" data-spotlight>
+            <div class="tile3d" aria-hidden="true"><span class="tile3d__back"></span><span class="tile3d__front"><svg class="icon"><use href="#i-clean"/></svg></span></div>
+            <span class="service-card__n" aria-hidden="true">01</span>
             <h3>Limpeza</h3>
             <p>Limpeza cuidadosa das partes internas e externas do purificador, para manter o equipamento higienizado e funcionando bem no dia a dia.</p>
-            <button class="btn btn--outline" type="button" data-service="Limpeza">Solicitar serviço</button>
+            <button class="btn btn--glass" type="button" data-service="Limpeza">Solicitar serviço <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
           </article>
-          <article class="service-card reveal" data-tilt>
-            <span class="service-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-filter"/></svg></span>
+          <article class="service-card reveal" data-spotlight>
+            <div class="tile3d" aria-hidden="true"><span class="tile3d__back"></span><span class="tile3d__front"><svg class="icon"><use href="#i-filter"/></svg></span></div>
+            <span class="service-card__n" aria-hidden="true">02</span>
             <h3>Troca de filtro</h3>
             <p>Substituição do refil (elemento filtrante) do seu purificador. A troca periódica, conforme a orientação do fabricante, é parte essencial da manutenção.</p>
-            <button class="btn btn--outline" type="button" data-service="Troca de filtro">Solicitar serviço</button>
+            <button class="btn btn--glass" type="button" data-service="Troca de filtro">Solicitar serviço <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
           </article>
-          <article class="service-card reveal" data-tilt>
-            <span class="service-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-sparkle"/></svg></span>
+          <article class="service-card reveal" data-spotlight>
+            <div class="tile3d" aria-hidden="true"><span class="tile3d__back"></span><span class="tile3d__front"><svg class="icon"><use href="#i-sparkle"/></svg></span></div>
+            <span class="service-card__n" aria-hidden="true">03</span>
             <h3>Sanitização completa</h3>
             <p>Higienização de todo o sistema interno do purificador, como reservatório, mangueiras e conexões, para manter o equipamento limpo e bem cuidado.</p>
-            <button class="btn btn--outline" type="button" data-service="Sanitização completa">Solicitar serviço</button>
+            <button class="btn btn--glass" type="button" data-service="Sanitização completa">Solicitar serviço <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
           </article>
-          <article class="service-card reveal" data-tilt>
-            <span class="service-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-wrench"/></svg></span>
+          <article class="service-card reveal" data-spotlight>
+            <div class="tile3d" aria-hidden="true"><span class="tile3d__back"></span><span class="tile3d__front"><svg class="icon"><use href="#i-wrench"/></svg></span></div>
+            <span class="service-card__n" aria-hidden="true">04</span>
             <h3>Instalação</h3>
             <p>Instalação adequada do purificador no local indicado por você, com atenção à conexão com a rede de água e à fixação do equipamento.</p>
-            <button class="btn btn--outline" type="button" data-service="Instalação">Solicitar serviço</button>
+            <button class="btn btn--glass" type="button" data-service="Instalação">Solicitar serviço <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
           </article>
         </div>
       </div>
     </section>
 
     <!-- ===================== DIAGNÓSTICO ===================== -->
-    <section class="section section--soft" id="diagnostico" aria-labelledby="diag-title">
+    <section class="section section--mist" id="diagnostico" aria-labelledby="diag-title">
       <div class="container diag">
-        <div class="diag__intro reveal">
-          <p class="eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg> Diagnóstico</p>
-          <h2 id="diag-title">Seu purificador está com algum problema?</h2>
-          <p class="diag__sub">Conte para a Atalaia o que está acontecendo.</p>
-          <p>Marque o que você percebeu, descreva com suas palavras e envie pelo WhatsApp. A equipe analisa as informações e orienta o melhor próximo passo.</p>
-          <p class="notice notice--info">
+        <div class="diag__intro">
+          <p class="eyebrow reveal"><span>04</span> Diagnóstico</p>
+          <h2 id="diag-title" data-split>Seu purificador está com algum <em>problema?</em></h2>
+          <p class="diag__sub reveal">Conte para a Atalaia o que está acontecendo.</p>
+          <p class="reveal">Em três passos rápidos você descreve o que percebeu e envia pelo WhatsApp. A equipe analisa e orienta o melhor próximo passo.</p>
+          <p class="notice reveal">
             <svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>
-            <span>Este formulário só organiza as informações para a equipe. Ele não faz diagnóstico automático nem indica peças para troca. A avaliação é feita pela Atalaia.</span>
+            <span>Este formulário só organiza as informações para a equipe. Ele não faz diagnóstico automático nem indica peças para troca.</span>
           </p>
         </div>
 
         <form class="card form diag__form reveal" id="form-diagnosis" novalidate>
-          <fieldset class="field-group" data-required-group>
-            <legend>O que está acontecendo? <span class="req">(marque uma ou mais opções)</span></legend>
+          <ol class="stepper" aria-label="Etapas">
+            <li data-step-dot><span>1</span> Problema</li>
+            <li data-step-dot><span>2</span> Detalhes</li>
+            <li data-step-dot><span>3</span> Seus dados</li>
+          </ol>
+          <div class="stepper__bar" aria-hidden="true"><span data-step-progress></span></div>
+
+          <fieldset class="step field-group" data-step data-required-group>
+            <legend class="step__title">O que está acontecendo? <span class="req">Marque uma ou mais opções</span></legend>
             <div class="checks" data-problems>
               <!-- Opções geradas a partir de ATALAIA_CONFIG.problems (js/config.js) -->
             </div>
             <p class="field__error" data-error-for="problems" id="err-problems"></p>
           </fieldset>
 
-          <div class="field">
-            <label for="diag-desc">Descreva melhor o problema <span class="opt" data-desc-opt>(opcional)</span></label>
-            <textarea id="diag-desc" name="description" rows="3" maxlength="600" placeholder="Ex.: desde quando acontece, se é constante, o que você já tentou…"></textarea>
-            <p class="field__error" id="err-diag-desc"></p>
-          </div>
-
-          <div class="form__row">
+          <fieldset class="step field-group" data-step>
+            <legend class="step__title">Conte um pouco mais</legend>
             <div class="field">
-              <label for="diag-name">Nome</label>
-              <input id="diag-name" name="name" type="text" autocomplete="name" maxlength="80" required>
-              <p class="field__error" id="err-diag-name"></p>
+              <label for="diag-desc">Descreva melhor o problema <span class="opt" data-desc-opt>(opcional)</span></label>
+              <textarea id="diag-desc" name="description" rows="4" maxlength="600" placeholder="Ex.: desde quando acontece, se é constante, o que você já tentou…"></textarea>
+              <p class="field__error" id="err-diag-desc"></p>
             </div>
             <div class="field">
               <label for="diag-model">Modelo do purificador <span class="opt">(se souber)</span></label>
               <input id="diag-model" name="model" type="text" maxlength="80" autocomplete="off">
             </div>
+          </fieldset>
+
+          <fieldset class="step field-group" data-step>
+            <legend class="step__title">Seus dados</legend>
+            <div class="field">
+              <label for="diag-name">Nome</label>
+              <input id="diag-name" name="name" type="text" autocomplete="name" maxlength="80" required>
+              <p class="field__error" id="err-diag-name"></p>
+            </div>
+            <div data-address-slot="diag"></div>
+          </fieldset>
+
+          <div class="stepper__nav">
+            <button class="btn btn--ghost" type="button" data-step-prev hidden><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg> Voltar</button>
+            <button class="btn btn--primary" type="button" data-step-next hidden>Continuar <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+            <button class="btn btn--wa" type="submit" data-step-send>
+              <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Pedir avaliação pelo WhatsApp
+            </button>
           </div>
-
-          <div data-address-slot="diag"></div>
-
-          <button class="btn btn--primary btn--lg btn--block" type="submit">
-            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Pedir avaliação pelo WhatsApp
-          </button>
         </form>
       </div>
     </section>
 
     <!-- ===================== COBERTURA ===================== -->
-    <section class="section coverage" id="cobertura" aria-labelledby="cobertura-title">
+    <section class="section section--dark coverage" id="cobertura" aria-labelledby="cobertura-title">
       <div class="container coverage__inner">
-        <div class="coverage__text reveal">
-          <p class="eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg> Área de atendimento</p>
-          <h2 id="cobertura-title">Atendemos em toda São Paulo</h2>
-          <p>A Atalaia Purificadores leva atendimento, instalação, manutenção e soluções para purificadores a clientes em toda São Paulo.</p>
-          <p>Quer confirmar o atendimento no seu bairro? Mande uma mensagem e a gente responde.</p>
-          <a class="btn btn--primary btn--lg" href="https://wa.me/5511954319514" data-wa="coverage" target="_blank" rel="noopener">
+        <div class="coverage__text">
+          <p class="eyebrow eyebrow--dark reveal"><span>05</span> Área de atendimento</p>
+          <h2 id="cobertura-title" data-split>Atendemos em toda <em>São Paulo</em></h2>
+          <p class="reveal">A Atalaia Purificadores leva atendimento, instalação, manutenção e soluções para purificadores a clientes em toda São Paulo.</p>
+          <p class="reveal">Quer confirmar o atendimento no seu bairro? Mande uma mensagem e a gente responde.</p>
+          <a class="btn btn--aqua btn--lg reveal" href="https://wa.me/5511954319514" data-wa="coverage" target="_blank" rel="noopener" data-magnetic>
             <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Consultar atendimento
           </a>
         </div>
         <div class="coverage__visual reveal" aria-hidden="true">
-          <div class="radar" data-tilt data-tilt-max="6">
+          <div class="radar">
             <span class="radar__ring radar__ring--1"></span>
             <span class="radar__ring radar__ring--2"></span>
             <span class="radar__ring radar__ring--3"></span>
-            <span class="radar__pulse"></span>
+            <span class="radar__sweep"></span>
+            <span class="radar__cross"></span>
             <span class="radar__pin"><svg class="icon"><use href="#i-pin"/></svg></span>
             <span class="radar__label">São Paulo – SP</span>
-            <span class="radar__zone radar__zone--n">Zona Norte</span>
-            <span class="radar__zone radar__zone--s">Zona Sul</span>
-            <span class="radar__zone radar__zone--l">Zona Leste</span>
-            <span class="radar__zone radar__zone--o">Zona Oeste</span>
-            <span class="radar__zone radar__zone--c">Centro</span>
+            <span class="radar__zone" style="--x:50%;--y:13%">Zona Norte</span>
+            <span class="radar__zone" style="--x:50%;--y:87%">Zona Sul</span>
+            <span class="radar__zone" style="--x:80%;--y:50%">Zona Leste</span>
+            <span class="radar__zone" style="--x:20%;--y:50%">Zona Oeste</span>
+            <span class="radar__zone" style="--x:30%;--y:28%">Centro</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ===================== SOBRE ===================== -->
-    <section class="section section--soft" id="sobre" aria-labelledby="sobre-title">
-      <div class="container about">
-        <div class="about__text reveal">
-          <p class="eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-drop"/></svg> Quem somos</p>
-          <h2 id="sobre-title">Sobre a Atalaia Purificadores</h2>
-          <p>
-            A Atalaia Purificadores é especializada em soluções para purificadores de água: venda de equipamentos novos e seminovos,
-            instalação, manutenção, troca de filtro, limpeza e sanitização. Atendemos clientes em toda São Paulo com um compromisso simples:
-            cuidar bem da água que você e sua família bebem todos os dias.
-          </p>
-          <p>
-            Trabalhamos com atendimento profissional, transparência em cada orientação e atenção à higiene em todas as etapas.
-            Explicamos o que será feito, informamos os valores com clareza e tratamos cada equipamento e cada cliente com o cuidado que merecem.
-          </p>
-          <p class="about__quote">“Cuidado que você vê. Água em que você confia.”</p>
-
-          <!-- Preencha ou remova os dados abaixo quando estiverem confirmados -->
-          <dl class="facts">
-            <div><dt>Fundação</dt><dd class="placeholder-info">[INFORMAÇÃO A CONFIRMAR]</dd></div>
-            <div><dt>CNPJ</dt><dd class="placeholder-info">[INFORMAÇÃO A CONFIRMAR]</dd></div>
-            <div><dt>Região</dt><dd>São Paulo – SP</dd></div>
-          </dl>
+    <section class="section" id="sobre" aria-labelledby="sobre-title">
+      <div class="container">
+        <div class="about">
+          <div class="about__head">
+            <p class="eyebrow reveal"><span>06</span> Quem somos</p>
+            <h2 id="sobre-title" data-split>Sobre a Atalaia <em>Purificadores</em></h2>
+            <p class="about__statement reveal">Atalaia é quem vigia e protege. É com esse cuidado que tratamos a água que você bebe.</p>
+          </div>
+          <div class="about__text">
+            <p class="reveal">
+              A Atalaia Purificadores é especializada em soluções para purificadores de água: venda de equipamentos novos e seminovos,
+              instalação, manutenção, troca de filtro, limpeza e sanitização. Atendemos clientes em toda São Paulo com um compromisso simples:
+              cuidar bem da água que você e sua família bebem todos os dias.
+            </p>
+            <p class="reveal">
+              Trabalhamos com atendimento profissional, transparência em cada orientação e atenção à higiene em todas as etapas.
+              Explicamos o que será feito, informamos os valores com clareza e tratamos cada equipamento e cada cliente com o cuidado que merecem.
+            </p>
+            <!-- Preencha ou remova os dados abaixo quando estiverem confirmados -->
+            <dl class="facts reveal">
+              <div><dt>Fundação</dt><dd class="placeholder-info">[INFORMAÇÃO A CONFIRMAR]</dd></div>
+              <div><dt>CNPJ</dt><dd class="placeholder-info">[INFORMAÇÃO A CONFIRMAR]</dd></div>
+              <div><dt>Região</dt><dd>São Paulo – SP</dd></div>
+            </dl>
+          </div>
         </div>
 
-        <ul class="pillars reveal" aria-label="Nossos compromissos">
-          <li><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg><strong>Atendimento profissional</strong></li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-badge"/></svg><strong>Qualidade</strong></li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><strong>Segurança</strong></li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-clean"/></svg><strong>Higiene</strong></li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><strong>Transparência</strong></li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg><strong>Cuidado com cada cliente</strong></li>
+        <ul class="pillars" aria-label="Nossos compromissos">
+          <li class="reveal"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>Atendimento profissional</li>
+          <li class="reveal"><svg class="icon" aria-hidden="true"><use href="#i-badge"/></svg>Qualidade</li>
+          <li class="reveal"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>Segurança</li>
+          <li class="reveal"><svg class="icon" aria-hidden="true"><use href="#i-clean"/></svg>Higiene</li>
+          <li class="reveal"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>Transparência</li>
+          <li class="reveal"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>Cuidado com cada cliente</li>
         </ul>
-      </div>
 
-      <div class="container" id="diferenciais">
-        <header class="section-head section-head--spaced reveal">
-          <h2>Por que escolher a Atalaia?</h2>
-          <p>Água limpa todos os dias, com quem entende do assunto.</p>
-        </header>
-        <div class="features">
-          <article class="feature-card reveal" data-tilt>
-            <span class="feature-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-chat"/></svg></span>
-            <h3>Atendimento especializado</h3>
-            <p>Atendimento direcionado às necessidades de cada cliente.</p>
-          </article>
-          <article class="feature-card reveal" data-tilt>
-            <span class="feature-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-lock"/></svg></span>
-            <h3>Compra segura</h3>
-            <p>Processo simples, transparente e atendimento direto.</p>
-          </article>
-          <article class="feature-card reveal" data-tilt>
-            <span class="feature-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-box"/></svg></span>
-            <h3>Produtos selecionados</h3>
-            <p>Purificadores cuidadosamente apresentados para facilitar a escolha.</p>
-          </article>
-          <article class="feature-card reveal" data-tilt>
-            <span class="feature-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-wrench"/></svg></span>
-            <h3>Manutenção e cuidado</h3>
-            <p>Serviços para manter o equipamento funcionando corretamente.</p>
-          </article>
-          <article class="feature-card reveal" data-tilt>
-            <span class="feature-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-pin"/></svg></span>
-            <h3>Atendimento em São Paulo</h3>
-            <p>Atendimento em toda São Paulo.</p>
-          </article>
-          <article class="feature-card reveal" data-tilt>
-            <span class="feature-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-whatsapp"/></svg></span>
-            <h3>Atendimento pelo WhatsApp</h3>
-            <p>Contato rápido para compra, serviço ou dúvidas.</p>
-          </article>
+        <div id="diferenciais" class="why">
+          <header class="section-head section-head--split">
+            <h2 data-split>Por que escolher a <em>Atalaia?</em></h2>
+            <p class="reveal">Água limpa todos os dias, com quem entende do assunto.</p>
+          </header>
+          <div class="features">
+            <article class="feature-card reveal" data-tilt>
+              <span class="feature-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-chat"/></svg></span>
+              <h3>Atendimento especializado</h3>
+              <p>Atendimento direcionado às necessidades de cada cliente.</p>
+            </article>
+            <article class="feature-card reveal" data-tilt>
+              <span class="feature-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-lock"/></svg></span>
+              <h3>Compra segura</h3>
+              <p>Processo simples, transparente e atendimento direto.</p>
+            </article>
+            <article class="feature-card reveal" data-tilt>
+              <span class="feature-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-box"/></svg></span>
+              <h3>Produtos selecionados</h3>
+              <p>Purificadores cuidadosamente apresentados para facilitar a escolha.</p>
+            </article>
+            <article class="feature-card reveal" data-tilt>
+              <span class="feature-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-wrench"/></svg></span>
+              <h3>Manutenção e cuidado</h3>
+              <p>Serviços para manter o equipamento funcionando corretamente.</p>
+            </article>
+            <article class="feature-card reveal" data-tilt>
+              <span class="feature-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-pin"/></svg></span>
+              <h3>Atendimento em São Paulo</h3>
+              <p>Atendimento em toda São Paulo.</p>
+            </article>
+            <article class="feature-card reveal" data-tilt>
+              <span class="feature-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-whatsapp"/></svg></span>
+              <h3>Atendimento pelo WhatsApp</h3>
+              <p>Contato rápido para compra, serviço ou dúvidas.</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ===================== GALERIA ===================== -->
-    <section class="section" id="galeria" aria-labelledby="galeria-title">
+    <section class="section section--mist" id="galeria" aria-labelledby="galeria-title">
       <div class="container">
-        <header class="section-head reveal">
-          <p class="eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg> Galeria</p>
-          <h2 id="galeria-title">Conheça nossos produtos</h2>
-          <p>Toque em uma imagem para ampliar.</p>
+        <header class="section-head section-head--split">
+          <div>
+            <p class="eyebrow reveal"><span>07</span> Galeria</p>
+            <h2 id="galeria-title" data-split>Conheça nossos <em>produtos</em></h2>
+          </div>
+          <p class="reveal">Deslize, use as setas ou toque na imagem para ampliar.</p>
         </header>
-        <div class="gallery" data-gallery>
-          <!-- Itens gerados a partir de ATALAIA_CONFIG.gallery (js/config.js) -->
+
+        <div class="showcase reveal" data-showcase aria-roledescription="carrossel" aria-label="Galeria de produtos">
+          <div class="showcase__stage">
+            <span class="showcase__glow" aria-hidden="true"></span>
+            <div class="showcase__viewport">
+              <ul class="showcase__track" data-showcase-track></ul>
+            </div>
+            <div class="showcase__bar">
+              <p class="showcase__meta"><span class="showcase__counter" data-showcase-counter>01 / 06</span><span data-showcase-caption></span></p>
+              <div class="showcase__controls">
+                <button class="round-btn" type="button" data-showcase-toggle aria-label="Pausar troca automática">
+                  <svg class="icon icon--pause" aria-hidden="true"><use href="#i-pause"/></svg>
+                  <svg class="icon icon--play" aria-hidden="true"><use href="#i-play"/></svg>
+                </button>
+                <button class="round-btn" type="button" data-showcase-prev aria-label="Imagem anterior"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+                <button class="round-btn" type="button" data-showcase-next aria-label="Próxima imagem"><svg class="icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+              </div>
+            </div>
+            <span class="showcase__timer" aria-hidden="true"></span>
+          </div>
+          <div class="showcase__thumbs" data-showcase-thumbs></div>
         </div>
-        <p class="gallery__note" data-gallery-note hidden>Imagens ilustrativas. As fotos reais dos produtos serão publicadas em breve.</p>
+        <p class="gallery__note" data-gallery-note hidden>Imagens 3D ilustrativas. As fotos reais dos produtos serão publicadas em breve.</p>
       </div>
     </section>
 
     <!-- ===================== AVALIAÇÕES ===================== -->
-    <section class="section section--soft" id="avaliacoes" aria-labelledby="avaliacoes-title">
+    <section class="section" id="avaliacoes" aria-labelledby="avaliacoes-title">
       <div class="container">
-        <header class="section-head reveal">
-          <p class="eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-star"/></svg> Avaliações</p>
-          <h2 id="avaliacoes-title">O que nossos clientes dizem</h2>
+        <header class="section-head section-head--split">
+          <div>
+            <p class="eyebrow reveal"><span>08</span> Avaliações</p>
+            <h2 id="avaliacoes-title" data-split>O que nossos clientes <em>dizem</em></h2>
+          </div>
         </header>
 
         <div class="reviews">
@@ -534,7 +552,7 @@
             </div>
           </div>
 
-          <form class="card form reviews__form" id="form-review" novalidate>
+          <form class="card form reviews__form reveal" id="form-review" novalidate>
             <h3>Deixe sua avaliação</h3>
             <div class="field">
               <label for="rev-name">Nome</label>
@@ -567,16 +585,17 @@
       </div>
     </section>
 
-    <!-- ===================== CONTATO ===================== -->
-    <section class="section section--soft" id="contato" aria-labelledby="contato-title">
+    <!-- ===================== CONTATO / CTA FINAL ===================== -->
+    <section class="section section--dark finale" id="contato" aria-labelledby="contato-title">
+      <div class="section__bg" aria-hidden="true"><span class="glow glow--a"></span><span class="finale__ripples"><i></i><i></i><i></i></span></div>
       <div class="container">
-        <header class="section-head reveal">
-          <p class="eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg> Contato</p>
-          <h2 id="contato-title">Fale com a Atalaia</h2>
-          <p>Beba água limpa. A gente cuida do resto.</p>
-        </header>
+        <div class="finale__head">
+          <p class="eyebrow eyebrow--dark reveal"><span>09</span> Contato</p>
+          <h2 class="finale__title" id="contato-title" data-split>Beba água <em>limpa.</em></h2>
+          <p class="reveal">Fale com a Atalaia. A gente cuida do resto.</p>
+        </div>
         <div class="contact">
-          <a class="contact-card contact-card--wa reveal" href="https://wa.me/5511954319514" data-wa="general" target="_blank" rel="noopener" data-tilt>
+          <a class="contact-card contact-card--wa reveal" href="https://wa.me/5511954319514" data-wa="general" target="_blank" rel="noopener" data-spotlight>
             <span class="contact-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-whatsapp"/></svg></span>
             <span class="contact-card__body">
               <strong>WhatsApp</strong>
@@ -585,7 +604,7 @@
             </span>
             <svg class="icon contact-card__arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg>
           </a>
-          <a class="contact-card contact-card--ig reveal" href="https://www.instagram.com/atalaia_purificadores/" data-instagram target="_blank" rel="noopener" data-tilt>
+          <a class="contact-card contact-card--ig reveal" href="https://www.instagram.com/atalaia_purificadores/" data-instagram target="_blank" rel="noopener" data-spotlight>
             <span class="contact-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-instagram"/></svg></span>
             <span class="contact-card__body">
               <strong>Siga a Atalaia no Instagram</strong>
@@ -664,7 +683,7 @@
       </header>
       <div class="modal__body">
         <div class="order-summary" data-order-summary>
-          <img src="assets/products/purificador-branco.svg" width="72" height="72" alt="" data-order-img>
+          <img src="assets/products/purificador-branco.webp" width="72" height="72" alt="" data-order-img>
           <div>
             <p class="order-summary__name" data-order-name></p>
             <p class="order-summary__meta"><span data-order-condition></span> · <strong data-order-price></strong></p>
@@ -769,7 +788,7 @@
       </div>
     </div>
     <div class="lightbox__stage" data-lb-stage>
-      <img class="lightbox__img" src="assets/products/purificador-branco.svg" alt="" data-lb-img draggable="false">
+      <img class="lightbox__img" src="assets/products/purificador-branco.webp" alt="" data-lb-img draggable="false">
     </div>
     <button class="lightbox__btn lightbox__nav lightbox__nav--prev" type="button" data-lb-prev aria-label="Imagem anterior"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
     <button class="lightbox__btn lightbox__nav lightbox__nav--next" type="button" data-lb-next aria-label="Próxima imagem"><svg class="icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
@@ -777,3 +796,4 @@
   </dialog>
 </body>
 </html>
+
